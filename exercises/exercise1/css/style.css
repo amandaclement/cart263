@@ -1,0 +1,10 @@
+body {
+
+}
+
+.pixel {
+  background-color: #000;
+  width: 30px;
+  height: 30px;
+  float: left;
+}
