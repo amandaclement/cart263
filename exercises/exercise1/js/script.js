@@ -28,8 +28,15 @@ function setup() {
 }
 
 function paint(e) {
+  // Math.floor to round to nearest integer (downwards)
+  // Math.random returns number in range of 0-1
+  let r = Math.floor(Math.random() * 255);
+  let b = Math.floor(Math.random() * 255);
+  let g = Math.floor(Math.random() * 255);
+
   let pixel = e.target;
-  pixel.style.backgroundColor = '#fff';
+  // To choose random painting color each time user paints a pixel
+  pixel.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";;
 
   setTimeout(resetPixel, delay, pixel);
 }
