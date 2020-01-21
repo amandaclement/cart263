@@ -24,6 +24,8 @@ function setup() {
     document.body.appendChild(pixel);
 
     pixel.addEventListener('mouseover', paint);
+
+    pixel.addEventListener('click', remove);
   }
 }
 
@@ -43,4 +45,10 @@ function paint(e) {
 
 function resetPixel(pixel) {
   pixel.style.backgroundColor = 'blue';
+}
+
+// Function to remove pixel color when user clicks on it
+function remove(e) {
+  let pixel = e.target;
+  pixel.style.backgroundColor = '#000000';
 }
