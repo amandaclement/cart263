@@ -2,38 +2,51 @@
 
 /********************************************************************
 
-Title of Project
-Author Name
-
-This is a template. Fill in the title, author, and this description
-to match your project! Write JavaScript to do amazing things below!
+Exercise 1 - Pixel Painter Pro
+Original code by Pippin Bar
+Edited by Amanda Clement
 
 *********************************************************************/
 
-let numPixels = 1000;
-let delay = 1000;
+// Constants
+const numPixels = 1000;
+const delay = 1000;
 
 // To rotate the pixels
-let rotation = 100;
+let rotation = 0;
 
+// Set up our starting function for when the page loads
 window.onload = setup;
 
 // rotate() is called when key is pressed down
 document.addEventListener('keydown', rotate);
 
+// setup
+//
+// Adds DIVs to the page along with event listeners that will allow
+// then to change color on mouseover.
 function setup() {
   console.log('hello');
 
+  // A loop that runs once per pixel we need
   for (let i = 0; i < numPixels; i++) {
+    // Create a DIV and store it in a variable
     let pixel = document.createElement('div');
-    pixel.setAttribute('class','pixel');
+    // Add the 'pixel' class to the new element
+    pixel.setAttribute('class', 'pixel');
     document.body.appendChild(pixel);
 
+    // Add a mouseover handler to the new element
     pixel.addEventListener('mouseover', paint);
+    // Add a click handler to the new element
     pixel.addEventListener('click', remove);
   }
 }
 
+// paint
+//
+// Called by the mouseover event handler on each pixel. Changes
+// the pixel's color and sets a timer for it to revert
 function paint(e) {
   // Math.floor to round to nearest integer (downwards)
   // Math.random returns number in range of 0-1
@@ -41,36 +54,47 @@ function paint(e) {
   let b = Math.floor(Math.random() * 255);
   let g = Math.floor(Math.random() * 255);
 
+  // e.target contains the specific element moused over so let's
+  // save that into a variable for clarity.
   let pixel = e.target;
   // To choose random painting color each time user paints a pixel
   pixel.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";;
 
+  // Set a timeout to call the reset function after a delay
+  // When we pass additional parameters (like 'pixel' below) they
+  // are passed to the callback function (resetPixel)
   setTimeout(resetPixel, delay, pixel);
 }
 
+// resetPixel
+//
+// Takes provided pixel element and sets color back to black (bg color)
 function resetPixel(pixel) {
-  pixel.style.backgroundColor = 'blue';
+  pixel.style.backgroundColor = '#000000'; // back to black
 }
 
-// Function to remove pixel color when user clicks on it
+// remove
+//
+// To remove pixel color when user clicks on it
 function remove(e) {
   let pixel = e.target;
-  pixel.style.backgroundColor = '#000000';
+  pixel.style.backgroundColor = '#000000'; // back to black
 }
 
+// rotate
+//
+// User can rotate all pixels using arrow keys
 function rotate(e) {
-
+  // Use pixel class to put them all into variable
   let pixels = document.getElementsByClassName('pixel');
 
   if (e.keyCode === 37) { // left arrow pressed
-   rotation -= 1; // rotate counter-clockwise
-}
-  else if (e.keyCode === 39) { // left arrow pressed
+    rotation -= 1; // rotate counter-clockwise
+  } else if (e.keyCode === 39) { // left arrow pressed
     rotation += 1; // rotate clockwise
   }
   // Updating rotation for all pixels
-  for (let i = 0; i < pixels.length; i++)
-  {
+  for (let i = 0; i < pixels.length; i++) {
     pixels[i].style.transform = `rotate(${rotation}deg)`;
   }
 }
