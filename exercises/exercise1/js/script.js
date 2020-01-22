@@ -13,7 +13,13 @@ to match your project! Write JavaScript to do amazing things below!
 let numPixels = 1000;
 let delay = 1000;
 
+// To rotate the pixels
+let rotation = 100;
+
 window.onload = setup;
+
+// rotate() is called when key is pressed down
+document.addEventListener('keydown', rotate);
 
 function setup() {
   console.log('hello');
@@ -24,7 +30,6 @@ function setup() {
     document.body.appendChild(pixel);
 
     pixel.addEventListener('mouseover', paint);
-
     pixel.addEventListener('click', remove);
   }
 }
@@ -51,4 +56,21 @@ function resetPixel(pixel) {
 function remove(e) {
   let pixel = e.target;
   pixel.style.backgroundColor = '#000000';
+}
+
+function rotate(e) {
+
+  let pixels = document.getElementsByClassName('pixel');
+
+  if (e.keyCode === 37) { // left arrow pressed
+   rotation -= 1; // rotate counter-clockwise
+}
+  else if (e.keyCode === 39) { // left arrow pressed
+    rotation += 1; // rotate clockwise
+  }
+  // Updating rotation for all pixels
+  for (let i = 0; i < pixels.length; i++)
+  {
+    pixels[i].style.transform = `rotate(${rotation}deg)`;
+  }
 }
