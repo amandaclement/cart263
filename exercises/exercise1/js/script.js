@@ -9,9 +9,9 @@ Edited by Amanda Clement
 *********************************************************************/
 
 // Constants
-const numPixels = 1000;
-const delay = 1000;
-const defaultColor = '#000000';
+const NUM_PIXELS = 1000;
+const DELAY = 1000;
+const DEFAULT_COLOR = '#000000';
 
 // To rotate the pixels
 let rotation = 0;
@@ -28,7 +28,7 @@ document.addEventListener('keydown', rotate);
 // then to change color on mouseover.
 function setup() {
   // A loop that runs once per pixel we need
-  for (let i = 0; i < numPixels; i++) {
+  for (let i = 0; i < NUM_PIXELS; i++) {
     // Create a DIV and store it in a variable
     let pixel = document.createElement('div');
     // Add the 'pixel' class to the new element
@@ -64,14 +64,14 @@ function paint(e) {
   // Set a timeout to call the reset function after a delay
   // When we pass additional parameters (like 'pixel' below) they
   // are passed to the callback function (resetPixel)
-  setTimeout(resetPixel, delay, pixel);
+  setTimeout(resetPixel, DELAY, pixel);
 }
 
 // resetPixel
 //
 // Takes provided pixel element and sets color back to black (bg color)
 function resetPixel(pixel) {
-  pixel.style.backgroundColor = defaultColor; // back to black
+  pixel.style.backgroundColor = DEFAULT_COLOR; // back to black
 }
 
 // remove
@@ -79,7 +79,7 @@ function resetPixel(pixel) {
 // To remove pixel color when user clicks on it
 function remove(e) {
   let pixel = e.target;
-  pixel.style.backgroundColor = defaultColor; // back to black
+  pixel.style.backgroundColor = DEFAULT_COLOR; // back to black
 }
 
 // rotate
