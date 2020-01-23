@@ -1,0 +1,23 @@
+body {
+  font-family: monospace;
+}
+
+div {
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+p {
+  padding: 20px 100px;
+  line-height: 20px;
+}
+
+.redacted {
+  background-color: black;
+  color: transparent;
+}
+
+.revealed {
+  background-color: transparent;
+  color: red;
+}
