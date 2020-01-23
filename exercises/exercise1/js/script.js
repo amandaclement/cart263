@@ -16,11 +16,17 @@ const DEFAULT_COLOR = '#000000';
 // To rotate the pixels
 let rotation = 0;
 
+// To track which key user clicks
+let currentKey;
+
 // Set up our starting function for when the page loads
 window.onload = setup;
 
 // rotate() is called when key is pressed down
 document.addEventListener('keydown', rotate);
+
+// typed() is called when key is pressed down
+document.addEventListener('keydown', typed);
 
 // setup
 //
@@ -98,4 +104,11 @@ function rotate(e) {
   for (let i = 0; i < pixels.length; i++) {
     pixels[i].style.transform = `rotate(${rotation}deg)`;
   }
+}
+
+// typed
+//
+// Set currentKey to the keyCode of the key just presed
+function typed(e) {
+  currentKey = e.keyCode;
 }
