@@ -17,7 +17,7 @@ const DEFAULT_COLOR = '#000000';
 let rotation = 0;
 
 // To track which key user clicks
-let currentKey;
+let currentKey = "";
 
 // Set up our starting function for when the page loads
 window.onload = setup;
@@ -45,6 +45,8 @@ function setup() {
     pixel.addEventListener('mouseover', paint);
     // Add a click handler to the new element
     pixel.addEventListener('click', remove);
+    // Add a mouseover handler to the new element
+    pixel.addEventListener('mouseover', addText);
   }
 }
 
@@ -111,4 +113,12 @@ function rotate(e) {
 // Set currentKey to the keyCode of the key just presed
 function typed(e) {
   currentKey = e.keyCode;
+}
+
+// addText
+//
+// Add text to pixel (according to which key is pressed)
+function addText(e) {
+  e.target.innerHTML = String.fromCharCode(currentKey);
+
 }
