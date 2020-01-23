@@ -1,5 +1,7 @@
 body {
   font-family: monospace;
+  background-color: black;
+  color: white;
 }
 
 div {
@@ -13,11 +15,20 @@ p {
 }
 
 .redacted {
-  background-color: black;
+  background-color: grey;
   color: transparent;
 }
 
 .revealed {
   background-color: transparent;
   color: red;
+}
+
+.counter {
+  font-size: 16px;
+}
+
+.highlight {
+  background-color: blue;
+  color: white;
 }
