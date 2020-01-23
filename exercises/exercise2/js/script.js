@@ -14,6 +14,11 @@ const REVEAL_POSSIBILITY = 0.1;
 // How often to update the spans (potentially revealing them)
 const UPDATE_FREQUENCY = 500;
 
+// To track how many secrets have been found
+let $secretsFound;
+// For total number of secrets
+let $secretsTotal;
+
 // Storing the jQuery selection of all spans
 let $spans;
 
@@ -30,6 +35,12 @@ function setup() {
   $spans.on('click', spanClicked);
   // Setting time interval (500 milliseconds) to update state of page
   setInterval(update, UPDATE_FREQUENCY);
+
+  // Calculating total number of secrets and storing them in variable
+  $secretsTotal = $('.secret').length;
+  // Displaying it on page (for counter)
+  $('#total').text($secretsTotal);
+
 }
 
 // spanClicked()
