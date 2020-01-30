@@ -38,15 +38,15 @@ function setup() {
   // Setting time interval (500 milliseconds) to update state of page
   setInterval(update, UPDATE_FREQUENCY);
 
+  // Saving selection of all spans
+  $secrets = $('.secret');
+  // Setting mouseover handler on secrets
+  $secrets.on('mouseover', highlightSecret);
+
   // Calculating total number of secrets and storing them in variable
-  $secretsTotal = $('.secret').length;
+  $secretsTotal = $secrets.length;
   // Displaying it on page (for counter)
   $('#total').text($secretsTotal);
-
-  // Saving selection of all spans
-  $secrets = $('secret');
-
-  $('.secret').on('mouseover', highlightSecret);
 }
 
 // spanClicked()
@@ -64,7 +64,7 @@ function spanClicked() {
 // the specific function on _each_ of the elements in the selection
 // (called every 500 milliseconds)
 function update() {
-  $spans.each(updateSpan);
+  $('.redacted').each(updateSpan);
 }
 
 // updateSpan()
@@ -89,5 +89,7 @@ function highlightSecret() {
   // remember: 'this' refers to the targeted element
   $(this).removeClass('redacted');
   $(this).addClass('highlight');
-  //}
+
+  // Removing mouseover event from secret once it's been found
+  $(this).off('mouseover');
 }
