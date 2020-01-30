@@ -19,6 +19,9 @@ let secretsFound = 0;
 // For total number of secrets
 let $secretsTotal;
 
+// To track how many spans are revealed
+let numRevealed = 0;
+
 // Storing the jQuery selection of all spans
 let $spans;
 // And of secrets
@@ -79,6 +82,11 @@ function updateSpan() {
   if (randomNumber < REVEAL_POSSIBILITY) {
     $(this).removeClass('redacted');
     $(this).addClass('revealed');
+    // Keeping track of number of revealed spans
+    numRevealed = $('.revealed').length;
+    console.log(numRevealed);
+
+    trackingLoss();
   }
 }
 
@@ -94,20 +102,27 @@ function highlightSecret() {
   $(this).off('mouseover');
 
   trackingSecrets();
+  trackingLoss();
 }
 
-// trackingSecrets
+// trackingSecrets()
 //
 // Counting/displaying number of secrets found
-// and making user automatically lose at 5 secrets
 function trackingSecrets() {
   // Increase secretsFound counter by 1
   secretsFound += 1;
   // Display total found
   $('#found').text(secretsFound);
+}
 
-  // Player automatically loses at 5 secrets therefore they can never make it to 6
-  if (secretsFound === 5) {
+// trackingLoss()
+//
+// Tracking whether playing has lost
+function trackingLoss() {
+  // Player loses right before finding all secrets
+  // or once all spans are revealed
+  // therefore they lose regardless
+  if (secretsFound === ($secretsTotal - 1) || numRevealed === 5) {
     // title changes to tell them they lost
     $('h1').text('You loose.');
     // hide the rest of the content
