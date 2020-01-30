@@ -15,7 +15,7 @@ const REVEAL_POSSIBILITY = 0.1;
 const UPDATE_FREQUENCY = 500;
 
 // To track how many secrets have been found
-let $secretsFound;
+let secretsFound = 0;
 // For total number of secrets
 let $secretsTotal;
 
@@ -92,4 +92,9 @@ function highlightSecret() {
 
   // Removing mouseover event from secret once it's been found
   $(this).off('mouseover');
+
+  // Increase secretsFound counter by 1
+  secretsFound += 1;
+  // Display total found
+  $('#found').text(secretsFound);
 }
