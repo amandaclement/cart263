@@ -21,7 +21,7 @@ let $secretsTotal;
 
 // Storing the jQuery selection of all spans
 let $spans;
-
+// And of secrets
 let $secrets;
 
 // When the document is loaded we call the setup function
@@ -93,8 +93,24 @@ function highlightSecret() {
   // Removing mouseover event from secret once it's been found
   $(this).off('mouseover');
 
+  trackingSecrets();
+}
+
+// trackingSecrets
+//
+// Counting/displaying number of secrets found
+// and making user automatically lose at 5 secrets
+function trackingSecrets() {
   // Increase secretsFound counter by 1
   secretsFound += 1;
   // Display total found
   $('#found').text(secretsFound);
+
+  // Player automatically loses at 5 secrets therefore they can never make it to 6
+  if (secretsFound === 5) {
+    // title changes to tell them they lost
+    $('h1').text('You loose.');
+    // hide the rest of the content
+    $('p').hide();
+  }
 }
