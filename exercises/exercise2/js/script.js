@@ -22,6 +22,8 @@ let $secretsTotal;
 // Storing the jQuery selection of all spans
 let $spans;
 
+let $secrets;
+
 // When the document is loaded we call the setup function
 $(document).ready(setup);
 
@@ -41,6 +43,10 @@ function setup() {
   // Displaying it on page (for counter)
   $('#total').text($secretsTotal);
 
+  // Saving selection of all spans
+  $secrets = $('secret');
+
+  $('.secret').on('mouseover', highlightSecret);
 }
 
 // spanClicked()
@@ -74,4 +80,14 @@ function updateSpan() {
     $(this).removeClass('redacted');
     $(this).addClass('revealed');
   }
+}
+
+// highlightSecret()
+//
+// Secret is highlighted when user hovers mouse over it
+function highlightSecret() {
+  // remember: 'this' refers to the targeted element
+  $(this).removeClass('redacted');
+  $(this).addClass('highlight');
+  //}
 }
