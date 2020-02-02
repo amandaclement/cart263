@@ -1,3 +1,22 @@
 body {
+  width: 100%;
+}
 
+#face {
+  /* add top margin and center div */
+  margin: 150px auto 0 auto;
+  /* dark blue */
+  background-color: #0088cc;
+  width: 400px;
+  height: 400px;
+  /* circle */
+  border-radius: 50%;
+  border: 5px solid #000;
+  /* center content within face div */
+  text-align: center;
+}
+
+img {
+  /* align image within face div */
+  margin-top: 85px;
 }
