@@ -1,5 +1,19 @@
 body {
   width: 100%;
+  background-color: #ffcc66;
+  font-family: 'Kalam', cursive;
+  font-family: 'Nanum Pen Script', cursive;
+
+}
+
+h1 {
+  font-size: 24px;
+  margin: 20px 0 0 15px;
+}
+
+#face-container {
+  width: 70%;
+  float: left;
 }
 
 #face {
@@ -12,11 +26,36 @@ body {
   /* circle */
   border-radius: 50%;
   border: 5px solid #000;
-  /* center content within face div */
+  /* to center img on face circle */
   text-align: center;
 }
 
-img {
+#face img {
   /* align image within face div */
   margin-top: 85px;
+}
+
+#options-group {
+  /* vertically placed */
+  float: left;
+  margin-top: 90px;
+  width: 20%;
+}
+
+.option {
+  position: relative;
+  height: 100px;
+  margin-left: 15px;
+}
+
+p.label, .option img {
+  position: absolute;
+}
+
+p.label {
+  padding-left: 70px;
+  margin-top: 10px;
+  font-size: 22px;
+  /* hide option labels for now */
+  display: none;
 }
