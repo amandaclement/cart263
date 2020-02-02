@@ -1,13 +1,16 @@
 body {
   width: 100%;
+  /* yellow */
   background-color: #ffcc66;
-  font-family: 'Kalam', cursive;
   font-family: 'Nanum Pen Script', cursive;
+}
 
+#container {
+  width: 100%;
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 28px;
   margin: 20px 0 0 15px;
 }
 
