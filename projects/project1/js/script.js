@@ -12,6 +12,10 @@ Amanda Clement
 let $faceImg;
 let $faceBg;
 
+let $icon;
+
+let responses = ["I don't feel loved", "I'm still unhappy", "I haven't accomplished enough", "I need more money", "I'm not funny enough", "but I'd like a drink", "I wish I was smarter", "I'm still lonely", "I'm not wealthy enough", "Not satisfied yet", "I wish"];
+
 // When the document is loaded, we call the setup function
 $(document).ready(setup);
 
@@ -21,11 +25,12 @@ $(document).ready(setup);
 function setup() {
   $faceImg = $("#face-img");
   $faceBg = $("#face-bg");
+  $icon = $(".icon");
 
   // Handling when user mouses over draggable elements (icons)
   // Deals with "master" version of images, and clones so you can keep
   // dragging and dropping them infinitly
-  $('.icon').on('mouseover', '.master', function() {
+  $icon.on('mouseover', '.master', function() {
     $(this).draggable({
       start: masterDrag,
       // Revert icon to original position if not dragged onto face
@@ -40,6 +45,11 @@ function setup() {
   $faceImg.droppable({
     drop: onDrop
   });
+
+  // Response is hidden until user clicks
+  $("#response").hide();
+  // User can click question to ask if they're happy yet
+  $("#question").on('click', respond);
 }
 
 // onDrop()
@@ -57,11 +67,19 @@ function onDrop(event, ui) {
 function masterDrag() {
   // Add new master version onto page (since we're dragging away it's element)
   // cloning currently selected icon
-  $('.icon').append($(this).clone());
+  $icon.append($(this).clone());
   // Now that clone has been made, we can safely make the one we're dragging not the master
   $(this).removeClass('master');
   // Remove the 'start' event so it doesn't keep duplicating
   $(this).draggable({
     start: undefined
   });
+}
+
+function respond() {
+  // Generating a random response from the array
+  let randomResponse = responses[Math.floor(Math.random() * responses.length)];
+  // Displaying it, and fading it out after a delay
+  $("#response").text('No ' + randomResponse);
+  $("#response").show().delay(3000).fadeOut(250);
 }
