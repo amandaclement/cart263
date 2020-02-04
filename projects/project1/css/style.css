@@ -2,6 +2,7 @@ body {
   width: 100%;
   /* yellow */
   background-color: #ffcc66;
+  background-color: #fff;
   font-family: 'Nanum Pen Script', cursive;
 }
 
@@ -19,7 +20,7 @@ h1 {
   float: left;
 }
 
-#face {
+#face-bg {
   /* add top margin and center div */
   margin: 150px auto 0 auto;
   /* dark blue */
@@ -33,25 +34,25 @@ h1 {
   text-align: center;
 }
 
-#face img {
+#face-img {
   /* align image within face div */
   margin-top: 85px;
 }
 
-#options-group {
+#icon-group {
   /* vertically placed */
   float: left;
   margin-top: 90px;
   width: 20%;
 }
 
-.option {
+.icon {
   position: relative;
   height: 100px;
   margin-left: 15px;
 }
 
-p.label, .option img {
+p.label, .icon img {
   position: absolute;
 }
 

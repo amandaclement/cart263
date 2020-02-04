@@ -10,31 +10,55 @@ Amanda Clement
 // sounds effects will go here as constants
 
 let $heart;
-let $face;
+let $faceImg;
+let $faceBg;
 
 // When the document is loaded, we call the setup function
 $(document).ready(setup);
 
+// setup()
+//
+// Sets the click handler and starts the time loop
 function setup() {
   $heart = $("#heart");
-  $face = $("#face");
+  $faceImg = $("#face-img");
+  $faceBg = $("#face-bg");
 
-  $heart.draggable({
-    // reverts back to original position when dropped
-    // revert: true,
-    // putting clone (placeholder) in place so that only a copy of img is dragged
-    // as if original image is fixed
-    helper: "clone",
+// Handling when user mouses over draggable elements (icons)
+// Deals with "master" version of images, and clones so you can keep
+// dragging and dropping them infinitly
+$('.icon').on('mouseover', '.master', function() {
+  $(this).draggable({
+    start: masterDrag,
     // contain within container div to remove scroll
     containment: "#containment-wrapper",
     scroll: false
   });
+});
 
-  $face.droppable({
+  // Let user drop icon onto face
+  $faceImg.droppable({
     drop: onDrop
   });
 }
 
+// onDrop()
+//
+// When user drops icon onto face
 function onDrop(event, ui) {
+  //$faceImg.attr('src', 'assets/images/sad-face-1.png');
+//  $('.icon').hide('scale');
+}
 
+// masterDrag()
+//
+// Called when the user starts to drag one of the master images
+function masterDrag() {
+  // Add new master version onto page (since we're dragging away it's element)
+  // cloning currently selected icon
+  $('.icon').append($(this).clone());
+  // Now that clone has been made, we can safely make the one we're dragging not the master
+  $(this).removeClass('master');
+  // Remove the 'start' event so it doesn't keep duplicating
+  $(this).draggable({start: undefined});
 }
