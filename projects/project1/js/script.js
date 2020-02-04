@@ -9,7 +9,6 @@ Amanda Clement
 
 // sounds effects will go here as constants
 
-let $heart;
 let $faceImg;
 let $faceBg;
 
@@ -20,7 +19,6 @@ $(document).ready(setup);
 //
 // Sets the click handler and starts the time loop
 function setup() {
-  $heart = $("#heart");
   $faceImg = $("#face-img");
   $faceBg = $("#face-bg");
 
