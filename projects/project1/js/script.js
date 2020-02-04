@@ -24,19 +24,21 @@ function setup() {
   $faceImg = $("#face-img");
   $faceBg = $("#face-bg");
 
-// Handling when user mouses over draggable elements (icons)
-// Deals with "master" version of images, and clones so you can keep
-// dragging and dropping them infinitly
-$('.icon').on('mouseover', '.master', function() {
-  $(this).draggable({
-    start: masterDrag,
-    // contain within container div to remove scroll
-    containment: "#containment-wrapper",
-    scroll: false
+  // Handling when user mouses over draggable elements (icons)
+  // Deals with "master" version of images, and clones so you can keep
+  // dragging and dropping them infinitly
+  $('.icon').on('mouseover', '.master', function() {
+    $(this).draggable({
+      start: masterDrag,
+      // Revert icon to original position if not dragged onto face
+      revert: true,
+      // contain within container div to remove scroll
+      containment: "#containment-wrapper",
+      scroll: false
+    });
   });
-});
 
-  // Let user drop icon onto face
+  // Trigger onDrop function if icon is dropped on face
   $faceImg.droppable({
     drop: onDrop
   });
@@ -44,10 +46,11 @@ $('.icon').on('mouseover', '.master', function() {
 
 // onDrop()
 //
-// When user drops icon onto face
+// When user drops icon onto face - hide icon by scaling it down
 function onDrop(event, ui) {
   //$faceImg.attr('src', 'assets/images/sad-face-1.png');
-//  $('.icon').hide('scale');
+  // Icons scale down (shrinks) until it disappears on face
+  ui.draggable.hide('scale');
 }
 
 // masterDrag()
@@ -60,5 +63,7 @@ function masterDrag() {
   // Now that clone has been made, we can safely make the one we're dragging not the master
   $(this).removeClass('master');
   // Remove the 'start' event so it doesn't keep duplicating
-  $(this).draggable({start: undefined});
+  $(this).draggable({
+    start: undefined
+  });
 }
