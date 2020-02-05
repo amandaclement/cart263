@@ -81,5 +81,6 @@ function respond() {
   let randomResponse = responses[Math.floor(Math.random() * responses.length)];
   // Displaying it, and fading it out after a delay
   $("#response").text('No ' + randomResponse);
+  // ********** remove hard-coded values here
   $("#response").show().delay(3000).fadeOut(250);
 }

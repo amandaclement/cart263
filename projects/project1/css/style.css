@@ -40,24 +40,26 @@ h1 {
 }
 
 #icon-group {
-  margin-top: 100px;
+  margin-top: 75px;
   /* vertically placed */
   float: left;
   width: 20%;
 }
 
 .icon {
-  height: 70px;
+  height: 55px;
   font-size: 60px;
   left: 2.5%;
+  margin-top: 40px;
+  width: 50%;
 }
 
-/* fix label locations */
 p.label {
+  position: absolute;
+  left: 10%;
   font-size: 22px;
   /* hide icon labels for now */
   display: none;
-  position: absolute;
 }
 
 .heart, .knowledge, .achievements, .wealth, .humour, .alcohol {
@@ -65,33 +67,33 @@ p.label {
   position: absolute;
 }
 
-.heart {
+.heart, .label.heart {
   top: 20%;
 }
 
-.label.heart {
-  top: 20%;
-  left: 10%;
-}
-
-.knowledge {
+.knowledge, .label.knowledge {
   top: 32%;
 }
 
-.achievements {
+.achievements, .label.achievements {
   top: 44%;
 }
 
-.wealth {
+.wealth, .label.wealth {
   top: 56%;
 }
 
-.humour {
+.humour, .label.humour {
   top: 68%;
 }
 
-.alcohol {
+.alcohol, .label.alcohol {
   top: 80%;
+}
+
+/* here is issue with label appearing on wrong hover locations */
+.icon:hover p.label {
+  display: block;
 }
 
 #question {
@@ -119,7 +121,7 @@ button:focus {
 #response {
   text-align: center;
   font-size: 22px;
-  /* animating letters */
+  /* animating response with slight shaking effect */
   animation: shake 1s;
   animation-iteration-count: infinite;
 }
