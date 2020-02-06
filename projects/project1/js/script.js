@@ -11,6 +11,9 @@ Amanda Clement
 // Sad background music
 const sadMusic = new Audio("assets/sounds/sadMusic.mp3");
 
+// 'Huh?' sound effect
+const huhSound = new Audio("assets/sounds/huhSound.mp3");
+
 // Crying sound effects
 // Sound credit to https://www.pacdv.com/
 const cryingSound1 = new Audio("assets/sounds/cryingSound1.mp3");
@@ -69,6 +72,12 @@ function setup() {
     drop: onDrop
   });
 
+  // When user hovers mouse over one of the icons, display sad face image where
+  // eyes are looking towards left (as if looking at the icons)
+  $icon.mouseover(function(){
+    $faceImg.attr('src', 'assets/images/sad-face-2.png');
+  });
+
   // Response is hidden until user clicks
   $("#response").hide();
   // User can click question to ask if they're happy yet
@@ -83,9 +92,12 @@ function onDrop(event, ui) {
   // Icons scale down (shrinks) until it disappears on face
   ui.draggable.hide('scale');
 
-  // Generate and play the crying sound from the array
-  let randomCryingSound = cryingSounds[Math.floor(Math.random() * cryingSounds.length)];
-  randomCryingSound.play();
+  // When user hovers drops icon onto face, display image where face is looking
+  // towards center and appears a bit less sad
+  $faceImg.attr('src', 'assets/images/sad-face-3.png');
+
+  huhSound.play();
+  huhSound.volume = 0.2;
 }
 
 // masterDrag()
@@ -114,6 +126,14 @@ function respond() {
   $("#response").text('No ' + randomResponse);
   // ********** remove hard-coded values here
   $("#response").show().delay(3000).fadeOut(250);
+
+  // When user clicks button asking face if it is happy, display image with tear
+  // because they realize how sad they truly are
+  $faceImg.attr('src', 'assets/images/sad-face-1.png');
+
+  // Also play a random crying sound from the array to show how truly sad they are
+  let randomCryingSound = cryingSounds[Math.floor(Math.random() * cryingSounds.length)];
+  randomCryingSound.play();
 }
 
 function playMusic() {
