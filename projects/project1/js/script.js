@@ -12,6 +12,7 @@ Amanda Clement
 const sadMusic = new Audio("assets/sounds/sadMusic.mp3");
 
 // 'Huh?' sound effect
+// Sound credit to https://freesound.org/
 const huhSound = new Audio("assets/sounds/huhSound.mp3");
 
 // Crying sound effects
@@ -25,11 +26,13 @@ const cryingSound5 = new Audio("assets/sounds/cryingSound5.mp3");
 // Array of crying sounds
 let cryingSounds = [cryingSound1, cryingSound2, cryingSound3, cryingSound4, cryingSound5];
 
-// Selectors (for face image, face background, and icons)
+// Setting up variables since they will be targetting multiple times
 let $faceImg;
 let $faceBg;
 let $icon;
+let $label;
 
+// Array of responses
 let responses = ["I don't feel loved", "I'm still unhappy", "I haven't accomplished enough", "I need more money", "I'm not funny enough", "but I'd like a drink", "I wish I was smarter", "I'm still lonely", "I'm not wealthy enough", "Not satisfied yet", "I wish"];
 
 // When the document is loaded, we call the setup function
@@ -39,16 +42,25 @@ $(document).ready(setup);
 //
 // Sets the click handler and starts the time loop
 function setup() {
-  // Sounds
-  // listen for mousedown (just once) to start music
-  $(document).one('mousedown', playMusic);
-  // Looping the music and sounds
-  sadMusic.loop = true;
-
-  // Store in variables
+  // Storing values inside their respective variables
   $faceImg = $("#face-img");
   $faceBg = $("#face-bg");
   $icon = $(".icon");
+  $label = $(".label");
+
+  // Specifying dimensions of instructions box
+  // and disabling ability to drag and resize
+  $("#instructions").dialog({
+    width: 600,
+    height: 300,
+    draggable: false,
+    resizable: false,
+    close: closeInstructions
+  });
+
+  // Hide icon labels for now - they wil reveal once user closes the instructions
+  // dialog box
+  $label.hide();
 
   // Face will interchange (fade) between two shades of blue
   changingFaceColor();
@@ -74,14 +86,14 @@ function setup() {
 
   // When user hovers mouse over one of the icons, display sad face image where
   // eyes are looking towards left (as if looking at the icons)
-  $icon.mouseover(function(){
+  $icon.mouseover(function() {
     $faceImg.attr('src', 'assets/images/sad-face-2.png');
   });
 
-  // Response is hidden until user clicks
-  $("#response").hide();
   // User can click question to ask if they're happy yet
   $("#question").on('click', respond);
+  // Hide response - it will only be trigged when user clicks button
+  $("#response").hide();
 }
 
 // onDrop()
@@ -136,11 +148,6 @@ function respond() {
   randomCryingSound.play();
 }
 
-function playMusic() {
-  // Play sad background music
-  sadMusic.play();
-}
-
 // changingFaceColor
 //
 // Face will animate (fade) from one shade of blue to another
@@ -161,4 +168,21 @@ function changingFaceColor2() {
   }, 2500, function() {
     changingFaceColor();
   });
+}
+
+// closeInstructions()
+//
+// Trigged when user closes instructions dialog box
+// this starts the sad background music and makes icon labels appear then fade out
+// after delay
+function closeInstructions() {
+  sadMusic.play();
+  // Loop music
+  sadMusic.loop = true;
+
+  $label.show();
+
+  setInterval(function() {
+    $label.fadeOut(800);
+  }, 5000);
 }

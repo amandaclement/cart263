@@ -15,6 +15,27 @@ h1 {
   font-weight: lighter;
 }
 
+#instructions p, .ui-dialog-title {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 24px;
+}
+
+.ui-widget-header {
+  color: #fff !important;
+  background-color: #000 !important;
+  font-size: 24px !important;
+}
+
+.ui-widget.ui-widget-content {
+  border: #000 2px solid !important;
+}
+
+.ui-widget button {
+  color: red !important;
+  background-color: #000 !important;
+  border: none !important;
+}
+
 #help {
   color: #fff;
   text-align: center;
