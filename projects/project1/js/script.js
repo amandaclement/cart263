@@ -2,10 +2,16 @@
 
 /********************************************************************
 
-Project 1
+Project 1 - The Pursuit of Happiness
 Amanda Clement
 
-Add a description here
+Inspired by the myth of Sisyphus, my project is about momentary versus true happiness.
+The aim is to make the character (a face) happy, and the user is presented with
+a series of tools that will seemingly help achieve this goal. However, regardless
+of the user's actions, the character will never be happy. Like Sisyphus, the user
+is faced with an impossible task since the only outcome is momentary happiness
+(more like momentary confusion in this case) which will never result in true
+happiness for the character.
 
 *********************************************************************/
 
@@ -75,9 +81,9 @@ $(document).ready(setup);
 
 // setup()
 //
-// Sets the click handler and starts the time loop
+// This code will run when the document is ready
 function setup() {
-  // Storing values inside their respective variables
+  // Storing HTML elements inside their respective variables
   $faceImg = $("#face-img");
   $faceBg = $("#face-bg");
   $icon = $(".icon");
@@ -104,16 +110,10 @@ function setup() {
     autoOpen: false
   });
 
+  // Only open this dialog box when the user clicks the button
   $("#giveup").on("click", function() {
     $("#giveup-dialog").dialog("open");
   });
-
-  // Hide icon labels for now - they will reveal once user closes the instructions
-  // dialog box
-  $label.hide();
-
-  // Face will interchange (fade) between two shades of blue
-  changingFaceColor();
 
   // Handling when user mouses over draggable elements (icons)
   // Deals with "master" version of images, and clones so user can keep
@@ -144,6 +144,29 @@ function setup() {
   $("#question").on('click', respond);
   // Hide response - it will only be trigged when user clicks question button
   $response.hide();
+
+  // Face will interchange (fade) between two shades of blue
+  changingFaceColor();
+}
+
+// closeInstructions()
+//
+// Trigged when user closes instructions dialog box
+// this hides the overlay (so reveals the container content), and starts the sad
+// background music. The icon labels will also fade out for set time duration
+// after delay
+function closeInstructions() {
+  sadMusic.play();
+  // Loop music
+  sadMusic.loop = true;
+
+  // Hide the overlay to reveal content
+  $("#overlay").hide();
+
+  // setTimeout since it only occurs once
+  setTimeout(function() {
+    $label.fadeOut(LABEL_FADEOUT_DURATION);
+  }, LABEL_FADEOUT_DELAY);
 }
 
 // onDrop()
@@ -190,9 +213,8 @@ function respond() {
   let randomReason = reasons[Math.floor(Math.random() * reasons.length)];
 
   // Pairing random negative word with reason
-  // displaying it then fading it out after delay
+  // and displaying it then fading it out after delay
   $response.text(negativeWord + randomReason);
-
   $response.show().delay(RESPONSE_FADEOUT_DELAY).fadeOut(RESPONSE_FADEOUT_DURATION);
 
   // When user clicks button asking face if it is happy, display image with tear
@@ -224,22 +246,4 @@ function changingFaceColor2() {
   }, COLOR_CHANGE_SPEED, function() {
     changingFaceColor();
   });
-}
-
-// closeInstructions()
-//
-// Trigged when user closes instructions dialog box
-// this starts the sad background music and makes icon labels appear then fade out
-// after delay
-function closeInstructions() {
-  sadMusic.play();
-  // Loop music
-  sadMusic.loop = true;
-
-  $label.show();
-
-  // setTimeout since it only occurs once
-  setTimeout(function() {
-    $label.fadeOut(LABEL_FADEOUT_DURATION);
-  }, LABEL_FADEOUT_DELAY);
 }
