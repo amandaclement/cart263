@@ -2,7 +2,7 @@ body {
   width: 100%;
   /* blue */
   background-color: #80bfff;
-  font-family: 'Nanum Pen Script', cursive;
+  font-family: 'Nanum Pen Script', cursive !important;
 }
 
 #container {
@@ -15,9 +15,10 @@ h1 {
   font-weight: lighter;
 }
 
-#instructions p, .ui-dialog-title {
-  font-family: 'Nanum Pen Script', cursive;
-  font-size: 24px;
+/* styling for dialog boxes starts here */
+#instructions p, .ui-dialog-title, .ui-widget {
+  font-family: 'Nanum Pen Script', cursive !important;
+  font-size: 24px !important;
 }
 
 .ui-widget-header {
@@ -31,52 +32,114 @@ h1 {
 }
 
 .ui-widget button {
-  color: red !important;
   background-color: #000 !important;
   border: none !important;
 }
 
+/* styling for dialog boxes ends here */
 #help {
   color: #fff;
   text-align: center;
   margin-top: 100px;
   font-size: 24px;
+  /* flick effect that goes on infinitely */
   -webkit-animation: flicker 5s infinite;
-   -moz-animation: flicker 5s infinite;
-   -o-animation: flicker 5s infinite;
-    animation: flicker 5s infinite;
+  -moz-animation: flicker 5s infinite;
+  -o-animation: flicker 5s infinite;
+  animation: flicker 5s infinite;
 }
 
 /* flicker effect (fade in and out) */
+/* ensure browser compatibility */
 @keyframes flicker {
-  0%   { opacity:0; }
-  25%   { opacity:0; }
-  50%   { opacity:1; }
-  75%  { opacity:0; }
-  100% { opacity:0; }
-}
-@-o-keyframes flicker {
-  0%   { opacity:0; }
-  25%   { opacity:0; }
-  50%   { opacity:1; }
-  75%  { opacity:0; }
-  100% { opacity:0; }
-}
-@-moz-keyframes flicker {
-  0%   { opacity:0; }
-  25%   { opacity:0; }
-  50%   { opacity:1; }
-  75%  { opacity:0; }
-  100% { opacity:0; }
-}
-@-webkit-keyframes flicker {
-  0%   { opacity:0; }
-  25%   { opacity:0; }
-  50%   { opacity:1; }
-  75%  { opacity:0; }
-  100% { opacity:0; }
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
+@-o-keyframes flicker {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes flicker {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes flicker {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* floating face container contents to place it next to icons */
 #face-container {
   width: 70%;
   float: left;
@@ -101,6 +164,7 @@ h1 {
   margin-top: 85px;
 }
 
+/* floating next to face container */
 #icon-group {
   margin-top: 75px;
   /* vertically placed */
@@ -122,6 +186,7 @@ h1 {
   left: 10%;
 }
 
+/* placing icons and their labels */
 .heart, .knowledge, .achievements, .wealth, .humour, .alcohol {
   left: 2.5%;
   position: absolute;
@@ -151,6 +216,7 @@ h1 {
   top: 80%;
 }
 
+/* button styling */
 #question, #giveup {
   position: absolute;
   right: 20px;
@@ -185,23 +251,195 @@ button:focus {
 #response {
   text-align: center;
   font-size: 22px;
-  /* animating response with slight shaking effect */
+  /* animating response with slight shaking effect to emphasize sadness */
   animation: shake 1s;
   animation-iteration-count: infinite;
 }
 
+/* shake effect using slight translations and rotations */
+/* ensure browser compatibility */
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -1px) rotate(-1deg); }
-  20% { transform: translate(-2px, 0px) rotate(1deg); }
-  30% { transform: translate(1px, 2px) rotate(0deg); }
-  40% { transform: translate(0px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-2px, 1px) rotate(0deg); }
-  70% { transform: translate(1px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -1px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(-2px, 0px) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(0px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(-2px, 1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(1px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@-o-keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -1px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(-2px, 0px) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(0px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(-2px, 1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(1px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@-moz-keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -1px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(-2px, 0px) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(0px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(-2px, 1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(1px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@-webkit-keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -1px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(-2px, 0px) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(0px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(-2px, 1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(1px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 
 /* disabling highlighting */

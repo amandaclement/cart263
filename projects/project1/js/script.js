@@ -94,6 +94,20 @@ function setup() {
     close: closeInstructions
   });
 
+  // Specifying dimensions for giveup-dialog box and disabling ability to drag and resize
+  $("#giveup-dialog").dialog({
+    width: 600,
+    height: 300,
+    draggable: false,
+    resizable: false,
+    // So that it doesn't open automatically - only when user clicks 'Give Up?'
+    autoOpen: false
+  });
+
+  $("#giveup").on("click", function() {
+    $("#giveup-dialog").dialog("open");
+  });
+
   // Hide icon labels for now - they will reveal once user closes the instructions
   // dialog box
   $label.hide();
