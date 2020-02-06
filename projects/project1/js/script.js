@@ -7,8 +7,11 @@ Amanda Clement
 
 *********************************************************************/
 
+// right format for audio constants??
+// Sad background music
 const sadMusic = new Audio("assets/sounds/sadMusic.mp3");
 
+// Crying sound effects
 // Sound credit to https://www.pacdv.com/
 const cryingSound1 = new Audio("assets/sounds/cryingSound1.mp3");
 const cryingSound2 = new Audio("assets/sounds/cryingSound2.mp3");
@@ -16,11 +19,12 @@ const cryingSound3 = new Audio("assets/sounds/cryingSound3.mp3");
 const cryingSound4 = new Audio("assets/sounds/cryingSound4.mp3");
 const cryingSound5 = new Audio("assets/sounds/cryingSound5.mp3");
 
+// Array of crying sounds
 let cryingSounds = [cryingSound1, cryingSound2, cryingSound3, cryingSound4, cryingSound5];
 
+// Selectors (for face image, face background, and icons)
 let $faceImg;
 let $faceBg;
-
 let $icon;
 
 let responses = ["I don't feel loved", "I'm still unhappy", "I haven't accomplished enough", "I need more money", "I'm not funny enough", "but I'd like a drink", "I wish I was smarter", "I'm still lonely", "I'm not wealthy enough", "Not satisfied yet", "I wish"];
@@ -38,10 +42,12 @@ function setup() {
   // Looping the music and sounds
   sadMusic.loop = true;
 
+  // Store in variables
   $faceImg = $("#face-img");
   $faceBg = $("#face-bg");
   $icon = $(".icon");
 
+  // Face will interchange (fade) between two shades of blue
   changingFaceColor();
 
   // Handling when user mouses over draggable elements (icons)
@@ -59,7 +65,7 @@ function setup() {
   });
 
   // Trigger onDrop function if icon is dropped on face
-  $faceImg.droppable({
+  $faceBg.droppable({
     drop: onDrop
   });
 
@@ -71,12 +77,13 @@ function setup() {
 
 // onDrop()
 //
-// When user drops icon onto face - hide icon by scaling it down
+// When user drops icon onto face, hide icon by scaling it down
+// and play a random crying sound from the array
 function onDrop(event, ui) {
-  //$faceImg.attr('src', 'assets/images/sad-face-1.png');
   // Icons scale down (shrinks) until it disappears on face
   ui.draggable.hide('scale');
 
+  // Generate and play the crying sound from the array
   let randomCryingSound = cryingSounds[Math.floor(Math.random() * cryingSounds.length)];
   randomCryingSound.play();
 }
@@ -96,6 +103,10 @@ function masterDrag() {
   });
 }
 
+// respond()
+//
+// The face responds when asked if happy, by generating and displaying a response
+// from the array of reponses
 function respond() {
   // Generating a random response from the array
   let randomResponse = responses[Math.floor(Math.random() * responses.length)];
@@ -110,10 +121,24 @@ function playMusic() {
   sadMusic.play();
 }
 
-function changingFaceColor(){
-    $faceBg.animate({backgroundColor: '#0077b3;' }, 2000, function(){changingFaceColor2();});
+// changingFaceColor
+//
+// Face will animate (fade) from one shade of blue to another
+function changingFaceColor() {
+  $faceBg.animate({
+    backgroundColor: '#0077b3;'
+  }, 2500, function() {
+    changingFaceColor2();
+  });
 }
 
-function changingFaceColor2(){
-    $faceBg.animate({backgroundColor: '#005580' }, 2000, function(){changingFaceColor();});
+// changingFaceColor
+//
+// This is second part (other color) for face color fade effect
+function changingFaceColor2() {
+  $faceBg.animate({
+    backgroundColor: '#005580'
+  }, 2500, function() {
+    changingFaceColor();
+  });
 }

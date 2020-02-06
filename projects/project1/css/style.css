@@ -1,8 +1,7 @@
 body {
   width: 100%;
-  /* yellow */
-  background-color: #ffcc66;
-  background-color: #fff;
+  /* blue */
+  background-color: #80bfff;
   font-family: 'Nanum Pen Script', cursive;
 }
 
@@ -13,6 +12,7 @@ body {
 h1 {
   font-size: 25px;
   margin: 20px 0 0 15px;
+  font-weight: lighter;
 }
 
 #face-container {
@@ -24,7 +24,7 @@ h1 {
   /* add top margin and center div */
   margin: 150px auto 0 auto;
   /* dark blue */
-  background-color: #0088cc;
+  background-color: #0077b3;
   width: 400px;
   height: 400px;
   /* circle */
@@ -47,19 +47,17 @@ h1 {
 }
 
 .icon {
-  height: 55px;
   font-size: 60px;
   left: 2.5%;
   margin-top: 40px;
   width: 50%;
 }
 
-p.label {
+.label {
+  font-size: 22px;
+  display: inline;
   position: absolute;
   left: 10%;
-  font-size: 22px;
-  /* hide icon labels for now */
-  display: none;
 }
 
 .heart, .knowledge, .achievements, .wealth, .humour, .alcohol {
@@ -67,50 +65,54 @@ p.label {
   position: absolute;
 }
 
-.heart, .label.heart {
+.heart, .heart-label {
   top: 20%;
 }
 
-.knowledge, .label.knowledge {
+.knowledge, .knowledge-label {
   top: 32%;
 }
 
-.achievements, .label.achievements {
+.achievements, .achievements-label {
   top: 44%;
 }
 
-.wealth, .label.wealth {
+.wealth, .wealth-label {
   top: 56%;
 }
 
-.humour, .label.humour {
+.humour, .humour-label {
   top: 68%;
 }
 
-.alcohol, .label.alcohol {
+.alcohol, .alcohol-label {
   top: 80%;
 }
 
-/* here is issue with label appearing on wrong hover locations */
-.icon:hover p.label {
-  display: block;
-}
-
-#question {
+#question, #giveup {
   position: absolute;
   right: 20px;
-  bottom: 15px;
   font-size: 24px;
-  border: none;
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
   font-family: 'Nanum Pen Script', cursive;
 }
 
-#question:hover {
+#question:hover, #giveup:hover {
   color: red;
   transition: 0.2s;
+}
+
+#question {
+  bottom: 55px;
+  border: 2px solid #000;
+}
+
+#giveup {
+  bottom: 15px;
+  border: 0;
+  background-color: transparent;
 }
 
 /* removing blue glow */
