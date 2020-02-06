@@ -15,6 +15,47 @@ h1 {
   font-weight: lighter;
 }
 
+#help {
+  color: #fff;
+  text-align: center;
+  margin-top: 100px;
+  font-size: 24px;
+  -webkit-animation: flicker 5s infinite;
+   -moz-animation: flicker 5s infinite;
+   -o-animation: flicker 5s infinite;
+    animation: flicker 5s infinite;
+}
+
+/* flicker effect (fade in and out) */
+@keyframes flicker {
+  0%   { opacity:0; }
+  25%   { opacity:0; }
+  50%   { opacity:1; }
+  75%  { opacity:0; }
+  100% { opacity:0; }
+}
+@-o-keyframes flicker {
+  0%   { opacity:0; }
+  25%   { opacity:0; }
+  50%   { opacity:1; }
+  75%  { opacity:0; }
+  100% { opacity:0; }
+}
+@-moz-keyframes flicker {
+  0%   { opacity:0; }
+  25%   { opacity:0; }
+  50%   { opacity:1; }
+  75%  { opacity:0; }
+  100% { opacity:0; }
+}
+@-webkit-keyframes flicker {
+  0%   { opacity:0; }
+  25%   { opacity:0; }
+  50%   { opacity:1; }
+  75%  { opacity:0; }
+  100% { opacity:0; }
+}
+
 #face-container {
   width: 70%;
   float: left;
@@ -22,7 +63,7 @@ h1 {
 
 #face-bg {
   /* add top margin and center div */
-  margin: 150px auto 0 auto;
+  margin: 20px auto 0 auto;
   /* dark blue */
   background-color: #0077b3;
   width: 400px;
