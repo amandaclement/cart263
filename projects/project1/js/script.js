@@ -23,6 +23,10 @@ const cryingSound3 = new Audio("assets/sounds/cryingSound3.mp3");
 const cryingSound4 = new Audio("assets/sounds/cryingSound4.mp3");
 const cryingSound5 = new Audio("assets/sounds/cryingSound5.mp3");
 
+// Constants for setTimeout function - fading out icon labels after delay
+const LABEL_FADEOUT_DURATION = 600; // For duration of fade out
+const LABEL_FADEOUT_DELAY = 5000; // For delay of fade out
+
 // Array of crying sounds
 let cryingSounds = [cryingSound1, cryingSound2, cryingSound3, cryingSound4, cryingSound5];
 
@@ -182,7 +186,8 @@ function closeInstructions() {
 
   $label.show();
 
-  setInterval(function() {
-    $label.fadeOut(800);
-  }, 5000);
+  // setTimeout since it only occurs once
+  setTimeout(function() {
+    $label.fadeOut(LABEL_FADEOUT_DURATION);
+  }, LABEL_FADEOUT_DELAY);
 }
