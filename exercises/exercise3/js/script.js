@@ -180,10 +180,12 @@ function setup() {
   if (annyang) {
     // Add commands to annyang - it should listen
     let commands = {
+      // Saying 'I think it is X' triggers the handleGuess function
+      "I think it is *tag": handleGuess,
       // Saying 'I give up' triggers the giveUp function
       "I give up": giveUp,
       // Saying 'Say it again' makes it repeat the answer backwards
-      "Say it again": function() { sayBackwards($correctButton.text())}
+      "Say it again": function() { sayBackwards($correctButton.text()) }
     };
 
     // The giveUp command has been defined so give it to annyang
@@ -273,15 +275,16 @@ function addButton(label) {
 // Checks whether this was the correct guess (button) and
 // if so starts a new round
 // if not indicates it was incorrect
-function handleGuess() {
+function handleGuess(tag) {
   // If the button they clicked on has the same label as
   // the correct button, it must be the right answer...
-  if ($(this).text() === $correctButton.text()) {
+  // this also applies if they said 'I think it is X', where X is the answer
+  if (($(this).text() === $correctButton.text()) || (tag === $correctButton.text())) {
     // Clear the buttons
     clearButtons();
     // Start a new round
     setTimeout(newRound, 1000);
-  } else {
+  }   else {
     // Otherwise they were wrong, so shake the clicked button
     $(this).effect('shake');
     // And say the correct animal again to "help" them
