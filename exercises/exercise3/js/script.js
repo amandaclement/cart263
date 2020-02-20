@@ -159,6 +159,9 @@ let animals = [
   "zebra"
 ];
 
+// A variable to store the giveUp text element
+let giveUp;
+
 // We need to track the correct button for each round
 let $correctButton;
 // We also track the set of buttons
@@ -173,7 +176,22 @@ $(document).ready(setup);
 //
 // We just start a new round right away!
 function setup() {
-  newRound();
+  // Making sure annyang is available
+  if (annyang) {
+    // Add commands to annyang - it should listen
+    let giveUp = {
+      "I give up": handleUserSpeech
+    };
+
+    // The command has been defined so give it to annyang
+    // by using the .addCommands() function
+    annyang.addCommands(giveUp);
+
+    // Tell annyang to start listening
+    // by using the .start() function
+    annyang.start();
+  }
+newRound();
 }
 
 // newRound()
@@ -256,12 +274,11 @@ function handleGuess() {
   // If the button they clicked on has the same label as
   // the correct button, it must be the right answer...
   if ($(this).text() === $correctButton.text()) {
-    // Remove all the buttons
-    $('.guess').remove();
+    // Clear the buttons
+    clearButtons();
     // Start a new round
     setTimeout(newRound, 1000);
-  }
-  else {
+  } else {
     // Otherwise they were wrong, so shake the clicked button
     $(this).effect('shake');
     // And say the correct animal again to "help" them
@@ -275,4 +292,26 @@ function handleGuess() {
 function getRandomElement(array) {
   let element = array[Math.floor(Math.random() * array.length)];
   return element;
+}
+
+// handleUserSpeech()
+//
+// Called by annyang when it hears one of its trigger sentences
+// in this case its 'I give up'
+// the correct answer is highlighted and the next round begins
+function handleUserSpeech(phrase) {
+  if (phrase === giveUp) {
+    // highlight the correct answer
+    $correctButton.css('background-color','yellow');
+    setTimeout (clearButtons, 1500);
+    // Generate new round
+    setTimeout(newRound, 2000);
+  }
+}
+
+// clearButtons
+//
+// Clear the buttons (so that we can generate new ones for the next round)
+function clearButtons() {
+  $('.guess').remove();
 }
