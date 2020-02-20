@@ -21,9 +21,6 @@ https://github.com/dariusk/corpora/blob/master/data/animals/common.json
 
 ******************/
 
-// Verify if the game has started
-let start = false;
-
 // An array of animal names that we use to create our guessing game
 let animals = [
   "aardvark",
