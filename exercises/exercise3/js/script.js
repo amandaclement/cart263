@@ -21,6 +21,9 @@ https://github.com/dariusk/corpora/blob/master/data/animals/common.json
 
 ******************/
 
+// Verify if the game has started
+let start = false;
+
 // An array of animal names that we use to create our guessing game
 let animals = [
   "aardvark",
@@ -159,6 +162,32 @@ let animals = [
   "zebra"
 ];
 
+// Array of compliments to be said when correct answer is selected
+let compliments = [
+  "nice one!",
+  "keep it up!",
+  "well played!",
+  "you got it!",
+  "sweet!"
+];
+
+// Array of insults to be said when user gives up
+let insults = [
+  "seriously?",
+  "are you even trying?",
+  "you're not very good",
+  "put in some effort"
+];
+
+// Array of negatives to be said when user selects wrong answer
+let negatives = [
+  "not that one",
+  "no",
+  "nope",
+  "nah",
+  "try again"
+]
+
 // A variable to store the giveUp text element
 let commands;
 
@@ -181,6 +210,7 @@ $(document).ready(setup);
 function setup() {
   // Making background color turquoise and content to center of page
   $('body').css('backgroundColor','#5DD7D2').css('textAlign','center');
+
   // Creating score div
   let $score = $('<div></div>');
   // Give it the store class
@@ -213,7 +243,7 @@ function setup() {
     // by using the .start() function
     annyang.start();
   }
-newRound();
+newRound();// Instructions
 }
 
 // newRound()
@@ -307,7 +337,14 @@ function handleGuess(tag) {
     score += 1;
     // And displaying it
     $('.score').text(score);
+
+    // Generate a random compliment from the array and say it when they get the correct answer
+    let compliment = getRandomElement(compliments);
+    responsiveVoice.speak(compliment, 'UK English Male');
   }   else {
+    // Generate a random negative from the array and say it when they get the wrong answer
+    let negative = getRandomElement(negatives);
+    responsiveVoice.speak(negative, 'UK English Male');
     // Otherwise they were wrong, so shake the clicked button
     $(this).effect('shake');
     // And say the correct animal again to "help" them
@@ -334,6 +371,9 @@ function getRandomElement(array) {
 function giveUp() {
     // Highlight the correct answer in orange
     $correctButton.css('backgroundColor','#FF812D');
+    // Generate a random insult from the array and say it when they get they give up
+    let insult = getRandomElement(insults);
+    responsiveVoice.speak(insult, 'UK English Male');
     setTimeout (clearButtons, 1500);
     // Generate new round
     setTimeout(newRound, 2000);
