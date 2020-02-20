@@ -169,6 +169,9 @@ let buttons = [];
 // How many possible answers there are per round
 const NUM_OPTIONS = 5;
 
+// To calculate score - it starts at 0
+let score = 0;
+
 // Get setup!
 $(document).ready(setup);
 
@@ -176,6 +179,15 @@ $(document).ready(setup);
 //
 // We just start a new round right away!
 function setup() {
+  // Creating score div
+  let $score = $('<div></div>');
+  // Give it the store class
+  $score.addClass("score");
+  // Set the text in the div to the score
+  $score.text(score);
+  // Add the score to the page so we can see it
+  $('body').append($score);
+
   // Making sure annyang is available
   if (annyang) {
     // Add commands to annyang - it should listen
@@ -284,11 +296,19 @@ function handleGuess(tag) {
     clearButtons();
     // Start a new round
     setTimeout(newRound, 1000);
+    // Adding 1 point to the score
+    score += 1;
+    // And displaying it
+    $('.score').text(score);
   }   else {
     // Otherwise they were wrong, so shake the clicked button
     $(this).effect('shake');
     // And say the correct animal again to "help" them
     sayBackwards($correctButton.text());
+    // Setting score back to zero
+    score = 0;
+    // And displaying it
+    $('.score').text(score);
   }
 }
 
