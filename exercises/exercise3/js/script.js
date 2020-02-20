@@ -208,17 +208,7 @@ function setup() {
   // Making background color turquoise and content to center of page
   $('body').css('backgroundColor','#5DD7D2').css('textAlign','center');
 
-  // Creating score div
-  let $score = $('<div></div>');
-  // Give it the store class
-  $score.addClass("score");
-  // Set the text in the div to the score
-  $score.text(score);
-  // Making it the same font as the animal labels (Helvetica)
-  // and increase the font-size
-  $score.css('fontFamily','Helvetica').css('fontSize','24px');
-  // Add the score to the page so we can see it
-  $('body').append($score);
+  keepingScore();
 
   // Making sure annyang is available
   if (annyang) {
@@ -346,10 +336,8 @@ function handleGuess(tag) {
     $(this).effect('shake');
     // And say the correct animal again to "help" them
     sayBackwards($correctButton.text());
-    // Setting score back to zero
-    score = 0;
-    // And displaying it
-    $('.score').text(score);
+
+    resetScore();
   }
 }
 
@@ -374,11 +362,41 @@ function giveUp() {
     setTimeout (clearButtons, 1500);
     // Generate new round
     setTimeout(newRound, 2000);
+
+    resetScore();
 }
 
-// clearButtons
+// clearButtons()
 //
 // Clear the buttons (so that we can generate new ones for the next round)
 function clearButtons() {
   $('.guess').remove();
+}
+
+// keepingScore()
+//
+// Setting up the score
+function keepingScore() {
+  // Creating score div
+  let $score = $('<div></div>');
+  // Give it the store class
+  $score.addClass("score");
+  // Set the text in the div to the score
+  $score.text(score);
+  // Making it the same font as the animal labels (Helvetica)
+  // and increase the font-size
+  $score.css('fontFamily','Helvetica').css('fontSize','24px');
+  // Add the score to the page so we can see it
+  $('body').append($score);
+}
+
+// resetScore()
+//
+// Resetting the score - this function will be called when the user guesses
+// incorrectly or gives up
+function resetScore() {
+  // Setting score back to zero
+  score = 0;
+  // And displaying it
+  $('.score').text(score);
 }
