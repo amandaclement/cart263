@@ -206,7 +206,10 @@ $(document).ready(setup);
 // We just start a new round right away!
 function setup() {
   // Making background color turquoise and content to center of page
-  $('body').css('backgroundColor','#5DD7D2').css('textAlign','center');
+  $('body').css({
+    'backgroundColor':'#5DD7D2',
+    'textAlign':'center'
+  });
 
   keepingScore();
 
@@ -301,7 +304,12 @@ function addButton(label) {
   // Finally, add the button to the page so we can see it
   $('body').append($button);
   // Making buttons bluish-purple, making text white, and removing border
-  $button.css('backgroundColor', '#7976FF').css('color', '#FFFFFF').css('border', '0').css('margin', '20px').css('display', 'block');
+  $button.css({
+    'backgroundColor': '#7976FF',
+    'color': '#FFFFFF',
+    'border': '0',
+    'margin': '20px',
+    'display': 'block'});
   // Return the button
   return $button;
 }
@@ -385,7 +393,10 @@ function keepingScore() {
   $score.text(score);
   // Making it the same font as the animal labels (Helvetica)
   // and increase the font-size
-  $score.css('fontFamily','Helvetica').css('fontSize','24px');
+  $score.css({
+    'fontFamily': 'Helvetica',
+    'fontSize':'24px'
+  });
   // Add the score to the page so we can see it
   $('body').append($score);
 }
