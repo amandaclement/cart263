@@ -179,12 +179,17 @@ $(document).ready(setup);
 //
 // We just start a new round right away!
 function setup() {
+  // Making background color turquoise and content to center of page
+  $('body').css('backgroundColor','#5DD7D2').css('textAlign','center');
   // Creating score div
   let $score = $('<div></div>');
   // Give it the store class
   $score.addClass("score");
   // Set the text in the div to the score
   $score.text(score);
+  // Making it the same font as the animal labels (Helvetica)
+  // and increase the font-size
+  $score.css('fontFamily','Helvetica').css('fontSize','24px');
   // Add the score to the page so we can see it
   $('body').append($score);
 
@@ -278,6 +283,8 @@ function addButton(label) {
   $button.on('click', handleGuess);
   // Finally, add the button to the page so we can see it
   $('body').append($button);
+  // Making buttons bluish-purple, making text white, and removing border
+  $button.css('backgroundColor', '#7976FF').css('color', '#FFFFFF').css('border', '0').css('margin', '20px').css('display', 'block');
   // Return the button
   return $button;
 }
@@ -325,8 +332,8 @@ function getRandomElement(array) {
 // Called by annyang when it hears 'I give up'
 // the correct answer is highlighted and the next round begins
 function giveUp() {
-    // highlight the correct answer
-    $correctButton.css('background-color','yellow');
+    // Highlight the correct answer in orange
+    $correctButton.css('backgroundColor','#FF812D');
     setTimeout (clearButtons, 1500);
     // Generate new round
     setTimeout(newRound, 2000);
