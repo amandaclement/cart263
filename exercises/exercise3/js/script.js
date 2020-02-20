@@ -160,7 +160,7 @@ let animals = [
 ];
 
 // A variable to store the giveUp text element
-let giveUp;
+let commands;
 
 // We need to track the correct button for each round
 let $correctButton;
@@ -179,13 +179,16 @@ function setup() {
   // Making sure annyang is available
   if (annyang) {
     // Add commands to annyang - it should listen
-    let giveUp = {
-      "I give up": handleUserSpeech
+    let commands = {
+      // Saying 'I give up' triggers the giveUp function
+      "I give up": giveUp,
+      // Saying 'Say it again' makes it repeat the answer backwards
+      "Say it again": function() { sayBackwards($correctButton.text())}
     };
 
-    // The command has been defined so give it to annyang
+    // The giveUp command has been defined so give it to annyang
     // by using the .addCommands() function
-    annyang.addCommands(giveUp);
+    annyang.addCommands(commands);
 
     // Tell annyang to start listening
     // by using the .start() function
@@ -294,19 +297,16 @@ function getRandomElement(array) {
   return element;
 }
 
-// handleUserSpeech()
+// giveUp()
 //
-// Called by annyang when it hears one of its trigger sentences
-// in this case its 'I give up'
+// Called by annyang when it hears 'I give up'
 // the correct answer is highlighted and the next round begins
-function handleUserSpeech(phrase) {
-  if (phrase === giveUp) {
+function giveUp() {
     // highlight the correct answer
     $correctButton.css('background-color','yellow');
     setTimeout (clearButtons, 1500);
     // Generate new round
     setTimeout(newRound, 2000);
-  }
 }
 
 // clearButtons
