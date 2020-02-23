@@ -6,8 +6,8 @@ body {
   text-align: center;
 }
 
-/* styling for start button - overwrites all other button styling */
-.start {
+/* styling for start, yes and no buttons - overwrites all other button styling */
+.start, .yes, .no {
   font-family: 'Overpass','Helvetica', sans-serif !important;
   margin-top: 350px;
   border: 0 !important;
@@ -15,7 +15,7 @@ body {
   background-color: #CCC !important;
 }
 
-.start:hover {
+.start:hover, .yes:hover, .no:hover {
   background-color: #17E0B8 !important;
   transition: 0.3s;
 }
@@ -42,4 +42,9 @@ h2 {
   font-style: italic;
   font-weight: 400;
   display: none;
+}
+
+.yes, .no {
+  margin-top: 0;
+  font-size: 14px !important;
 }
