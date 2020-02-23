@@ -1,1 +1,45 @@
 /* CSS styling */
+body {
+  font-family: 'Overpass','Helvetica', sans-serif !important;
+  color: #000;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+/* styling for start button - overwrites all other button styling */
+.start {
+  font-family: 'Overpass','Helvetica', sans-serif !important;
+  margin-top: 350px;
+  border: 0 !important;
+  color: #FFF !important;
+  background-color: #CCC !important;
+}
+
+.start:hover {
+  background-color: #17E0B8 !important;
+  transition: 0.3s;
+}
+
+#intro {
+  text-align: center !important;
+}
+
+h1 {
+  margin-bottom: 0px;
+  display: none;
+  margin-top: 320px;
+}
+
+h2 {
+  margin-top: 0px;
+  color: #17E0B8;
+  font-size: 17px;
+  display: none;
+}
+
+.instructions {
+  color: #CCC;
+  font-style: italic;
+  font-weight: 400;
+  display: none;
+}

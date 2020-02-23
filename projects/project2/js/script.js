@@ -14,17 +14,37 @@ $(document).ready(setup);
 //
 // This code will run when the document is ready
 function setup() {
-  // For now, intro is triggered by user click
-  $(document).one('click',intro);
+  startButton();
   annyangSetup();
+}
+
+// startButton()
+//
+// Creating the start button
+function startButton() {
+  let $startButton = $('<div></div>');
+  // Give it the start
+  $startButton.addClass('start');
+  // Set the text in the div
+  $startButton.text('Click here to begin');
+  // Turn the div into a button using jQuery UI's .button() method
+  $startButton.button();
+  // Listen for a click on the button which means Alice's intro should appear
+  $startButton.on('click', intro);
+  // Finally, add the button to the page so we can see it
+  $('body').append($startButton);
 }
 
 // intro
 //
 // Alice (our virtual assistant) introduces herself
 function intro() {
-  responsiveVoice.speak('Welcome, my name is Alice. I am your virtual assistant. To get started, please say your name.', 'UK English Female');
-}
+    $('.start').hide();
+    $('h1').delay(200).fadeIn('slow');
+    $('h2').delay(800).fadeIn('slow');
+    $('.instructions').delay(5000).fadeIn('slow');
+    responsiveVoice.speak('Welcome, my name is Alice. I am your virtual assistant. To get started, please say your name.', 'UK English Female');
+  }
 
 // annyangSetup()
 //
