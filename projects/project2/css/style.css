@@ -77,13 +77,51 @@ section p {
   width: 50%;
 }
 
+.post-title {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: #17E0B8;
+}
+
 h4 {
   color: #000;
   padding: 5px 10px 0 10px;
   margin: 0;
 }
 
-#politics, #medicine {
+h5 {
+  margin: 0;
+  padding: 0 10px 5px 10px;
+  font-size: 12px;
+  color: #FFF;
+}
+
+.fa-microphone {
+  margin-left: 10px;
+  color: #17E0B8;
+}
+
+#social {
+  margin-right: 20px;
+}
+
+.post p {
+  color: #000;
+  padding: 15px 15px 0 15px;
+  margin-bottom: 0;
+}
+
+.post {
+  border: 1px solid #A0A0A0;
+  border-radius: 5px;
+}
+
+.fa-retweet, .fa-heart {
+  padding: 15px 0 15px 15px;
+  color: #A0A0A0;
+}
+
+#politics, #climate, #medicine {
   display: none;
   font-size: 17px;
 }
@@ -100,4 +138,14 @@ section a {
 section a:hover {
   text-decoration: underline;
   color: #000;
+}
+
+#social {
+  float: right;
+  width: 40%;
+}
+
+#opinion {
+  float: right;
+  width: 40%;
 }

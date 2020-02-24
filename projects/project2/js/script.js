@@ -117,7 +117,4 @@ function newsFeed() {
   $('#intro').hide();
   $('.yes').hide();
   $('.no').hide();
-
-  // Making the background color turquoise
-  //$('body').css('backgroundColor','#17E0B8');
 }
