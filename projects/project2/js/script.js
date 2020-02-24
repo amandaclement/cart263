@@ -14,9 +14,8 @@ $(document).ready(setup);
 //
 // This code will run when the document is ready
 function setup() {
-  //startButton();
-  //annyangSetup();
-  newsFeed();
+  startButton();
+  annyangSetup();
 }
 
 // startButton()
@@ -82,6 +81,9 @@ function name(tag) {
   let repeatName = tag + ',did I say that correctly?';
   responsiveVoice.speak(repeatName, 'UK English Female');
 
+  let $addName = $('#addName');
+  $addName.text(tag);
+
   // Creating the yesButton
   let $yesButton = $('<div></div>');
   // Give it the yes class
@@ -117,4 +119,15 @@ function newsFeed() {
   $('#intro').hide();
   $('.yes').hide();
   $('.no').hide();
+
+  $('#mainContent').delay(400).fadeIn('slow');
+  responsiveVoice.speak('I have just generated your newsfeed. Click on the microphone icon next to any section title for more information. Happy browsing!', 'UK English Female')
+
+  // Listen for a click on the 'Recommended Articles' microphone icon (mic1)
+  // if clicked, activate speech
+  $('.mic1').on('click', function() { responsiveVoice.speak('Here is a list of articles I generated for you. I filtered them from a larger database to display the best content.', 'UK English Female') });
+
+  // Listen for a click on the 'Social Feed' microphone icon (mic2)
+  // if clicked, activate speech
+  $('.mic2').on('click', function() { responsiveVoice.speak('These topics appear to be frequently discussed on social media platforms. Here are some of the trending posts.', 'UK English Female') });
 }

@@ -4,6 +4,12 @@ body {
   color: #000;
   font-family: sans-serif;
   text-align: center;
+  margin: 0;
+}
+
+#mainContent {
+  display: none;
+  padding: 0;
 }
 
 /* styling for start, yes and no buttons - overwrites all other button styling */
@@ -22,6 +28,24 @@ body {
 
 #intro {
   text-align: center !important;
+}
+
+#top-bar {
+  background-color: #000;
+  width: 100%;
+  height: 40px;
+  color: #FFF;
+  text-align: left;
+}
+
+#top-bar p {
+  margin: 0;
+  padding: 11px 15px;
+  font-size: 16px;
+}
+
+#addName {
+  color: #FFF;
 }
 
 h1 {
