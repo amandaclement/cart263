@@ -14,8 +14,9 @@ $(document).ready(setup);
 //
 // This code will run when the document is ready
 function setup() {
-  startButton();
-  annyangSetup();
+  //startButton();
+  //annyangSetup();
+  newsFeed();
 }
 
 // startButton()
@@ -90,7 +91,7 @@ function name(tag) {
   // Turn the div into a button using jQuery UI's .button() method
   $yesButton.button();
   // Listen for a click on the button - progress to the topics page
-  $yesButton.on('click', topics);
+  $yesButton.on('click', newsFeed);
   // Finally, add the button to the page so we can see it
   $('body').append($yesButton);
 
@@ -108,13 +109,15 @@ function name(tag) {
   $('body').append($noButton);
 }
 
-// topics()
+// newsFeed()
 //
-// The user is prompted to select their preferred topic from the list
-// which will determine the type of content that will appear next
-function topics() {
+// Creating and displaying their newsfeed
+function newsFeed() {
   // Hide the intro text and the buttons
   $('#intro').hide();
   $('.yes').hide();
   $('.no').hide();
+
+  // Making the background color turquoise
+  //$('body').css('backgroundColor','#17E0B8');
 }
