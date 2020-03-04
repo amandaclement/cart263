@@ -7,9 +7,11 @@ Amanda Clement
 
 *********************************************************************/
 
+// Constant for time between each ad (8 seconds)
+const ADCYCLE_DELAY = 8000;
+
 let $heart;
 let $repost;
-let $posts;
 let $brokenLink;
 let $fakeLink;
 
@@ -28,7 +30,8 @@ let repostComments = [
 let blockedComments = [
   "You wouldn't like that one",
   "Let's skip that",
-  "You wouldn't be interested"
+  "You wouldn't be interested",
+  "Let's get rid of that"
 ];
 
 let encouragingComments = [
@@ -56,16 +59,14 @@ function setup() {
   $brokenLink.on('click',blockAccess);
   $fakeLink.on('click',encourage);
 
-  $posts = $(".post");
-
-  for (let i = 0; i < 2; i++) {
-    //$posts[i].show();
-}
+// Base code from https://css-tricks.com/snippets/jquery/simple-auto-playing-slideshow/
+// Hide ads (first image is placeholder)
+ $("#climateAds > img:gt(0)").hide();
+ setInterval(adCycle, ADCYCLE_DELAY);
 
   // startButton();
   // annyangSetup();
   newsFeed();
-  //managingPosts();
 }
 
 // startButton()
@@ -226,4 +227,16 @@ function encourage() {
   responsiveVoice.speak(generatingEncouragingComment, 'UK English Female');
   // Also make the link title red so they know they've visited it
   $(this).css('color','#E60000');
+}
+
+// adCycle
+//
+// Making the ad images appear one by one in a cycle at 8 second intervals
+function adCycle() {
+    $('#climateAds > img:first')
+    .fadeOut(100) // 100 ms
+    .next() // go to next image in cycle
+    .fadeIn(100) // 100 ms
+    .end()
+    .appendTo('#climateAds');
 }
