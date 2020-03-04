@@ -173,3 +173,7 @@ section a:hover {
   float: right;
   width: 40%;
 }
+
+.post {
+  display: none;
+}

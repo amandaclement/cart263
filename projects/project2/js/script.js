@@ -7,6 +7,23 @@ Amanda Clement
 
 *********************************************************************/
 
+let $heart;
+let $repost;
+
+let likeComments = [
+  'Nice one!',
+  'Glad you liked it',
+  'I like that one too'
+];
+
+let repostComments = [
+  'Great repost!',
+  'Thanks for sharing that',
+  'It has been reposted'
+];
+
+let $posts;
+
 // When the document is loaded, we call the setup function
 $(document).ready(setup);
 
@@ -14,8 +31,23 @@ $(document).ready(setup);
 //
 // This code will run when the document is ready
 function setup() {
-  startButton();
-  annyangSetup();
+  // Storing HTML elements inside their respective variables
+  $heart = $(".fa-heart");
+  $repost = $(".fa-retweet");
+
+  $heart.on('click',liked);
+  $repost.on('click',reposted);
+
+  $posts = $(".post");
+
+  for (let i = 0; i < 2; i++) {
+    //$posts[i].show();
+}
+
+  // startButton();
+  // annyangSetup();
+  newsFeed();
+  //managingPosts();
 }
 
 // startButton()
@@ -121,13 +153,36 @@ function newsFeed() {
   $('.no').hide();
 
   $('#mainContent').delay(400).fadeIn('slow');
-  responsiveVoice.speak('I have just generated your newsfeed. Click on the microphone icon next to any section title for more information. Happy browsing!', 'UK English Female')
+  responsiveVoice.speak('I have just generated your newsfeed. Click on the microphone icon next to any section title for more information. Happy browsing!', 'UK English Female');
 
   // Listen for a click on the 'Recommended Articles' microphone icon (mic1)
   // if clicked, activate speech
-  $('.mic1').on('click', function() { responsiveVoice.speak('Here is a list of articles I generated for you. I filtered them from a larger database to display the best content.', 'UK English Female') });
+  $('.mic1').on('click', function() { responsiveVoice.speak('Here is a list of articles I generated for you. I filtered them from a larger database to display the best content. Click on a link to read the full article.', 'UK English Female') });
 
   // Listen for a click on the 'Social Feed' microphone icon (mic2)
   // if clicked, activate speech
-  $('.mic2').on('click', function() { responsiveVoice.speak('These topics appear to be frequently discussed on social media platforms. Here are some of the trending posts.', 'UK English Female') });
+  $('.mic2').on('click', function() { responsiveVoice.speak('These topics appear to be frequently discussed on social media platforms. Here are some of the trending posts. You can repost or like them by clicking the appropriate icon.', 'UK English Female') });
+}
+
+// liked()
+//
+// Make heart red when clicked as if the user has liked the post, and generate
+// a comment from the likeComments array for Alice to say
+// after a delay, fade the entire post away
+function liked() {
+  $(this).css('color','#E60000');
+  let generatingLikeComment = likeComments[Math.floor(Math.random() * likeComments.length)];
+  responsiveVoice.speak(generatingLikeComment, 'UK English Female');
+  $(this).parent().delay(300).fadeOut(500);
+}
+
+// reposted()
+//
+// Make repost icon blue when clicked as if the user has reposted it, and generate
+// a comment from the repostComments array for Alice to say
+// after a delay, fade the entire post away
+function reposted() {
+  $(this).css('color','#1A8CFF');
+  let generatingRepostComment = repostComments[Math.floor(Math.random() * repostComments.length)];
+  responsiveVoice.speak(generatingRepostComment, 'UK English Female');
 }
