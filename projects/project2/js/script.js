@@ -9,6 +9,9 @@ Amanda Clement
 
 let $heart;
 let $repost;
+let $posts;
+let $brokenLink;
+let $fakeLink;
 
 let likeComments = [
   'Nice one!',
@@ -22,7 +25,18 @@ let repostComments = [
   'It has been reposted'
 ];
 
-let $posts;
+let blockedComments = [
+  "You wouldn't like that one",
+  "Let's skip that",
+  "You wouldn't be interested"
+];
+
+let encouragingComments = [
+  "Good choice",
+  "A very interesting read",
+  "Enjoy!",
+  "This one is very educational"
+];
 
 // When the document is loaded, we call the setup function
 $(document).ready(setup);
@@ -34,9 +48,13 @@ function setup() {
   // Storing HTML elements inside their respective variables
   $heart = $(".fa-heart");
   $repost = $(".fa-retweet");
+  $brokenLink = $(".broken");
+  $fakeLink = $(".fake");
 
   $heart.on('click',liked);
   $repost.on('click',reposted);
+  $brokenLink.on('click',blockAccess);
+  $fakeLink.on('click',encourage);
 
   $posts = $(".post");
 
@@ -185,4 +203,27 @@ function reposted() {
   $(this).css('color','#1A8CFF');
   let generatingRepostComment = repostComments[Math.floor(Math.random() * repostComments.length)];
   responsiveVoice.speak(generatingRepostComment, 'UK English Female');
+}
+
+// blockAccess()
+//
+// Triggered when user attempts to click link that would reveal true information,
+// the link leads no where and generate a comment from the blockedComments array
+// for Alice to say
+// after a delay, fade is away
+function blockAccess() {
+  let generatingBlockedComment = blockedComments[Math.floor(Math.random() * blockedComments.length)];
+  responsiveVoice.speak(generatingBlockedComment, 'UK English Female');
+  $(this).parent().delay(300).fadeOut(300);
+}
+
+// encouragingComments
+//
+// Triggered when user clicks a fakes news link - Alice encourages this behaviour
+// by saying something encouraging
+function encourage() {
+  let generatingEncouragingComment = encouragingComments[Math.floor(Math.random() * encouragingComments.length)];
+  responsiveVoice.speak(generatingEncouragingComment, 'UK English Female');
+  // Also make the link title red so they know they've visited it
+  $(this).css('color','#E60000');
 }
