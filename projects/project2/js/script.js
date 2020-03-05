@@ -273,7 +273,7 @@ function showClimateContent() {
       .next() // go to next image in cycle
       .fadeIn(100) // 100 ms
       .end()
-      .appendTo('.#climateAds');
+      .appendTo('#climateAds');
   }, ADCYCLE_DELAY);
 }
 
@@ -296,7 +296,7 @@ function showPoliticsContent() {
       .next() // go to next image in cycle
       .fadeIn(100) // 100 ms
       .end()
-      .appendTo('.#politicsAds');
+      .appendTo('#politicsAds');
   }, ADCYCLE_DELAY);
 }
 
@@ -319,7 +319,7 @@ function showMedicineContent() {
       .next() // go to next image in cycle
       .fadeIn(100) // 100 ms
       .end()
-      .appendTo('.#medicineAds');
+      .appendTo('#medicineAds');
   }, ADCYCLE_DELAY);
 }
 

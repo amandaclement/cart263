@@ -156,6 +156,7 @@ h5 {
 .post {
   border: 1px solid #A0A0A0;
   border-radius: 5px;
+  margin-bottom: 15px;
 }
 
 .fa-retweet, .fa-heart {
@@ -163,16 +164,21 @@ h5 {
   color: #A0A0A0;
 }
 
-#climate, #politics, #medicine {
+#climate, #politics, #medicine, #social {
   height: 550px;
   margin-bottom: 100px;
   z-index: -10;
   overflow: hidden;
 }
 
-.articlesBox {
+.articlesBox, .resultsBox {
   overflow-y: scroll;
   height: 100%;
+}
+
+/* ensuring last post doesn't get cut off by overflow */
+#social {
+  padding-bottom: 100px;
 }
 
 section a {
@@ -186,6 +192,7 @@ section a:hover {
 }
 
 #social {
+  height: 320px;
   margin-left: 30px;
 }
 
@@ -199,8 +206,8 @@ section a:hover {
 }
 
 #ads {
-  margin-bottom: 50px;
   position: relative;
+  margin-top: -100px;
 }
 
 .adsBox {
