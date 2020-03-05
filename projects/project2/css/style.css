@@ -170,7 +170,7 @@ h5 {
   overflow: hidden;
 }
 
-#climateArticles {
+.articlesBox {
   overflow-y: scroll;
   height: 100%;
 }
@@ -203,11 +203,11 @@ section a:hover {
   position: relative;
 }
 
-#climateAds {
+.adsBox {
   margin-left: -10px;
 }
 
-#climateAds > img {
+.adsBox > a {
   position: absolute;
 }
 

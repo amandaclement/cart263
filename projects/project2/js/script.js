@@ -80,11 +80,6 @@ function setup() {
   $brokenLink.on('click', blockAccess);
   $fakeLink.on('click', encourage);
 
-  // Base code from https://css-tricks.com/snippets/jquery/simple-auto-playing-slideshow/
-  // Hide ads (first image is placeholder)
-  $("#climateAds > img:gt(0)").hide();
-  setInterval(adCycle, ADCYCLE_DELAY);
-
   // startButton();
   // annyangSetup();
   // newsFeed();
@@ -135,10 +130,16 @@ function annyangSetup() {
     let commands = {
       // Saying 'My name is X' triggers the name function
       "My name is *tag": name,
-      // Saying yes triggers topics function
+      // Saying 'Yes' triggers topics function
       "Yes": topics,
-      // Saying no triggers tryAgain function - simply asking them to try again
-      "No": tryAgain
+      // Saying 'No' triggers tryAgain function - simply asking them to try again
+      "No": tryAgain,
+      // Saying 'Climate' triggers tryAgain showClimateContent function
+      "Climate": showClimateContent,
+      // Saying 'Politics' triggers tryAgain showPoliticsContent function
+      "Politics": showPoliticsContent,
+      // Saying 'Medicine' triggers tryAgain showMedicineContent function
+      "Medicine": showMedicineContent
     };
 
     // The name command has been defined so give it to annyang
@@ -202,6 +203,8 @@ function tryAgain() {
 }
 
 function topics() {
+  responsiveVoice.speak('Please select your topic for today', 'UK English Female');
+
   // Hide the intro text and the buttons
   $('#intro').hide();
   $('.yes').hide();
@@ -219,7 +222,7 @@ function topics() {
   // Turn the div into a button using jQuery UI's .button() method
   $climateButton.button();
   // Listen for a click on the button - if clicked, display climate content
-  $climateButton.on('click',showClimateContent);
+  $climateButton.on('click', showClimateContent);
   // Finally, add the button to the page so we can see it
   $('body').append($climateButton);
 
@@ -232,20 +235,20 @@ function topics() {
   // Turn the div into a button using jQuery UI's .button() method
   $politicsButton.button();
   // Listen for a click on the button - if clicked, display politics content
-  $politicsButton.on('click',showPoliticsContent);
+  $politicsButton.on('click', showPoliticsContent);
   // Finally, add the button to the page so we can see it
   $('body').append($politicsButton);
 
   // Creating the medicine button
   let $medicineButton = $('<div></div>');
-  // Give it the climateButton class
+  // Give it the medicineButton class
   $medicineButton.addClass('medicine');
-  // Set the text in the div to 'Climate'
+  // Set the text in the div to 'Medicine'
   $medicineButton.text('Medicine');
   // Turn the div into a button using jQuery UI's .button() method
   $medicineButton.button();
   // Listen for a click on the button - if clicked, display medicine content
-  $medicineButton.on('click',showMedicineContent);
+  $medicineButton.on('click', showMedicineContent);
   // Finally, add the button to the page so we can see it
   $('body').append($medicineButton);
 }
@@ -260,6 +263,18 @@ function showClimateContent() {
 
   // And show the rest of the main content
   mainContent();
+
+  // Base code from https://css-tricks.com/snippets/jquery/simple-auto-playing-slideshow/
+  // Cycling through climate ads
+  $("#climateAds > a:gt(0)").hide();
+  setInterval( function() {
+    $('#climateAds > a:first')
+      .fadeOut(100) // 100 ms
+      .next() // go to next image in cycle
+      .fadeIn(100) // 100 ms
+      .end()
+      .appendTo('.#climateAds');
+  }, ADCYCLE_DELAY);
 }
 
 // showPoliticsContent
@@ -272,6 +287,17 @@ function showPoliticsContent() {
 
   // And show the rest of the main content
   mainContent();
+
+  // Cycling through politics ads
+  $("#politicsAds > a:gt(0)").hide();
+  setInterval( function() {
+    $('#politicsAds > a:first')
+      .fadeOut(100) // 100 ms
+      .next() // go to next image in cycle
+      .fadeIn(100) // 100 ms
+      .end()
+      .appendTo('.#politicsAds');
+  }, ADCYCLE_DELAY);
 }
 
 // showMedicineContent
@@ -284,6 +310,17 @@ function showMedicineContent() {
 
   // And show the rest of the main content
   mainContent();
+
+  // Cycling through medicine ads
+  $("#medicineAds > a:gt(0)").hide();
+  setInterval( function() {
+    $('#medicineAds > a:first')
+      .fadeOut(100) // 100 ms
+      .next() // go to next image in cycle
+      .fadeIn(100) // 100 ms
+      .end()
+      .appendTo('.#medicineAds');
+  }, ADCYCLE_DELAY);
 }
 
 // mainContent
@@ -389,10 +426,10 @@ function encourage() {
 //
 // Making the ad images appear one by one in a cycle at 8 second intervals
 function adCycle() {
-  $('#climateAds > img:first')
+  $('.adsBox > a:first')
     .fadeOut(100) // 100 ms
     .next() // go to next image in cycle
     .fadeIn(100) // 100 ms
     .end()
-    .appendTo('#climateAds');
+    .appendTo('.adsBox');
 }
