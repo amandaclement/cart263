@@ -15,16 +15,23 @@ body {
   height: 100vh;
 }
 
-/* styling for start, yes and no buttons - overwrites all other button styling */
-.start, .yes, .no, .ask {
-  font-family: 'Overpass','Helvetica', sans-serif !important;
+/* styling for buttons */
+.start {
   margin-top: 350px;
+}
+
+.start, .yes, .no, .ask, .climate, .politics, .medicine {
+  font-family: 'Overpass','Helvetica', sans-serif !important;
   border: 0 !important;
   color: #FFF !important;
   background-color: #A0A0A0 !important;
 }
 
-.start:hover, .yes:hover, .no:hover, .ask:hover {
+.medicine, .politics {
+  margin-left: 10px;
+}
+
+.start:hover, .yes:hover, .no:hover, .ask:hover, .climate:hover, .politics:hover, .medicine:hover {
   background-color: #17E0B8 !important;
   transition: 0.3s;
 }
@@ -53,13 +60,13 @@ body {
 }
 
 h1 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   display: none;
   margin-top: 320px;
 }
 
 h2 {
-  margin-top: 0px;
+  margin-top: 0;
   color: #17E0B8;
   font-size: 17px;
   display: none;
@@ -75,6 +82,11 @@ h2 {
 .yes, .no {
   margin-top: 0;
   font-size: 14px !important;
+}
+
+#topics {
+  display: none;
+  margin-top: 320px;
 }
 
 section {
@@ -151,19 +163,14 @@ h5 {
   color: #A0A0A0;
 }
 
-#politics, #medicine {
-  display: none;
-  font-size: 17px;
-}
-
-#climate {
+#climate, #politics, #medicine {
   height: 550px;
   margin-bottom: 100px;
   z-index: -10;
   overflow: hidden;
 }
 
-#climate-content {
+#climateArticles {
   overflow-y: scroll;
   height: 100%;
 }

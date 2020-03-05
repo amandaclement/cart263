@@ -15,16 +15,18 @@ let $repost;
 let $brokenLink;
 let $fakeLink;
 
+let topic;
+
 let likeComments = [
   'Nice one!',
   'Glad you liked it',
-  'I like that one too'
+  'Liked!'
 ];
 
 let repostComments = [
   'Great repost!',
   'Thanks for sharing that',
-  'It has been reposted'
+  'Reposted!'
 ];
 
 let blockedComments = [
@@ -37,8 +39,7 @@ let blockedComments = [
 let encouragingComments = [
   "Good choice",
   "A very interesting read",
-  "Enjoy!",
-  "This one is very educational"
+  "Enjoy!"
 ];
 
 let beginOpinions = [
@@ -74,19 +75,21 @@ function setup() {
   $brokenLink = $(".broken");
   $fakeLink = $(".fake");
 
-  $heart.on('click',liked);
-  $repost.on('click',reposted);
-  $brokenLink.on('click',blockAccess);
-  $fakeLink.on('click',encourage);
+  $heart.on('click', liked);
+  $repost.on('click', reposted);
+  $brokenLink.on('click', blockAccess);
+  $fakeLink.on('click', encourage);
 
-// Base code from https://css-tricks.com/snippets/jquery/simple-auto-playing-slideshow/
-// Hide ads (first image is placeholder)
- $("#climateAds > img:gt(0)").hide();
- setInterval(adCycle, ADCYCLE_DELAY);
+  // Base code from https://css-tricks.com/snippets/jquery/simple-auto-playing-slideshow/
+  // Hide ads (first image is placeholder)
+  $("#climateAds > img:gt(0)").hide();
+  setInterval(adCycle, ADCYCLE_DELAY);
 
-  startButton();
-  annyangSetup();
+  // startButton();
+  // annyangSetup();
   // newsFeed();
+  // showClimateContent();
+  topics();
 }
 
 // startButton()
@@ -111,16 +114,16 @@ function startButton() {
 // The title (intro text) fades in and Alice (our virtual assistant) introduces herself
 function intro() {
   // Hide the start button
-    $('.start').hide();
-    // Fade in 'Alice'
-    $('h1').delay(200).fadeIn('slow');
-    // Fade in 'Your Virtual Assistant'
-    $('h2').delay(800).fadeIn('slow');
-    // Fade in 'My name is _____'
-    $('.instructions').delay(5000).fadeIn('slow');
-    // Alice introduces herself
-    responsiveVoice.speak('Welcome, my name is Alice. I am your virtual assistant. To get started, please say your name.', 'UK English Female');
-  }
+  $('.start').hide();
+  // Fade in 'Alice'
+  $('h1').delay(200).fadeIn('slow');
+  // Fade in 'Your Virtual Assistant'
+  $('h2').delay(800).fadeIn('slow');
+  // Fade in 'My name is _____'
+  $('.instructions').delay(5000).fadeIn('slow');
+  // Alice introduces herself
+  responsiveVoice.speak('Welcome, my name is Alice. I am your virtual assistant. To get started, please say your name.', 'UK English Female');
+}
 
 // annyangSetup()
 //
@@ -132,8 +135,8 @@ function annyangSetup() {
     let commands = {
       // Saying 'My name is X' triggers the name function
       "My name is *tag": name,
-      // Saying yes triggers newsFeed function
-      "Yes": newsFeed,
+      // Saying yes triggers topics function
+      "Yes": topics,
       // Saying no triggers tryAgain function - simply asking them to try again
       "No": tryAgain
     };
@@ -168,11 +171,11 @@ function name(tag) {
   // Turn the div into a button using jQuery UI's .button() method
   $yesButton.button();
   // Listen for a click on the button - progress to the topics page
-  $yesButton.on('click', newsFeed);
+  $yesButton.on('click', topics);
   // Finally, add the button to the page so we can see it
   $('body').append($yesButton);
   // Preventing buttons from multiplying
-  $yesButton.css('position','absolute').css('margin-left','-50px');
+  $yesButton.css('position', 'absolute').css('margin-left', '-50px');
 
   // Creating the noButton
   let $noButton = $('<div></div>');
@@ -184,11 +187,11 @@ function name(tag) {
   $noButton.button();
   // Listen for a click on the button - if clicked, trigger tryAgain
   // which simply asks them to tryAgain
-  $noButton.on('click',tryAgain);
+  $noButton.on('click', tryAgain);
   // Finally, add the button to the page so we can see it
   $('body').append($noButton);
   // Preventing buttons from multiplying
-  $noButton.css('position','absolute').css('margin-left','10px');
+  $noButton.css('position', 'absolute').css('margin-left', '10px');
 }
 
 // tryAgain()
@@ -198,27 +201,142 @@ function tryAgain() {
   responsiveVoice.speak('Please try again.', 'UK English Female');
 }
 
-// newsFeed()
-//
-// Creating and displaying their newsfeed
-function newsFeed() {
+function topics() {
   // Hide the intro text and the buttons
   $('#intro').hide();
   $('.yes').hide();
   $('.no').hide();
 
+  // Show topics title
+  $('#topics').show();
+
+  // Creating the climate button
+  let $climateButton = $('<div></div>');
+  // Give it the climate class
+  $climateButton.addClass('climate');
+  // Set the text in the div to 'Climate'
+  $climateButton.text('Climate');
+  // Turn the div into a button using jQuery UI's .button() method
+  $climateButton.button();
+  // Listen for a click on the button - if clicked, display climate content
+  $climateButton.on('click',showClimateContent);
+  // Finally, add the button to the page so we can see it
+  $('body').append($climateButton);
+
+  // Creating the politics button
+  let $politicsButton = $('<div></div>');
+  // Give it the politicsButton class
+  $politicsButton.addClass('politics');
+  // Set the text in the div to 'Politics'
+  $politicsButton.text('Politics');
+  // Turn the div into a button using jQuery UI's .button() method
+  $politicsButton.button();
+  // Listen for a click on the button - if clicked, display politics content
+  $politicsButton.on('click',showPoliticsContent);
+  // Finally, add the button to the page so we can see it
+  $('body').append($politicsButton);
+
+  // Creating the medicine button
+  let $medicineButton = $('<div></div>');
+  // Give it the climateButton class
+  $medicineButton.addClass('medicine');
+  // Set the text in the div to 'Climate'
+  $medicineButton.text('Medicine');
+  // Turn the div into a button using jQuery UI's .button() method
+  $medicineButton.button();
+  // Listen for a click on the button - if clicked, display medicine content
+  $medicineButton.on('click',showMedicineContent);
+  // Finally, add the button to the page so we can see it
+  $('body').append($medicineButton);
+}
+
+// showClimateContent
+//
+// Displaying only the climate content
+function showClimateContent() {
+  // Hide politics and medicine content
+  $('.politicsContent').hide();
+  $('.medicineContent').hide();
+
+  // And show the rest of the main content
+  mainContent();
+}
+
+// showPoliticsContent
+//
+// Displaying only the politics content
+function showPoliticsContent() {
+  // Hide climate and medicine content
+  $('.climateContent').hide();
+  $('.medicineContent').hide();
+
+  // And show the rest of the main content
+  mainContent();
+}
+
+// showMedicineContent
+//
+// Displaying only the medicine content
+function showMedicineContent() {
+  // Hide climate and politics content
+  $('.climateContent').hide();
+  $('.politicsContent').hide();
+
+  // And show the rest of the main content
+  mainContent();
+}
+
+// mainContent
+//
+// Displays main content and actives Alice's newFeed intro speech
+function mainContent() {
+  // And show the rest of the mainContent
   $('#mainContent').delay(400).fadeIn('slow');
   responsiveVoice.speak('I have just generated your newsfeed. Click on the microphone icon next to any section title for more information. Happy browsing!', 'UK English Female');
 
+  hideTopics();
+  micClick();
+}
+
+// micClick()
+//
+// When user clicks one of the microphone icons, Alice responds
+function micClick() {
   // Listen for a click on the 'Recommended Articles' microphone icon (mic1)
   // if clicked, activate speech
-  $('.mic1').on('click', function() { responsiveVoice.speak('Here is a list of articles I generated for you. I filtered them from a larger database to display the best content. Click on a link to read the full article.', 'UK English Female') });
+  $('.mic1').on('click', function() {
+    responsiveVoice.speak('Here is a list of articles I generated for you. I filtered them from a larger database to display the best content. Click on a link to read the full article.', 'UK English Female')
+  });
 
   // Listen for a click on the 'Social Feed' microphone icon (mic2)
   // if clicked, activate speech
-  $('.mic2').on('click', function() { responsiveVoice.speak('These topics appear to be frequently discussed on social media platforms. Here are some of the trending posts. You can repost or like them by clicking the appropriate icon.', 'UK English Female') });
+  $('.mic2').on('click', function() {
+    responsiveVoice.speak('These topics appear to be frequently discussed on social media platforms. Here are some of the trending posts. You can repost or like them by clicking the appropriate icon.', 'UK English Female')
+  });
 
+  // Listen for a click on the 'Ask for Alice's Opinion' microphone icon (mic3)
+  // if clicked, trigger aliceOpinion function (which generates speech)
   $('.mic3').on('click', aliceOpinion);
+
+}
+
+// aliceOpinion
+//
+// Triggered when user clicks 'Ask for Alice's Opinion' button, which generates
+// a string of text for her to say from the respective array (depends on topic)
+function aliceOpinion() {
+  let beginOpinion = beginOpinions[Math.floor(Math.random() * beginOpinions.length)];
+
+  let generatingClimateOpinion = climateOpinions[Math.floor(Math.random() * climateOpinions.length)];
+  responsiveVoice.speak(beginOpinion + generatingClimateOpinion, 'UK English Female');
+}
+
+function hideTopics() {
+  // Hide the topics content
+  $('#topics').hide();
+  $('.climate').hide();
+  $('.politics').hide();
+  $('.medicine').hide();
 }
 
 // liked()
@@ -227,7 +345,7 @@ function newsFeed() {
 // a comment from the likeComments array for Alice to say
 // after a delay, fade the entire post away
 function liked() {
-  $(this).css('color','#E60000');
+  $(this).css('color', '#E60000');
   let generatingLikeComment = likeComments[Math.floor(Math.random() * likeComments.length)];
   responsiveVoice.speak(generatingLikeComment, 'UK English Female');
   $(this).parent().delay(300).fadeOut(500);
@@ -239,7 +357,7 @@ function liked() {
 // a comment from the repostComments array for Alice to say
 // after a delay, fade the entire post away
 function reposted() {
-  $(this).css('color','#1A8CFF');
+  $(this).css('color', '#1A8CFF');
   let generatingRepostComment = repostComments[Math.floor(Math.random() * repostComments.length)];
   responsiveVoice.speak(generatingRepostComment, 'UK English Female');
 }
@@ -264,28 +382,17 @@ function encourage() {
   let generatingEncouragingComment = encouragingComments[Math.floor(Math.random() * encouragingComments.length)];
   responsiveVoice.speak(generatingEncouragingComment, 'UK English Female');
   // Also make the link title red so they know they've visited it
-  $(this).css('color','#E60000');
+  $(this).css('color', '#E60000');
 }
 
 // adCycle
 //
 // Making the ad images appear one by one in a cycle at 8 second intervals
 function adCycle() {
-    $('#climateAds > img:first')
+  $('#climateAds > img:first')
     .fadeOut(100) // 100 ms
     .next() // go to next image in cycle
     .fadeIn(100) // 100 ms
     .end()
     .appendTo('#climateAds');
-}
-
-// aliceOpinion
-//
-// Triggered when user clicks 'Ask for Alice's Opinion' button, which generates
-// a string of text for her to say from the respective array (depends on topic)
-function aliceOpinion() {
-  let beginOpinion = beginOpinions[Math.floor(Math.random() * beginOpinions.length)];
-
-  let generatingClimateOpinion = climateOpinions[Math.floor(Math.random() * climateOpinions.length)];
-  responsiveVoice.speak(beginOpinion + generatingClimateOpinion, 'UK English Female');
 }
