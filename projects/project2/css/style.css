@@ -10,14 +10,13 @@ body {
 #mainContent {
   display: none;
   padding: 0;
-}
-
-#top-bar {
-  position: fixed;
+  /* disabling scrolling - content fills browser height */
+  overflow: hidden;
+  height: 100vh;
 }
 
 /* styling for start, yes and no buttons - overwrites all other button styling */
-.start, .yes, .no {
+.start, .yes, .no, .ask {
   font-family: 'Overpass','Helvetica', sans-serif !important;
   margin-top: 350px;
   border: 0 !important;
@@ -25,7 +24,7 @@ body {
   background-color: #A0A0A0 !important;
 }
 
-.start:hover, .yes:hover, .no:hover {
+.start:hover, .yes:hover, .no:hover, .ask:hover {
   background-color: #17E0B8 !important;
   transition: 0.3s;
 }
@@ -35,6 +34,7 @@ body {
 }
 
 #top-bar {
+  position: fixed;
   background-color: #000;
   width: 100%;
   height: 40px;
@@ -157,7 +157,8 @@ h5 {
 }
 
 #climate {
-  height: 100vh;
+  height: 550px;
+  margin-bottom: 100px;
   z-index: -10;
   overflow: hidden;
 }
@@ -177,18 +178,13 @@ section a:hover {
   color: #000;
 }
 
+#social {
+  margin-left: 30px;
+}
+
 #social, #ads {
   float: right;
   width: 40%;
-}
-
-#opinion {
-  float: right;
-  width: 40%;
-}
-
-.post {
-
 }
 
 #ads h3 {
@@ -196,14 +192,19 @@ section a:hover {
 }
 
 #ads {
-  padding-bottom: 20px;
+  margin-bottom: 50px;
+  position: relative;
 }
 
 #climateAds {
   margin-top: 55px;
-  position: relative;
+  margin-left: -10px;
 }
 
 #climateAds > img {
   position: absolute;
+}
+
+#opinion {
+  margin-top: -55px;
 }

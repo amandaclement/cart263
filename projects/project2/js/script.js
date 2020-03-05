@@ -41,6 +41,26 @@ let encouragingComments = [
   "This one is very educational"
 ];
 
+let beginOpinions = [
+  "My sources tell me that",
+  "According to my research",
+  "It appears that",
+  "Evidence supports that",
+  "From what I gather",
+  "Research shows that"
+];
+
+// An array of ridiculous opinions about climate change
+let climateOpinions = [
+  "Extreme weather isn't caused by global warming.",
+  "Climate change is a hoax. Don't trust the liberals.",
+  "Global warming is not induced by humans. It's just the sun.",
+  "Climate scientists are in it for the money.",
+  "Greenhouse effect has been falsified.",
+  "Wildfires are not caused by global warming",
+  "Humans are too insignificant to affect global climate."
+];
+
 // When the document is loaded, we call the setup function
 $(document).ready(setup);
 
@@ -64,7 +84,7 @@ function setup() {
  $("#climateAds > img:gt(0)").hide();
  setInterval(adCycle, ADCYCLE_DELAY);
 
-  // startButton();
+   // startButton();
   // annyangSetup();
   newsFeed();
 }
@@ -181,6 +201,8 @@ function newsFeed() {
   // Listen for a click on the 'Social Feed' microphone icon (mic2)
   // if clicked, activate speech
   $('.mic2').on('click', function() { responsiveVoice.speak('These topics appear to be frequently discussed on social media platforms. Here are some of the trending posts. You can repost or like them by clicking the appropriate icon.', 'UK English Female') });
+
+  $('.mic3').on('click', aliceOpinion);
 }
 
 // liked()
@@ -239,4 +261,15 @@ function adCycle() {
     .fadeIn(100) // 100 ms
     .end()
     .appendTo('#climateAds');
+}
+
+// aliceOpinion
+//
+// Triggered when user clicks 'Ask for Alice's Opinion' button, which generates
+// a string of text for her to say from the respective array (depends on topic)
+function aliceOpinion() {
+  let beginOpinion = beginOpinions[Math.floor(Math.random() * beginOpinions.length)];
+
+  let generatingClimateOpinion = climateOpinions[Math.floor(Math.random() * climateOpinions.length)];
+  responsiveVoice.speak(beginOpinion + generatingClimateOpinion, 'UK English Female');
 }
