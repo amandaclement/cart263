@@ -84,9 +84,9 @@ function setup() {
  $("#climateAds > img:gt(0)").hide();
  setInterval(adCycle, ADCYCLE_DELAY);
 
-   // startButton();
-  // annyangSetup();
-  newsFeed();
+  startButton();
+  annyangSetup();
+  // newsFeed();
 }
 
 // startButton()
@@ -131,7 +131,11 @@ function annyangSetup() {
     // Add commands to annyang - it should listen
     let commands = {
       // Saying 'My name is X' triggers the name function
-      "My name is *tag": name
+      "My name is *tag": name,
+      // Saying yes triggers newsFeed function
+      "Yes": newsFeed,
+      // Saying no triggers tryAgain function - simply asking them to try again
+      "No": tryAgain
     };
 
     // The name command has been defined so give it to annyang
@@ -167,6 +171,8 @@ function name(tag) {
   $yesButton.on('click', newsFeed);
   // Finally, add the button to the page so we can see it
   $('body').append($yesButton);
+  // Preventing buttons from multiplying
+  $yesButton.css('position','absolute').css('margin-left','-50px');
 
   // Creating the noButton
   let $noButton = $('<div></div>');
@@ -176,10 +182,20 @@ function name(tag) {
   $noButton.text('No');
   // Turn the div into a button using jQuery UI's .button() method
   $noButton.button();
-  // Listen for a click on the button - if clicked, ask them to try again
-  $noButton.on('click', function() { responsiveVoice.speak('Please try again.', 'UK English Female') });
+  // Listen for a click on the button - if clicked, trigger tryAgain
+  // which simply asks them to tryAgain
+  $noButton.on('click',tryAgain);
   // Finally, add the button to the page so we can see it
   $('body').append($noButton);
+  // Preventing buttons from multiplying
+  $noButton.css('position','absolute').css('margin-left','10px');
+}
+
+// tryAgain()
+//
+// Asks user to try again - used when Alice says their name incorrectly
+function tryAgain() {
+  responsiveVoice.speak('Please try again.', 'UK English Female');
 }
 
 // newsFeed()
