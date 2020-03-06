@@ -12,6 +12,7 @@ const ADCYCLE_DELAY = 8000;
 
 let $heart;
 let $repost;
+let $blockedAction;
 let $brokenLink;
 let $fakeLink;
 
@@ -42,6 +43,13 @@ let encouragingComments = [
   "Enjoy!"
 ];
 
+let blockActionComments = [
+  "Nope",
+  "Let's get rid of that",
+  "I'm blocking that one",
+  "Let's remove that"
+];
+
 let beginOpinions = [
   "My sources tell me that",
   "According to my research",
@@ -70,13 +78,15 @@ $(document).ready(setup);
 // This code will run when the document is ready
 function setup() {
   // Storing HTML elements inside their respective variables
-  $heart = $(".fa-heart");
-  $repost = $(".fa-retweet");
+  $heart = $(".fa-heart.working");
+  $repost = $(".fa-retweet.working");
+  $blockedAction= $(".blocked");
   $brokenLink = $(".broken");
   $fakeLink = $(".fake");
 
   $heart.on('click', liked);
   $repost.on('click', reposted);
+  $blockedAction.on('click', blockAction);
   $brokenLink.on('click', blockAccess);
   $fakeLink.on('click', encourage);
 
@@ -202,6 +212,10 @@ function tryAgain() {
   responsiveVoice.speak('Please try again.', 'UK English Female');
 }
 
+// topics()
+//
+// Topics section - displays three buttons: climtae, politics, and medicine
+// user what type of content they'd like to see
 function topics() {
   responsiveVoice.speak('Please select your topic for today', 'UK English Female');
 
@@ -397,6 +411,18 @@ function reposted() {
   $(this).css('color', '#1A8CFF');
   let generatingRepostComment = repostComments[Math.floor(Math.random() * repostComments.length)];
   responsiveVoice.speak(generatingRepostComment, 'UK English Female');
+  $(this).parent().delay(300).fadeOut(500);
+}
+
+// blockAction()
+//
+// Triggered when user clicks heart or repost icon on one of the more intelligent
+// posts. It shakes since Alice blocks user from liking/reposting, then it fades out.
+// Alice also responds using a string from blockActionComments array
+function blockAction() {
+  let generatingblockActionComment = blockActionComments[Math.floor(Math.random() * blockActionComments.length)];
+  responsiveVoice.speak(generatingblockActionComment, 'UK English Female');
+  $(this).parent().effect('shake').delay(600).fadeOut(500);
 }
 
 // blockAccess()
