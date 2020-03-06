@@ -59,7 +59,7 @@ let beginOpinions = [
   "Research shows that"
 ];
 
-// An array of ridiculous opinions about climate change
+// An array of ridiculous opinions about the climate
 let climateOpinions = [
   "Extreme weather isn't caused by global warming.",
   "Climate change is a hoax. Don't trust the liberals.",
@@ -68,6 +68,30 @@ let climateOpinions = [
   "Greenhouse effect has been falsified.",
   "Wildfires are not caused by global warming",
   "Humans are too insignificant to affect global climate."
+];
+
+// An array of ridiculous opinions about politics
+let politicsOpinions = [
+  "Donald Trump is a great character",
+  "You shouldn't trust the Democrats",
+  "Explosives were used to blow up the Twin Towers on nine eleven.",
+  "Republican is the way to go!",
+  "America needs guns",
+  "Donald Trump is America's hero",
+  "You shouldn't trust Barack Obama",
+  "Jeffrey Epstein was undeniably murdered",
+  "We were lied to about the Holocaust. Less than a million Jews were killed."
+];
+
+// An array of ridiculous opinions about medicine
+let medicineOpinions = [
+  "Vaccinations cause autism.",
+  "The best way to keep your child safe is to avoid vaccines.",
+  "Homosexuality is a choice.",
+  "The cure for cancer exists. The government is hiding it from us.",
+  "The Corona Virus is man-made bioweapon created by the Chinese government.",
+  "The CIA created HIV AIDS",
+  "The Chinese goverment is out to get us all."
 ];
 
 // When the document is loaded, we call the setup function
@@ -289,6 +313,21 @@ function showClimateContent() {
       .end()
       .appendTo('#climateAds');
   }, ADCYCLE_DELAY);
+
+  // Listen for a click on the 'Ask for Alice's Opinion' microphone icon (mic3)
+  // if clicked, trigger aliceClimateOpinion function (which generates speech)
+  $('.mic3').on('click', aliceClimateOpinion);
+}
+
+// aliceClimateOpinion
+//
+// Triggered when user clicks 'Ask for Alice's Opinion' button, which generates
+// a string of text for her to say from the climateOpinions array
+function aliceClimateOpinion() {
+  let beginOpinion = beginOpinions[Math.floor(Math.random() * beginOpinions.length)];
+
+  let generatingClimateOpinion = climateOpinions[Math.floor(Math.random() * climateOpinions.length)];
+  responsiveVoice.speak(beginOpinion + generatingClimateOpinion, 'UK English Female');
 }
 
 // showPoliticsContent
@@ -312,6 +351,21 @@ function showPoliticsContent() {
       .end()
       .appendTo('#politicsAds');
   }, ADCYCLE_DELAY);
+
+  // Listen for a click on the 'Ask for Alice's Opinion' microphone icon (mic3)
+  // if clicked, trigger alicePoliticsOpinion function (which generates speech)
+  $('.mic3').on('click', alicePoliticsOpinion);
+}
+
+// alicePoliticsOpinion
+//
+// Triggered when user clicks 'Ask for Alice's Opinion' button, which generates
+// a string of text for her to say from the politicsOpinions array
+function alicePoliticsOpinion() {
+  let beginOpinion = beginOpinions[Math.floor(Math.random() * beginOpinions.length)];
+
+  let generatingPoliticsOpinion = politicsOpinions[Math.floor(Math.random() * politicsOpinions.length)];
+  responsiveVoice.speak(beginOpinion + generatingPoliticsOpinion, 'UK English Female');
 }
 
 // showMedicineContent
@@ -335,6 +389,21 @@ function showMedicineContent() {
       .end()
       .appendTo('#medicineAds');
   }, ADCYCLE_DELAY);
+
+  // Listen for a click on the 'Ask for Alice's Opinion' microphone icon (mic3)
+  // if clicked, trigger aliceMedicineOpinion function (which generates speech)
+  $('.mic3').on('click', aliceMedicineOpinion);
+}
+
+// aliceMedicineOpinion
+//
+// Triggered when user clicks 'Ask for Alice's Opinion' button, which generates
+// a string of text for her to say from the medicineOpinions array
+function aliceMedicineOpinion() {
+  let beginOpinion = beginOpinions[Math.floor(Math.random() * beginOpinions.length)];
+
+  let generatingMedicineOpinion = medicineOpinions[Math.floor(Math.random() * medicineOpinions.length)];
+  responsiveVoice.speak(beginOpinion + generatingMedicineOpinion, 'UK English Female');
 }
 
 // mainContent
@@ -364,22 +433,6 @@ function micClick() {
   $('.mic2').on('click', function() {
     responsiveVoice.speak('These topics appear to be frequently discussed on social media platforms. Here are some of the trending posts. You can repost or like them by clicking the appropriate icon.', 'UK English Female')
   });
-
-  // Listen for a click on the 'Ask for Alice's Opinion' microphone icon (mic3)
-  // if clicked, trigger aliceOpinion function (which generates speech)
-  $('.mic3').on('click', aliceOpinion);
-
-}
-
-// aliceOpinion
-//
-// Triggered when user clicks 'Ask for Alice's Opinion' button, which generates
-// a string of text for her to say from the respective array (depends on topic)
-function aliceOpinion() {
-  let beginOpinion = beginOpinions[Math.floor(Math.random() * beginOpinions.length)];
-
-  let generatingClimateOpinion = climateOpinions[Math.floor(Math.random() * climateOpinions.length)];
-  responsiveVoice.speak(beginOpinion + generatingClimateOpinion, 'UK English Female');
 }
 
 function hideTopics() {
