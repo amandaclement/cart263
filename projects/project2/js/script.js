@@ -80,8 +80,8 @@ function setup() {
   $brokenLink.on('click', blockAccess);
   $fakeLink.on('click', encourage);
 
-  // startButton();
-  // annyangSetup();
+   // startButton();
+   // annyangSetup();
   // newsFeed();
   // showClimateContent();
   topics();
