@@ -5,11 +5,18 @@
 Project 2
 Amanda Clement
 
+Inspired by James Bridle’s essay Something is wrong on the internet, my project
+criticizes and emphasizes the use of bots in sorting and filtering online content.
+Although they seemingly simplify our browsing experience, these algorithms help
+to propagate fake news and censor subject matter. My project demonstrates this
+idea in an exaggerated manner.
+
 *********************************************************************/
 
 // Constant for time between each ad (8 seconds)
 const ADCYCLE_DELAY = 8000;
 
+// Setting up variables
 let $heart;
 let $repost;
 let $blockedAction;
@@ -18,36 +25,36 @@ let $fakeLink;
 
 let topic;
 
+// Array for when user 'likes' a post
 let likeComments = [
   'Nice one!',
   'Glad you liked it',
   'Liked!'
 ];
 
+// Array for when user 'reposts' a post
 let repostComments = [
   'Great repost!',
   'Thanks for sharing that',
   'Reposted!'
 ];
 
+// Array tries to 'like' or 'repost' one of the blocked posts
 let blockedComments = [
   "You wouldn't like that one",
   "Let's skip that",
   "You wouldn't be interested",
-  "Let's get rid of that"
+  "Let's get rid of that",
+  "Nope",
+  "I'm blocking that one",
+  "Let's remove that"
 ];
 
+// Array encouraging user to read fake news/conspiracy articles
 let encouragingComments = [
   "Good choice",
   "A very interesting read",
   "Enjoy!"
-];
-
-let blockActionComments = [
-  "Nope",
-  "Let's get rid of that",
-  "I'm blocking that one",
-  "Let's remove that"
 ];
 
 let beginOpinions = [
@@ -104,7 +111,7 @@ function setup() {
   // Storing HTML elements inside their respective variables
   $heart = $(".fa-heart.working");
   $repost = $(".fa-retweet.working");
-  $blockedAction= $(".blocked");
+  $blockedAction = $(".blocked");
   $brokenLink = $(".broken");
   $fakeLink = $(".fake");
 
@@ -114,11 +121,8 @@ function setup() {
   $brokenLink.on('click', blockAccess);
   $fakeLink.on('click', encourage);
 
-   // startButton();
-   // annyangSetup();
-  // newsFeed();
-  // showClimateContent();
-  topics();
+  startButton();
+  annyangSetup();
 }
 
 // startButton()
@@ -138,7 +142,7 @@ function startButton() {
   $('body').append($startButton);
 }
 
-// intro
+// intro()
 //
 // The title (intro text) fades in and Alice (our virtual assistant) introduces herself
 function intro() {
@@ -305,7 +309,7 @@ function showClimateContent() {
   // Base code from https://css-tricks.com/snippets/jquery/simple-auto-playing-slideshow/
   // Cycling through climate ads
   $("#climateAds > a:gt(0)").hide();
-  setInterval( function() {
+  setInterval(function() {
     $('#climateAds > a:first')
       .fadeOut(100) // 100 ms
       .next() // go to next image in cycle
@@ -343,7 +347,7 @@ function showPoliticsContent() {
 
   // Cycling through politics ads
   $("#politicsAds > a:gt(0)").hide();
-  setInterval( function() {
+  setInterval(function() {
     $('#politicsAds > a:first')
       .fadeOut(100) // 100 ms
       .next() // go to next image in cycle
@@ -381,7 +385,7 @@ function showMedicineContent() {
 
   // Cycling through medicine ads
   $("#medicineAds > a:gt(0)").hide();
-  setInterval( function() {
+  setInterval(function() {
     $('#medicineAds > a:first')
       .fadeOut(100) // 100 ms
       .next() // go to next image in cycle
@@ -435,8 +439,10 @@ function micClick() {
   });
 }
 
+// hideTopics()
+//
+// Hide the topics content
 function hideTopics() {
-  // Hide the topics content
   $('#topics').hide();
   $('.climate').hide();
   $('.politics').hide();
@@ -447,7 +453,7 @@ function hideTopics() {
 //
 // Make heart red when clicked as if the user has liked the post, and generate
 // a comment from the likeComments array for Alice to say
-// after a delay, fade the entire post away
+// then after a delay, fade the entire post away
 function liked() {
   $(this).css('color', '#E60000');
   let generatingLikeComment = likeComments[Math.floor(Math.random() * likeComments.length)];
@@ -459,7 +465,7 @@ function liked() {
 //
 // Make repost icon blue when clicked as if the user has reposted it, and generate
 // a comment from the repostComments array for Alice to say
-// after a delay, fade the entire post away
+// then after a delay, fade the entire post away
 function reposted() {
   $(this).css('color', '#1A8CFF');
   let generatingRepostComment = repostComments[Math.floor(Math.random() * repostComments.length)];
@@ -471,26 +477,31 @@ function reposted() {
 //
 // Triggered when user clicks heart or repost icon on one of the more intelligent
 // posts. It shakes since Alice blocks user from liking/reposting, then it fades out.
-// Alice also responds using a string from blockActionComments array
 function blockAction() {
-  let generatingblockActionComment = blockActionComments[Math.floor(Math.random() * blockActionComments.length)];
-  responsiveVoice.speak(generatingblockActionComment, 'UK English Female');
   $(this).parent().effect('shake').delay(600).fadeOut(500);
+  // Alice responds
+  blockedComment();
 }
 
 // blockAccess()
 //
 // Triggered when user attempts to click link that would reveal true information,
-// the link leads no where and generate a comment from the blockedComments array
-// for Alice to say
-// after a delay, fade is away
+// the link leads no where then after a delay, fade is away
 function blockAccess() {
-  let generatingBlockedComment = blockedComments[Math.floor(Math.random() * blockedComments.length)];
-  responsiveVoice.speak(generatingBlockedComment, 'UK English Female');
   $(this).parent().delay(300).fadeOut(300);
+  // Alice responds
+  blockedComment();
 }
 
-// encouragingComments
+// blockedComment()
+//
+// Generating comment from array for Alice to say about her blocking access
+function blockedComment() {
+  let generatingBlockedComment = blockedComments[Math.floor(Math.random() * blockedComments.length)];
+  responsiveVoice.speak(generatingBlockedComment, 'UK English Female');
+}
+
+// encourage()
 //
 // Triggered when user clicks a fakes news link - Alice encourages this behaviour
 // by saying something encouraging
@@ -499,16 +510,4 @@ function encourage() {
   responsiveVoice.speak(generatingEncouragingComment, 'UK English Female');
   // Also make the link title red so they know they've visited it
   $(this).css('color', '#E60000');
-}
-
-// adCycle
-//
-// Making the ad images appear one by one in a cycle at 8 second intervals
-function adCycle() {
-  $('.adsBox > a:first')
-    .fadeOut(100) // 100 ms
-    .next() // go to next image in cycle
-    .fadeIn(100) // 100 ms
-    .end()
-    .appendTo('.adsBox');
 }
