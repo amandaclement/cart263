@@ -48,7 +48,16 @@ function dataLoaded(data) {
   let randomRoom = getRandomElement(data.rooms);
   console.log(randomRoom);
 
-  let description = `${randomCondiment} ${verb} like a ${randomCat} in a ${randomRoom}.`;
+  let randomCountry = getRandomElement(data.countries);
+  console.log(randomCountry);
+
+  let randomWineDescription = getRandomElement(data.wine_descriptions);
+  console.log(randomWineDescription);
+
+  let randomMenuItems = getRandomElement(data.menuItems);
+  console.log(randomMenuItems);
+
+  let description = `${randomCondiment} ${verb} like a ${randomCat} in a ${randomRoom} in ${randomCountry}. On another note, don't you just love ${randomWineDescription} ${randomMenuItems}.`;
   // Add it to the page
   $('body').append(description);
 
