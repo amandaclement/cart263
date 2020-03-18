@@ -5,6 +5,17 @@
 // Uses: Corpora
 // https://github.com/dariusk/corpora
 
+let vowels = [
+  'A',
+  'a',
+  'E',
+  'e',
+  'I',
+  'i',
+  'O',
+  'o'
+];
+
 $(document).ready(setup);
 
 function setup() {
@@ -57,7 +68,26 @@ function dataLoaded(data) {
   let randomMenuItems = getRandomElement(data.menuItems);
   console.log(randomMenuItems);
 
-  let description = `${randomCondiment} ${verb} like a ${randomCat} in a ${randomRoom} in ${randomCountry}. On another note, don't you just love ${randomWineDescription} ${randomMenuItems}.`;
+  // Assume that the noun (randomCat) doesn't start with a vowel
+  let articleCat = "a";
+
+  // Assume that the noun (randomRoom) doesn't start with a vowel
+  let articleRoom = "a";
+
+  // Check if the randomCat or randomRoom starts with an a, e, i, or o
+  // if so, make the respective article become 'an' instead of 'a'
+  for (let i = 0; i < vowels.length; i++) {
+    if (randomCat.charAt(0) === vowels[i]) {
+      articleCat = "an";
+    }
+    if (randomRoom.charAt(0) === vowels[i]) {
+      articleRoom = "an";
+    }
+  }
+
+  console.log(randomCat.charAt(0));
+
+  let description = `${randomCondiment} ${verb} like ${articleCat} ${randomCat} in ${articleRoom} ${randomRoom} in ${randomCountry}. On another note, don't you just love ${randomWineDescription} ${randomMenuItems}.`;
   // Add it to the page
   $('body').append(description);
 
