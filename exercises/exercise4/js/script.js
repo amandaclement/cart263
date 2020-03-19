@@ -5,16 +5,8 @@
 // Uses: Corpora
 // https://github.com/dariusk/corpora
 
-let vowels = [
-  'A',
-  'a',
-  'E',
-  'e',
-  'I',
-  'i',
-  'O',
-  'o'
-];
+// An array of vowels
+let vowels = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o'];
 
 $(document).ready(setup);
 
@@ -28,6 +20,22 @@ function setup() {
   $.getJSON("assets/data/data.json")
     .done(dataLoaded)
     .fail(dataError);
+
+  // Reloading content when user clicks
+  $(document).click(function() {
+    location.reload(true);
+  });
+
+  // Some basic styling
+  $('body').css({
+    'font-family': 'Arial',
+    'font-weight': 'bold',
+    'text-align': 'center',
+    'margin-top': '100px',
+    'background-color': '#FFDB58',
+    'font-size': '150%',
+    'color': '#000080'
+  });
 }
 
 // dataLoaded(data)
@@ -39,8 +47,13 @@ function dataLoaded(data) {
   // our JSON to get a random condiment, cat, and room. Then we add those
   // words onto our page by setting the text of the appropriate span.
 
+  // Getting a random element from each array
   let randomCondiment = getRandomElement(data.condiments);
-  console.log(randomCondiment);
+  let randomCat = getRandomElement(data.cats);
+  let randomRoom = getRandomElement(data.rooms);
+  let randomCountry = getRandomElement(data.countries);
+  let randomWineDescription = getRandomElement(data.wine_descriptions);
+  let randomMenuItems = getRandomElement(data.menuItems);
 
   // Assume it's singular
   let verb = "is";
@@ -51,22 +64,6 @@ function dataLoaded(data) {
     // If so, assume it's plural (this is a flawed assumption)
     verb = "are";
   }
-  console.error(verb);
-
-  let randomCat = getRandomElement(data.cats);
-  console.log(randomCat);
-
-  let randomRoom = getRandomElement(data.rooms);
-  console.log(randomRoom);
-
-  let randomCountry = getRandomElement(data.countries);
-  console.log(randomCountry);
-
-  let randomWineDescription = getRandomElement(data.wine_descriptions);
-  console.log(randomWineDescription);
-
-  let randomMenuItems = getRandomElement(data.menuItems);
-  console.log(randomMenuItems);
 
   // Assume that the noun (randomCat) doesn't start with a vowel
   let articleCat = "a";
@@ -85,22 +82,10 @@ function dataLoaded(data) {
     }
   }
 
-  console.log(randomCat.charAt(0));
-
+  // Generating a description (string)
   let description = `${randomCondiment} ${verb} like ${articleCat} ${randomCat} in ${articleRoom} ${randomRoom} in ${randomCountry}. On another note, don't you just love ${randomWineDescription} ${randomMenuItems}.`;
   // Add it to the page
   $('body').append(description);
-
-  // Some basic styling
-  $('body').css({
-    'font-family': 'Arial',
-    'font-weight': 'bold',
-    'text-align': 'center',
-    'margin-top': '100px',
-    'background-color': '#FFDB58',
-    'font-size': '150%',
-    'color': '#000080'
-  });
 }
 
 // dataError()
