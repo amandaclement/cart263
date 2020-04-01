@@ -10,24 +10,77 @@ author, and this description to match your project!
 
 ******************/
 
-// Planet texture images
+// Declaring the sun, moon, and each planet
+let sun;
+let mercury;
+let venus;
+let earth;
+let moon;
+let mars;
+let jupiter;
+let saturn;
+let uranus;
+let neptune;
+let pluto;
+
+// Texture images
+let sunTextureImg;
+let mercuryTextureImg;
+let venusTextureImg;
+let earthTextureImg;
+let moonTextureImg;
 let marsTextureImg;
+let jupiterTextureImg;
+let saturnTextureImg;
+let saturnRingTextureImg;
+let uranusTextureImg;
+let neptuneTextureImg;
+let plutoTextureImg;
 
 // Sounds effects
+let sunSFX;
+let mercurySFX;
+let venusSFX;
+let earthSFX;
+let moonSFX;
 let marsSFX;
-
-// Declaring planets
-let mars;
+let jupiterSFX;
+let saturnSFX;
+let uranusSFX;
+let neptuneSFX;
+let plutoSFX;
 
 // preload()
 //
-// Description of preload
+// Preloading the planet texture images and sounds
 function preload() {
-  // Loading images
+  // Loading images (planet textures)
+  sunTextureImg = loadImage('../assets/images/sunTexture.jpg');
+  mercuryTextureImg = loadImage('../assets/images/mercuryTexture.jpg');
+  venusTextureImg = loadImage('../assets/images/venusTexture.jpg');
+  earthTextureImg = loadImage('../assets/images/earthTexture.jpg');
+  moonTextureImg = loadImage('../assets/images/moonTexture.jpg');
   marsTextureImg = loadImage('../assets/images/marsTexture.png');
+  jupiterTextureImg = loadImage('../assets/images/jupiterTexture.jpg');
+  saturnTextureImg = loadImage('../assets/images/saturnTexture.png');
+  saturnRingTextureImg = loadImage('../assets/images/saturnRingTexture.jpg'); // texture for saturn's ring
+  uranusTextureImg = loadImage('../assets/images/uranusTexture.jpg');
+  neptuneTextureImg = loadImage('../assets/images/neptuneTexture.jpg');
+  plutoTextureImg = loadImage('../assets/images/plutoTexture.jpg');
 
   // Loading sounds for each planet
-  marsSFX = loadSound('../assets/sounds/mars.mp3');
+  // Sounds from https://www.youtube.com/watch?v=IQL53eQ0cNA & https://www.youtube.com/watch?v=UTAPvPLb7t4
+  let sunSFX = loadSound('../assets/sounds/sun.mp3');
+  let mercurySFX = loadSound('../assets/sounds/mercury.mp3');
+  let venusSFX = loadSound('../assets/sounds/venus.mp3');
+  let earthSFX = loadSound('../assets/sounds/earth.mp3');
+  let moonSFX = loadSound('../assets/sounds/moon.mp3');
+  let marsSFX = loadSound('../assets/sounds/mars.mp3');
+  let jupiterSFX = loadSound('../assets/sounds/jupiter.mp3');
+  let saturnSFX = loadSound('../assets/sounds/saturn.mp3');
+  let uranusSFX = loadSound('../assets/sounds/uranus.mp3');
+  let neptuneSFX = loadSound('../assets/sounds/neptune.mp3');
+  let plutoSFX= loadSound('../assets/sounds/pluto.mp3');
 }
 
 
@@ -71,14 +124,14 @@ function draw() {
 // mousePressed()
 //
 // User presses mouse to activate sound
-function mousePressed() {
-  // If music is already playing and mouse is pressed again, just keep playing it
-  if (marsSFX.isPlaying()) {
-    marsSFX.playMode('sustain');
-  } else {
-    marsSFX.loop(); // Music starts on first mouse press and loops
-  }
-}
+// function mousePressed() {
+//   // If music is already playing and mouse is pressed again, just keep playing it
+//   if (marsSFX.isPlaying()) {
+//     marsSFX.playMode('sustain');
+//   } else {
+//     marsSFX.loop(); // Music starts on first mouse press and loops
+//   }
+// }
 
 // Adding a shadow onto each planet controlled by mouse location
 // uses p5's directionalLight
