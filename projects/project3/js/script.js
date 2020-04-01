@@ -16,6 +16,9 @@ let marsTextureImg;
 // Sounds effects
 let marsSFX;
 
+// Declaring planets
+let mars;
+
 // preload()
 //
 // Description of preload
@@ -36,6 +39,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   // Black background
   background(0);
+
+  // Creating objects (planets)
+  // (radius,texture,millisDivider,length)
+  mars = new Planet(50,marsTextureImg,9000,300);
 }
 
 
@@ -52,81 +59,13 @@ function draw() {
   // click-drag controls perspective angle
   orbitControl();
 
-  // For now I just created a bunch of copies of mars to visualize the scene
-  push();
-  mars();
-  pop();
+  // Adding planet shadow
+  shadow();
 
-  push();
-  translate(p5.Vector.fromAngle(millis() / 6000, 300));
-  mars();
-  pop();
-
-  push();
-  translate(p5.Vector.fromAngle(millis() / 7000, 150));
-  mars();
-  pop();
-
-  push();
-  translate(p5.Vector.fromAngle(millis() / 5000, 450));
-  mars();
-  pop();
-
-  push();
-  translate(p5.Vector.fromAngle(millis() / 9000, 600));
-  mars();
-  pop();
-
-  push();
-  translate(p5.Vector.fromAngle(millis() / 5000, -150));
-  mars();
-  pop();
-
-  push();
-  translate(p5.Vector.fromAngle(millis() / 8000, -300));
-  mars();
-  pop();
-
-  push();
-  translate(p5.Vector.fromAngle(millis() / 9000, -450));
-  mars();
-  pop();
-
-  push();
-  translate(p5.Vector.fromAngle(millis() / 7000, -600));
-  mars();
-  pop();
-}
-
-function mars() {
-  push();
-
-  // Removing stroke
-  noStroke();
-
-  // Apply the appropriate planet texture (img)
-  // texture(marsTextureImg);
-
-  // Map mouse location (horizontal)
-  let distX = map(mouseX, width / 2, 2, 0, width);
-  // Making it rotate according to mouseX
-  let rotationValue = (frameCount * 0.000005 * distX);
-
-  // Making it rotate across each axis
-  rotateY(rotationValue);
-  rotateX(rotationValue);
-  rotateZ(rotationValue);
-
-  // Move your mouse to change light direction
-  let dirX = (mouseX / width - 0.5) * 2;
-  let dirY = (mouseY / height - 0.5) * 2;
-
-  // Adding directional light
-  directionalLight(250, 250, 250, -dirX, -dirY, -1);
-
-  // Draw the planet sphere
-  sphere(50);
-  pop();
+  // Positioning, rotating, and displaying the planets
+  mars.position();
+  mars.rotation();
+  mars.display();
 }
 
 // mousePressed()
@@ -138,5 +77,52 @@ function mousePressed() {
     marsSFX.playMode('sustain');
   } else {
     marsSFX.loop(); // Music starts on first mouse press and loops
+  }
+}
+
+// Adding a shadow onto each planet controlled by mouse location
+// uses p5's directionalLight
+function shadow() {
+  // Moving mouse changes light direction
+  let dirX = (mouseX / width - 0.5) * 2;
+  let dirY = (mouseY / height - 0.5) * 2;
+
+  // Adding directional light
+  directionalLight(250, 250, 250, -dirX, -dirY, -1); // white
+}
+
+// Creating the planet
+class Planet {
+  constructor(radius,texture,millisDivider,length) {
+    this.radius = radius; // size
+    this.texture = texture; // texture (img)
+    this.rotationSpeed = 0.000005;
+    this.millisDivider = millisDivider; // millisecond divider for translation (planet position)
+    this.length = length; // length of new vector (distance from center)
+  }
+  // Translating it to the appropriate position and making it orbit at appropriate speed
+  position() {
+    // p5.Vector.fromAngle() makes a new 2D vector from an angle
+    // millis returns the number of milliseconds since starting the sketch when setup() is called)
+    translate(p5.Vector.fromAngle(millis() / this.millisDivider, this.length));
+  }
+  // Rotating the planet (based on mouseX location)
+  rotation() {
+    // Map mouse location (horizontal)
+    let distX = map(mouseX, width / 2, 2, 0, width);
+    // Making it rotate according to mouseX
+    let rotationValue = (frameCount * this.rotationSpeed * distX);
+
+    // Making it rotate across each axis
+    rotateY(rotationValue);
+    rotateX(rotationValue);
+    rotateZ(rotationValue);
+  }
+  // Displaying the planet
+  display() {
+    // Apply the appropriate texture (img)
+    texture(this.texture);
+    // Leave the default sphere details
+    sphere(this.radius);
   }
 }
