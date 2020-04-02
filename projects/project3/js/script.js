@@ -50,6 +50,46 @@ let uranusSFX;
 let neptuneSFX;
 let plutoSFX;
 
+// Size of each planet in relation to baseSize (10)
+let baseSize = 10;
+let mercurySize = baseSize;
+let sunSize = baseSize * 6.5;
+let venusSize = baseSize * 1.8;
+let earthSize = baseSize * 2;
+let moonSize = baseSize;
+let marsSize = baseSize * 1.3;
+let jupiterSize = baseSize * 5;
+let saturnSize = baseSize * 4;
+let uranusSize = baseSize * 2.9;
+let neptuneSize = baseSize * 2.6;
+let plutoSize = baseSize;
+
+// Distance from center for each planet (length)
+// baseDistance is 100
+let baseDistance = 100;
+let mercuryDistance = baseDistance;
+let venusDistance = baseDistance + 50;
+let earthDistance = baseDistance + 110;
+// let moonDistance = baseDistance + 160;
+let marsDistance = baseDistance + 160;
+let jupiterDistance = baseDistance + 250;
+let saturnDistance = baseDistance + 380;
+let uranusDistance = baseDistance + 490;
+let neptuneDistance = baseDistance + 585;
+let plutoDistance = baseDistance + 655;
+
+// Orbit speed for each planet (millisDivider)
+let earthSpeed = 7000;
+let mercurySpeed = earthSpeed / 1.607;
+let venusSpeed = earthSpeed / 1.174;
+// let moonSpeed = earthSpeed * 1.75;
+let marsSpeed = earthSpeed / 0.802;
+let jupiterSpeed = earthSpeed / 0.434;
+let saturnSpeed = earthSpeed / 0.323;
+let uranusSpeed = earthSpeed / 0.228;
+let neptuneSpeed = earthSpeed / 0.182;
+let plutoSpeed = earthSpeed / 0.159;
+
 // preload()
 //
 // Preloading the planet texture images and sounds
@@ -59,7 +99,7 @@ function preload() {
   mercuryTextureImg = loadImage('../assets/images/mercuryTexture.jpg');
   venusTextureImg = loadImage('../assets/images/venusTexture.jpg');
   earthTextureImg = loadImage('../assets/images/earthTexture.jpg');
-  moonTextureImg = loadImage('../assets/images/moonTexture.jpg');
+  // moonTextureImg = loadImage('../assets/images/moonTexture.jpg');
   marsTextureImg = loadImage('../assets/images/marsTexture.png');
   jupiterTextureImg = loadImage('../assets/images/jupiterTexture.jpg');
   saturnTextureImg = loadImage('../assets/images/saturnTexture.png');
@@ -74,7 +114,7 @@ function preload() {
   mercurySFX = loadSound('../assets/sounds/mercury.mp3');
   venusSFX = loadSound('../assets/sounds/venus.mp3');
   earthSFX = loadSound('../assets/sounds/earth.mp3');
-  moonSFX = loadSound('../assets/sounds/moon.mp3');
+  // moonSFX = loadSound('../assets/sounds/moon.mp3');
   marsSFX = loadSound('../assets/sounds/mars.mp3');
   jupiterSFX = loadSound('../assets/sounds/jupiter.mp3');
   saturnSFX = loadSound('../assets/sounds/saturn.mp3');
@@ -93,17 +133,17 @@ function setup() {
 
   // Creating objects (planets)
   // (radius,texture,millisDivider,length)
-  sun = new Planet(60, sunTextureImg, 0, 0);
-  mercury = new Planet(25, mercuryTextureImg, 8000, -150);
-  venus = new Planet(40, venusTextureImg, 6000, 250);
-  earth = new Planet(40, earthTextureImg, 7000, -350);
-  moon = new Planet(20, moonTextureImg, 9000, 450);
-  mars = new Planet(40, marsTextureImg, 5000, -550);
-  jupiter = new Planet(50, jupiterTextureImg, 7000, 650);
-  saturn = new Planet(40, saturnTextureImg, 6000, -750);
-  uranus = new Planet(40, uranusTextureImg, 8000, 850);
-  neptune = new Planet(40, neptuneTextureImg, 5000, -950);
-  pluto = new Planet(30, plutoTextureImg, 9000, 1050);
+  sun = new Planet(sunSize, sunTextureImg, 0, 0);
+  mercury = new Planet(baseSize, mercuryTextureImg, mercurySpeed, mercuryDistance);
+  venus = new Planet(venusSize, venusTextureImg, venusSpeed, venusDistance);
+  earth = new Planet(earthSize, earthTextureImg, earthSpeed, earthDistance);
+  // moon = new Planet(baseSize, moonTextureImg, 9000, moonDistance);
+  mars = new Planet(marsSize, marsTextureImg, marsSpeed, marsDistance);
+  jupiter = new Planet(jupiterSize, jupiterTextureImg, jupiterSpeed, jupiterDistance);
+  saturn = new Planet(saturnSize, saturnTextureImg, saturnSpeed, saturnDistance);
+  uranus = new Planet(uranusSize, uranusTextureImg, uranusSpeed, uranusDistance);
+  neptune = new Planet(neptuneSize, neptuneTextureImg, neptuneSpeed, neptuneDistance);
+  pluto = new Planet(baseSize, plutoTextureImg, plutoSpeed, plutoDistance);
 }
 
 
@@ -149,11 +189,11 @@ function draw() {
   earth.display();
   pop();
 
-  push();
-  moon.position();
-  moon.rotation();
-  moon.display();
-  pop();
+  // push();
+  // moon.position();
+  // moon.rotation();
+  // moon.display();
+  // pop();
 
   push();
   mars.position();
@@ -228,6 +268,9 @@ class Planet {
   position() {
     // p5.Vector.fromAngle() makes a new 2D vector from an angle
     // millis returns the number of milliseconds since starting the sketch when setup() is called)
+    let randomPosition = random(0,360);
+
+    //let v = p5.Vector.fromAngle(radians(myDegrees), 30);
     translate(p5.Vector.fromAngle(millis() / this.millisDivider, this.length));
   }
   // Rotating the planet (based on mouseX location)
