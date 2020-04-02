@@ -78,7 +78,8 @@ let uranusDistance = baseDistance + 490;
 let neptuneDistance = baseDistance + 585;
 let plutoDistance = baseDistance + 655;
 
-// Orbit speed for each planet (millisDivider)
+// Orbit speed for each planet relative to Earth's speed
+// Information from https://www.sjsu.edu/faculty/watkins/orbital.htm
 let earthSpeed = 7000;
 let mercurySpeed = earthSpeed / 1.607;
 let venusSpeed = earthSpeed / 1.174;
@@ -144,6 +145,21 @@ function setup() {
   uranus = new Planet(uranusSize, uranusTextureImg, uranusSpeed, uranusDistance);
   neptune = new Planet(neptuneSize, neptuneTextureImg, neptuneSpeed, neptuneDistance);
   pluto = new Planet(baseSize, plutoTextureImg, plutoSpeed, plutoDistance);
+
+  VANTA.FOG({
+  el: "body", // apply it to the body (so the entire canvas)
+  mouseControls: true,
+  touchControls: true,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  highlightColor: 0xe2a, // navy blue
+  midtoneColor: 0x311a, // dark green
+  lowlightColor: 0x1c3c, // navy blue
+  baseColor: 0x0, // black
+  blurFactor: 0.62,
+  speed: 0.5,
+  zoom: 0.8
+})
 }
 
 
@@ -151,7 +167,8 @@ function setup() {
 //
 // Description of draw()
 function draw() {
-  background(0);
+  // Clears everything to make all of the pixels 100% transparent
+  clear(); // to use vanta fog bg without having planets leave a trail
 
   // orbitControl is a p5 function allowing the user to drag and move around the scene
   // up and down scroll controls zoom
