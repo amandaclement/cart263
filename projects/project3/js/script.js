@@ -39,6 +39,7 @@ let plutoTextureImg;
 
 // Sounds effects
 let sunSFX;
+let sun2SFX;
 let mercurySFX;
 let venusSFX;
 let earthSFX;
@@ -49,6 +50,9 @@ let saturnSFX;
 let uranusSFX;
 let neptuneSFX;
 let plutoSFX;
+
+// For measuring the sound's amplitude
+let analyzer;
 
 // Size of each planet in relation to baseSize (10)
 let baseSize = 10;
@@ -112,10 +116,10 @@ function preload() {
   // Loading sounds for each planet
   // Sounds from https://www.youtube.com/watch?v=IQL53eQ0cNA & https://www.youtube.com/watch?v=UTAPvPLb7t4
   sunSFX = loadSound('../assets/sounds/sun.mp3');
+  sun2SFX = loadSound('../assets/sounds/sunMusic.mp3');
   mercurySFX = loadSound('../assets/sounds/mercury.mp3');
   venusSFX = loadSound('../assets/sounds/venus.mp3');
   earthSFX = loadSound('../assets/sounds/earth.mp3');
-  // moonSFX = loadSound('../assets/sounds/moon.mp3');
   marsSFX = loadSound('../assets/sounds/mars.mp3');
   jupiterSFX = loadSound('../assets/sounds/jupiter.mp3');
   saturnSFX = loadSound('../assets/sounds/saturn.mp3');
@@ -131,6 +135,13 @@ function preload() {
 function setup() {
   // Working in WEBGL
   createCanvas(windowWidth, windowHeight, WEBGL);
+  bg(); // background (stars and fog)
+
+  // Create a new Amplitude analyzer
+  analyzer = new p5.Amplitude();
+  // Patch the input to an volume analyzer
+  analyzer.setInput(marsSFX);
+  analyzer.setInput(sun2SFX);
 
   // Creating objects (planets)
   // (radius,texture,millisDivider,length)
@@ -138,28 +149,12 @@ function setup() {
   mercury = new Planet(baseSize, mercuryTextureImg, mercurySpeed, mercuryDistance);
   venus = new Planet(venusSize, venusTextureImg, venusSpeed, venusDistance);
   earth = new Planet(earthSize, earthTextureImg, earthSpeed, earthDistance);
-  // moon = new Planet(baseSize, moonTextureImg, 9000, moonDistance);
   mars = new Planet(marsSize, marsTextureImg, marsSpeed, marsDistance);
   jupiter = new Planet(jupiterSize, jupiterTextureImg, jupiterSpeed, jupiterDistance);
   saturn = new Planet(saturnSize, saturnTextureImg, saturnSpeed, saturnDistance);
   uranus = new Planet(uranusSize, uranusTextureImg, uranusSpeed, uranusDistance);
   neptune = new Planet(neptuneSize, neptuneTextureImg, neptuneSpeed, neptuneDistance);
   pluto = new Planet(baseSize, plutoTextureImg, plutoSpeed, plutoDistance);
-
-  VANTA.FOG({
-  el: "body", // apply it to the body (so the entire canvas)
-  mouseControls: true,
-  touchControls: true,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  highlightColor: 0xe2a, // navy blue
-  midtoneColor: 0x311a, // dark green
-  lowlightColor: 0x1c3c, // navy blue
-  baseColor: 0x0, // black
-  blurFactor: 0.62,
-  speed: 0.5,
-  zoom: 0.8
-})
 }
 
 
@@ -206,12 +201,6 @@ function draw() {
   earth.display();
   pop();
 
-  // push();
-  // moon.position();
-  // moon.rotation();
-  // moon.display();
-  // pop();
-
   push();
   mars.position();
   mars.rotation();
@@ -249,17 +238,28 @@ function draw() {
   pop();
 }
 
-// mousePressed()
+// bg()
 //
-// User presses mouse to activate sound
-// function mousePressed() {
-//   // If music is already playing and mouse is pressed again, just keep playing it
-//   if (marsSFX.isPlaying()) {
-//     marsSFX.playMode('sustain');
-//   } else {
-//     marsSFX.loop(); // Music starts on first mouse press and loops
-//   }
-// }
+// Creating the moving background using particles.js for stars and vanta.js to create the fog
+function bg() {
+  // Loading particles (stars)
+  particlesJS.load('particles-js', 'js/libraries/particles.json', function() {
+    // Callback to let us know if particle.js successfully loaded
+    console.log('callback - particles.js config loaded');
+  });
+
+  // Creating the fog
+  VANTA.FOG({
+    el: "body", // apply it to the body (so the entire canvas)
+    highlightColor: 0xe2a, // navy blue
+    midtoneColor: 0x311a, // dark green
+    // lowlightColor: 0x1c3c, // navy blue
+    baseColor: 0x0, // black
+    blurFactor: 0.62,
+    speed: 0.5,
+    zoom: 0.8
+  })
+}
 
 // Adding a shadow onto each planet controlled by mouse location
 // uses p5's directionalLight
@@ -285,7 +285,7 @@ class Planet {
   position() {
     // p5.Vector.fromAngle() makes a new 2D vector from an angle
     // millis returns the number of milliseconds since starting the sketch when setup() is called)
-    let randomPosition = random(0,360);
+    let randomPosition = random(0, 360);
 
     //let v = p5.Vector.fromAngle(radians(myDegrees), 30);
     translate(p5.Vector.fromAngle(millis() / this.millisDivider, this.length));
@@ -304,9 +304,27 @@ class Planet {
   }
   // Displaying the planet
   display() {
+    // To get amplitude (rms level) of music
+    //analyzer.setInput(marsSFX);
+    let rms = analyzer.getLevel();
+    // Pulsating effect based on music amplitude
+    let pulsation = rms * 20;
+
     // Apply the appropriate texture (img)
     texture(this.texture);
     // Leave the default sphere details
-    sphere(this.radius);
+    sphere(this.radius + pulsation);
+  }
+}
+
+// mousePressed()
+//
+// User presses mouse to activate sound
+function mousePressed() {
+  // If music is already playing and mouse is pressed again, just keep playing it
+  if (marsSFX.isPlaying()) {
+    marsSFX.playMode('sustain');
+  } else {
+    marsSFX.loop(); // Music starts on first mouse press and loops
   }
 }
