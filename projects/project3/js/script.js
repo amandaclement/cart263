@@ -10,12 +10,34 @@ author, and this description to match your project!
 
 ******************/
 
+let orbitting = true;
+
+let sunShow = false;
+let marsShow = false;
+
+let showAll = true;
+
+let sunInfo = false;
+let mercuryInfo = false;
+
+// Creating buttons
+let menuButton;
+//let sunButton;
+//let mercuryButton;
+let venusButton;
+let earthButton;
+let marsButton;
+let jupiterButton;
+let saturnButton;
+let uranusButton;
+let neptuneButton;
+let plutoButton;
+
 // Declaring the sun, moon, and each planet
 let sun;
 let mercury;
 let venus;
 let earth;
-let moon;
 let mars;
 let jupiter;
 let saturn;
@@ -28,7 +50,6 @@ let sunTextureImg;
 let mercuryTextureImg;
 let venusTextureImg;
 let earthTextureImg;
-let moonTextureImg;
 let marsTextureImg;
 let jupiterTextureImg;
 let saturnTextureImg;
@@ -39,11 +60,9 @@ let plutoTextureImg;
 
 // Sounds effects
 let sunSFX;
-let sun2SFX;
 let mercurySFX;
 let venusSFX;
 let earthSFX;
-let moonSFX;
 let marsSFX;
 let jupiterSFX;
 let saturnSFX;
@@ -60,7 +79,6 @@ let mercurySize = baseSize;
 let sunSize = baseSize * 6.5;
 let venusSize = baseSize * 1.8;
 let earthSize = baseSize * 2;
-let moonSize = baseSize;
 let marsSize = baseSize * 1.3;
 let jupiterSize = baseSize * 5;
 let saturnSize = baseSize * 4;
@@ -74,7 +92,6 @@ let baseDistance = 100;
 let mercuryDistance = baseDistance;
 let venusDistance = baseDistance + 50;
 let earthDistance = baseDistance + 110;
-// let moonDistance = baseDistance + 160;
 let marsDistance = baseDistance + 160;
 let jupiterDistance = baseDistance + 250;
 let saturnDistance = baseDistance + 380;
@@ -87,7 +104,6 @@ let plutoDistance = baseDistance + 655;
 let earthSpeed = 7000;
 let mercurySpeed = earthSpeed / 1.607;
 let venusSpeed = earthSpeed / 1.174;
-// let moonSpeed = earthSpeed * 1.75;
 let marsSpeed = earthSpeed / 0.802;
 let jupiterSpeed = earthSpeed / 0.434;
 let saturnSpeed = earthSpeed / 0.323;
@@ -99,12 +115,14 @@ let plutoSpeed = earthSpeed / 0.159;
 //
 // Preloading the planet texture images and sounds
 function preload() {
+
+  //buttonImg = loadImage('../assets/images/sunTexture.jpg');
+
   // Loading images (planet textures)
   sunTextureImg = loadImage('../assets/images/sunTexture.jpg');
   mercuryTextureImg = loadImage('../assets/images/mercuryTexture.jpg');
   venusTextureImg = loadImage('../assets/images/venusTexture.jpg');
   earthTextureImg = loadImage('../assets/images/earthTexture.jpg');
-  // moonTextureImg = loadImage('../assets/images/moonTexture.jpg');
   marsTextureImg = loadImage('../assets/images/marsTexture.png');
   jupiterTextureImg = loadImage('../assets/images/jupiterTexture.jpg');
   saturnTextureImg = loadImage('../assets/images/saturnTexture.png');
@@ -116,7 +134,6 @@ function preload() {
   // Loading sounds for each planet
   // Sounds from https://www.youtube.com/watch?v=IQL53eQ0cNA & https://www.youtube.com/watch?v=UTAPvPLb7t4
   sunSFX = loadSound('../assets/sounds/sun.mp3');
-  sun2SFX = loadSound('../assets/sounds/sunMusic.mp3');
   mercurySFX = loadSound('../assets/sounds/mercury.mp3');
   venusSFX = loadSound('../assets/sounds/venus.mp3');
   earthSFX = loadSound('../assets/sounds/earth.mp3');
@@ -137,26 +154,26 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   bg(); // background (stars and fog)
 
+  //menuButton = createButton('explore');
+  //menuButton.mousePressed(displayOptions);
+  //menuButton.position(width - 110, 25);
+
   // Create a new Amplitude analyzer
   analyzer = new p5.Amplitude();
-  // Patch the input to an volume analyzer
-  analyzer.setInput(marsSFX);
-  analyzer.setInput(sun2SFX);
 
   // Creating objects (planets)
   // (radius,texture,millisDivider,length)
-  sun = new Planet(sunSize, sunTextureImg, 0, 0);
-  mercury = new Planet(baseSize, mercuryTextureImg, mercurySpeed, mercuryDistance);
-  venus = new Planet(venusSize, venusTextureImg, venusSpeed, venusDistance);
-  earth = new Planet(earthSize, earthTextureImg, earthSpeed, earthDistance);
-  mars = new Planet(marsSize, marsTextureImg, marsSpeed, marsDistance);
-  jupiter = new Planet(jupiterSize, jupiterTextureImg, jupiterSpeed, jupiterDistance);
-  saturn = new Planet(saturnSize, saturnTextureImg, saturnSpeed, saturnDistance);
-  uranus = new Planet(uranusSize, uranusTextureImg, uranusSpeed, uranusDistance);
-  neptune = new Planet(neptuneSize, neptuneTextureImg, neptuneSpeed, neptuneDistance);
-  pluto = new Planet(baseSize, plutoTextureImg, plutoSpeed, plutoDistance);
+  sun = new Planet(sunSize, sunTextureImg, 0, 0, sunSFX);
+  mercury = new Planet(baseSize, mercuryTextureImg, mercurySpeed, mercuryDistance, mercurySFX);
+  venus = new Planet(venusSize, venusTextureImg, venusSpeed, venusDistance, venusSFX);
+  earth = new Planet(earthSize, earthTextureImg, earthSpeed, earthDistance, earthSFX);
+  mars = new Planet(marsSize, marsTextureImg, marsSpeed, marsDistance, marsSFX);
+  jupiter = new Planet(jupiterSize, jupiterTextureImg, jupiterSpeed, jupiterDistance, jupiterSFX);
+  saturn = new Planet(saturnSize, saturnTextureImg, saturnSpeed, saturnDistance, saturnSFX);
+  uranus = new Planet(uranusSize, uranusTextureImg, uranusSpeed, uranusDistance, uranusSFX);
+  neptune = new Planet(neptuneSize, neptuneTextureImg, neptuneSpeed, neptuneDistance, neptuneSFX);
+  pluto = new Planet(baseSize, plutoTextureImg, plutoSpeed, plutoDistance, plutoSFX);
 }
-
 
 // draw()
 //
@@ -168,11 +185,61 @@ function draw() {
   // orbitControl is a p5 function allowing the user to drag and move around the scene
   // up and down scroll controls zoom
   // click-drag controls perspective angle
-  orbitControl();
-
   // Removing the stroke on all planets
   noStroke();
 
+  if (orbitting === true) {
+    orbitControl();
+    displayPlanets();
+  }
+
+  orbitButton();
+  sunButton();
+  mercuryButton();
+
+  if (sunInfo === true) {
+    scale(2);
+    sun.rotation();
+    sun.display();
+  }
+
+  if (mercuryInfo === true) {
+    scale(13);
+    mercury.rotation();
+    mercury.display();
+  }
+}
+
+function orbitButton() {
+  let orbitButton = createButton('RETURN TO ORBIT');
+  orbitButton.position(20, 30);
+  orbitButton.mousePressed(function() {
+    reset();
+    orbitting = true;
+  });
+}
+
+function sunButton() {
+  let sunButton = createButton('SUN');
+  sunButton.position(20, 60);
+  sunButton.mousePressed(function() {
+    reset();
+    orbitting = false;
+    sunInfo = true;
+  });
+}
+
+function mercuryButton() {
+  let mercuryButton = createButton('MERCURY');
+  mercuryButton.position(20, 90);
+  mercuryButton.mousePressed(function() {
+    reset();
+    orbitting = false;
+    mercuryInfo = true;
+  });
+}
+
+function displayPlanets() {
   // Positioning, rotating, and displaying the planets
   push();
   sun.position();
@@ -238,6 +305,21 @@ function draw() {
   pop();
 }
 
+function reset() {
+  scale(1);
+  sunInfo = false;
+  mercuryInfo = false;
+}
+
+function sunSound() {
+  // If sound is already playing and button is pressed again, stop the sound
+  if (sunSFX.isPlaying()) {
+    sunSFX.stop();
+  } else {
+    //sunSFX.loop(); // Sound starts on first time button is pressed then loops
+  }
+}
+
 // bg()
 //
 // Creating the moving background using particles.js for stars and vanta.js to create the fog
@@ -274,21 +356,21 @@ function shadow() {
 
 // Creating the planet
 class Planet {
-  constructor(radius, texture, millisDivider, length) {
+  constructor(radius, texture, millisDivider, length, sound) {
     this.radius = radius; // size
     this.texture = texture; // texture (img)
     this.rotationSpeed = 0.000005;
     this.millisDivider = millisDivider; // millisecond divider for translation (planet position)
     this.length = length; // length of new vector (distance from center)
+    this.sound = sound; // planet sound effect
+    //this.button = button; // planet button
   }
   // Translating it to the appropriate position and making it orbit at appropriate speed
   position() {
     // p5.Vector.fromAngle() makes a new 2D vector from an angle
     // millis returns the number of milliseconds since starting the sketch when setup() is called)
-    let randomPosition = random(0, 360);
-
-    //let v = p5.Vector.fromAngle(radians(myDegrees), 30);
-    translate(p5.Vector.fromAngle(millis() / this.millisDivider, this.length));
+    let formula = p5.Vector.fromAngle(millis() / this.millisDivider, this.length);
+    translate(formula);
   }
   // Rotating the planet (based on mouseX location)
   rotation() {
@@ -304,8 +386,10 @@ class Planet {
   }
   // Displaying the planet
   display() {
+    // Patch the input to an volume analyzer
+    analyzer.setInput(this.sound); // input the appropriate planet
+
     // To get amplitude (rms level) of music
-    //analyzer.setInput(marsSFX);
     let rms = analyzer.getLevel();
     // Pulsating effect based on music amplitude
     let pulsation = rms * 20;
@@ -313,18 +397,6 @@ class Planet {
     // Apply the appropriate texture (img)
     texture(this.texture);
     // Leave the default sphere details
-    sphere(this.radius + pulsation);
-  }
-}
-
-// mousePressed()
-//
-// User presses mouse to activate sound
-function mousePressed() {
-  // If music is already playing and mouse is pressed again, just keep playing it
-  if (marsSFX.isPlaying()) {
-    marsSFX.playMode('sustain');
-  } else {
-    marsSFX.loop(); // Music starts on first mouse press and loops
+    sphere(this.radius);
   }
 }

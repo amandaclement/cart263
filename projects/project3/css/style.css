@@ -11,7 +11,20 @@ body {
   margin: 0;
   width: 100%;
   height: 100%;
-  /* background-color:rgba(0,0,0,0.5); */
+  color: #fff;
+}
+
+button, p {
+  position: absolute;
+  list-style-type: none;
+  font-family: 'Karla', sans-serif;
+  color: #B8B8B8;
+  font-size: 17px;
+  letter-spacing: 1.2px;
+  margin-top: -5px;
+  background-color: transparent;
+  border: 0;
+  z-index: 10;
 }
 
 #particles-js {
