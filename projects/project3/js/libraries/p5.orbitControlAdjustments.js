@@ -18,13 +18,6 @@ p5.prototype.orbitControl = function(sensitivityX, sensitivityY, sensitivityZ) {
     if (typeof sensitivityY === 'undefined') {
       sensitivityY = sensitivityX;
     }
-    if (typeof sensitivityZ === 'undefined') {
-      sensitivityZ = 0.5;
-    }
-
-    // default right-mouse and mouse-wheel behaviors (context menu and scrolling,
-    // respectively) are disabled here to allow use of those events for panning and
-    // zooming
 
     // disable context menu for canvas element and add 'contextMenuDisabled'
     // flag to p5 instance
@@ -47,9 +40,17 @@ p5.prototype.orbitControl = function(sensitivityX, sensitivityY, sensitivityZ) {
       if (this.mouseButton === this.LEFT) {
         const deltaTheta =
           -sensitivityX * (this.mouseX - this.pmouseX) / scaleFactor;
+        /////////////////console.log(deltaTheta);
+
         const deltaPhi =
           sensitivityY * (this.mouseY - this.pmouseY) / scaleFactor;
+
+        if (orbitting) {
         this._renderer._curCamera._orbit(deltaTheta, deltaPhi, 0);
+      }
+      else if (!orbitting) { // disabling orbit effect once a planet button is clicked
+        this._renderer._curCamera._orbit(0, 0, 0);
+      }
       } else if (this.mouseButton === this.RIGHT) {
         // PANNING BEHAVIOR along X/Z camera axes and restricted to X/Z plane
         // in world space

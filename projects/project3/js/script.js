@@ -235,13 +235,24 @@ function draw() {
   orbitButton();
 
   // If the planets are orbitting (main orbit), enable orbitControl
+  // if (orbitting === true) {
+  // // // orbitControl is a p5 function allowing the user to drag and move around the scene
+  // // // click-drag controls perspective angle
+  // orbitControl();
+  // //    perspective(PI / 3.0, width / height, 0.1, 500);
+  // }
+  displayPlanets();
+
   if (orbitting === true) {
-    // orbitControl is a p5 function allowing the user to drag and move around the scene
-    // click-drag controls perspective angle
     orbitControl();
   }
-  displayPlanets();
 }
+
+// function mousePressed() {
+//   if (orbitting === true && mouseIsPressed) {
+//     orbitControl();
+//   }
+// }
 
 // orbitButton()
 // To return to main orbit
@@ -262,6 +273,7 @@ function sunShow() {
   sunButton.position(20, 60);
   sunButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     sunSolo = true;
     displayPlanets();
@@ -275,6 +287,7 @@ function mercuryShow() {
   mercuryButton.position(20, 90);
   mercuryButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     mercurySolo = true;
   });
@@ -287,6 +300,7 @@ function venusShow() {
   venusButton.position(20, 120);
   venusButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     venusSolo = true;
   });
@@ -299,6 +313,7 @@ function earthShow() {
   earthButton.position(20, 150);
   earthButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     earthSolo = true;
   });
@@ -311,6 +326,7 @@ function marsShow() {
   marsButton.position(20, 180);
   marsButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     marsSolo = true;
   });
@@ -323,6 +339,7 @@ function jupiterShow() {
   jupiterButton.position(20, 210);
   jupiterButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     jupiterSolo = true;
   });
@@ -335,6 +352,7 @@ function saturnShow() {
   saturnButton.position(20, 240);
   saturnButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     saturnSolo = true;
   });
@@ -347,6 +365,7 @@ function uranusShow() {
   uranusButton.position(20, 270);
   uranusButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     uranusSolo = true;
   });
@@ -359,6 +378,7 @@ function neptuneShow() {
   neptuneButton.position(20, 300);
   neptuneButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     neptuneSolo = true;
   });
@@ -371,6 +391,7 @@ function plutoShow() {
   plutoButton.position(20, 330);
   plutoButton.mousePressed(function() {
     reset();
+    orbitting = false;
     showAll = false;
     plutoSolo = true;
   });
@@ -380,6 +401,9 @@ function plutoShow() {
 //
 // Displaying each planet (for orbitting and for solo planets)
 function displayPlanets() {
+  // if (!sunSolo && !mercurySolo && !venusSolo && !earthSolo && !marsSolo && !jupiterSolo && !saturnSolo && !uranusSolo && !neptuneSolo && !plutoSolo) {
+  //   orbitControl();
+  // } e
   // Positioning, rotating, and displaying the planets
   if (showAll || sunSolo) {
     push();
@@ -395,7 +419,7 @@ function displayPlanets() {
   // Adding shadow
   shadow();
 
-  if (showAll || mercurySolo ) {
+  if (showAll || mercurySolo) {
     push();
     if (showAll) {
       mercury.position();
@@ -532,7 +556,6 @@ function displayPlanets() {
 }
 
 function reset() {
-  scale(1);
   sunSolo = false;
   sunSFX.stop();
   mercurySolo = false;
@@ -554,15 +577,6 @@ function reset() {
   plutoSolo = false;
   plutoSFX.stop();
 }
-
-// function sunSound() {
-//   // If sound is already playing and button is pressed again, stop the sound
-//   if (sunSFX.isPlaying()) {
-//     sunSFX.stop();
-//   } else {
-//     //sunSFX.loop(); // Sound starts on first time button is pressed then loops
-//   }
-// }
 
 // bg()
 //

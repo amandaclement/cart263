@@ -19,7 +19,8 @@ button, p {
   list-style-type: none;
   font-family: 'Karla', sans-serif;
   color: #B8B8B8;
-  font-size: 17px;
+  font-weight: 400;
+  font-size: 15px;
   letter-spacing: 1.2px;
   margin-top: -5px;
   background-color: transparent;
