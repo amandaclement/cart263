@@ -228,6 +228,9 @@ function draw() {
   marsShow();
   jupiterShow();
   saturnShow();
+  push();
+  saturnRing();
+  pop();
   uranusShow();
   neptuneShow();
   plutoShow();
@@ -395,6 +398,44 @@ function plutoShow() {
     showAll = false;
     plutoSolo = true;
   });
+}
+
+// saturnRing()
+//
+// Creating saturn's ring
+function saturnRing() {
+  if (showAll) {
+  // Positioning (according saturn sphere)
+  let formula = p5.Vector.fromAngle(millis() / saturnSpeed, saturnDistance);
+  translate(formula);
+
+  // Rotation
+  // it rotates on its own (not affected by mouse)
+  let rotationValue = (frameCount * 0.005);
+
+  // Making it rotate across each axis
+  rotateY(rotationValue);
+  rotateX(rotationValue);
+  rotateZ(rotationValue);
+}
+
+  // Give it some opacity
+  tint(255, 190);
+  // Apply the appropriate texture (img)
+  texture(saturnRingTextureImg);
+  torus(saturnSize + 15, 5);
+
+  // If saturn is singled out, make the ring stop rotating (stays stable)
+  // also adjust its size
+  if (!showAll && saturnSolo) {
+    push();
+    // Rotate it
+    rotateX(8);
+    rotateY(100);
+    // Make it wider/larger than the saturn sphere
+    torus(defaultSoloSize + 70, 50, 24, 2); // adding details to make it flat
+    pop();
+  }
 }
 
 // displayPlanets()
