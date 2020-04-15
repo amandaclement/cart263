@@ -138,44 +138,44 @@ let karlaFontItalic;
 // Preloading the planet texture images and sounds
 function preload() {
 
-  //buttonImg = loadImage('../../assets/images/sunTexture.jpg');
+  //buttonImg = loadImage('assets/images/sunTexture.jpg');
 
   // Loading images (planet textures)
   // Google Images
-  sunTextureImg = loadImage('../assets/images/sunTexture.jpg');
-  mercuryTextureImg = loadImage('../assets/images/mercuryTexture.jpg');
-  venusTextureImg = loadImage('../assets/images/venusTexture.jpg');
-  earthTextureImg = loadImage('../assets/images/earthTexture.jpg');
-  marsTextureImg = loadImage('../assets/images/marsTexture.png');
-  jupiterTextureImg = loadImage('../assets/images/jupiterTexture.jpg');
-  saturnTextureImg = loadImage('../assets/images/saturnTexture.png');
-  saturnRingTextureImg = loadImage('../assets/images/saturnRingTexture.jpg'); // texture for saturn's ring
-  uranusTextureImg = loadImage('../assets/images/uranusTexture.jpg');
-  neptuneTextureImg = loadImage('../assets/images/neptuneTexture.jpg');
-  plutoTextureImg = loadImage('../assets/images/plutoTexture.jpg');
+  sunTextureImg = loadImage('assets/images/sunTexture.jpg');
+  mercuryTextureImg = loadImage('assets/images/mercuryTexture.jpg');
+  venusTextureImg = loadImage('assets/images/venusTexture.jpg');
+  earthTextureImg = loadImage('assets/images/earthTexture.jpg');
+  marsTextureImg = loadImage('assets/images/marsTexture.png');
+  jupiterTextureImg = loadImage('assets/images/jupiterTexture.jpg');
+  saturnTextureImg = loadImage('assets/images/saturnTexture.png');
+  saturnRingTextureImg = loadImage('assets/images/saturnRingTexture.jpg'); // texture for saturn's ring
+  uranusTextureImg = loadImage('assets/images/uranusTexture.jpg');
+  neptuneTextureImg = loadImage('assets/images/neptuneTexture.jpg');
+  plutoTextureImg = loadImage('assets/images/plutoTexture.jpg');
 
   // Photo by Yong Chuan Tan on Unsplash
-  milkyWayImg  = loadImage('../assets/images/milkyWay.jpg');
+  milkyWayImg  = loadImage('assets/images/milkyWay.jpg');
   // Taken from https://www.goodfon.com/wallpaper/window-spaceship-star-light-planet-sci-fi-meteorites.html
-  windowImg = loadImage('../assets/images/window.png');
+  windowImg = loadImage('assets/images/window.png');
 
   // Loading sounds for each planet
   // Sounds from https://www.youtube.com/watch?v=IQL53eQ0cNA & https://www.youtube.com/watch?v=UTAPvPLb7t4
-  sunSFX = loadSound('../assets/sounds/sun.mp3');
-  mercurySFX = loadSound('../assets/sounds/mercury.mp3');
-  venusSFX = loadSound('../assets/sounds/venus.mp3');
-  earthSFX = loadSound('../assets/sounds/earth.mp3');
-  marsSFX = loadSound('../assets/sounds/mars.mp3');
-  jupiterSFX = loadSound('../assets/sounds/jupiter.mp3');
-  saturnSFX = loadSound('../assets/sounds/saturn.mp3');
-  uranusSFX = loadSound('../assets/sounds/uranus.mp3');
-  neptuneSFX = loadSound('../assets/sounds/neptune.mp3');
-  plutoSFX = loadSound('../assets/sounds/pluto.mp3');
+  sunSFX = loadSound('assets/sounds/sun.mp3');
+  mercurySFX = loadSound('assets/sounds/mercury.mp3');
+  venusSFX = loadSound('assets/sounds/venus.mp3');
+  earthSFX = loadSound('assets/sounds/earth.mp3');
+  marsSFX = loadSound('assets/sounds/mars.mp3');
+  jupiterSFX = loadSound('assets/sounds/jupiter.mp3');
+  saturnSFX = loadSound('assets/sounds/saturn.mp3');
+  uranusSFX = loadSound('assets/sounds/uranus.mp3');
+  neptuneSFX = loadSound('assets/sounds/neptune.mp3');
+  plutoSFX = loadSound('assets/sounds/pluto.mp3');
 
   // Loading font
-  karlaFontRegular = loadFont('../assets/fonts/Karla-Regular.ttf');
-  karlaFontBold = loadFont('../assets/fonts/Karla-Bold.ttf');
-  karlaFontItalic = loadFont('../assets/fonts/Karla-Italic.ttf');
+  karlaFontRegular = loadFont('assets/fonts/Karla-Regular.ttf');
+  karlaFontBold = loadFont('assets/fonts/Karla-Bold.ttf');
+  karlaFontItalic = loadFont('assets/fonts/Karla-Italic.ttf');
 }
 
 
