@@ -10,8 +10,11 @@ author, and this description to match your project!
 
 ******************/
 
+let startTime;
+
 let orbitting = true;
 let showAll = true;
+let doit = false;
 
 let defaultSoloSize = 180; // default size for planet when individually selected
 
@@ -39,7 +42,7 @@ let uranusButton;
 let neptuneButton;
 let plutoButton;
 
-// Declaring the sun, moon, and each planet
+// Declaring the sun and each planet
 let sun;
 let mercury;
 let venus;
@@ -155,7 +158,7 @@ function preload() {
   plutoTextureImg = loadImage("assets/images/plutoTexture.jpg");
 
   // Photo by Yong Chuan Tan on Unsplash
-  milkyWayImg  = loadImage("assets/images/milkyWay.jpg");
+  milkyWayImg = loadImage("assets/images/milkyWay.jpg");
   // Taken from https://www.goodfon.com/wallpaper/window-spaceship-star-light-planet-sci-fi-meteorites.html
   windowImg = loadImage("assets/images/window.png");
 
@@ -187,6 +190,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
 
   bg(); // background (stars and fog)
+
+  startTime = millis();
 
   // Creating objects (planets)
   // constructor(radius,texture,millisDivider,length,sound)
@@ -247,6 +252,7 @@ function draw() {
   orbitButton();
 
   displayPlanets();
+
   push();
   saturnRing();
   pop();
@@ -403,19 +409,19 @@ function plutoShow() {
 // Creating saturn's ring
 function saturnRing() {
   if (showAll) {
-  // Positioning (according saturn sphere)
-  let formula = p5.Vector.fromAngle(millis() / saturnSpeed, saturnDistance);
-  translate(formula);
+    // Positioning (according saturn sphere)
+    let formula = p5.Vector.fromAngle(millis() / saturnSpeed, saturnDistance);
+    translate(formula);
 
-  // Rotation
-  // it rotates on its own (not affected by mouse)
-  let rotationValue = (frameCount * 0.005);
+    // Rotation
+    // it rotates on its own (not affected by mouse)
+    let rotationValue = (frameCount * 0.005);
 
-  // Making it rotate across each axis
-  rotateY(rotationValue);
-  rotateX(rotationValue);
-  rotateZ(rotationValue);
-}
+    // Making it rotate across each axis
+    rotateY(rotationValue);
+    rotateX(rotationValue);
+    rotateZ(rotationValue);
+  }
 
   // Give it some opacity
   tint(255, 190);

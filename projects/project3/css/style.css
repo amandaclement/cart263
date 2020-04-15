@@ -11,9 +11,16 @@ body {
   margin: 0;
   width: 100%;
   height: 100%;
-  color: #fff;
-  background-image: url('../assets/images/milkyWay.jpg');
-  background-size: contain;
+  color: #B8B8B8;
+  background-color: #000;
+}
+
+.loadingclass {
+  font-family: 'Karla', sans-serif;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-top: 350px;
+
 }
 
 button, p {
