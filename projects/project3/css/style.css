@@ -43,4 +43,5 @@ button, p {
   position: absolute;
   left: 0;
   top: 0;
+  -webkit-filter:blur(1px) contrast(10) saturate(0.7);
 }
