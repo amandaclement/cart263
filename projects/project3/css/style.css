@@ -12,6 +12,8 @@ body {
   width: 100%;
   height: 100%;
   color: #fff;
+  background-image: url('../assets/images/milkyWay.jpg');
+  background-size: contain;
 }
 
 button, p {

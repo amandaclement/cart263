@@ -10,13 +10,10 @@ author, and this description to match your project!
 
 ******************/
 
-let karlaFontRegular;
-let karlaFontBold;
-let karlaFontItalic;
-
 let orbitting = true;
 let showAll = true;
-let defaultSoloSize = 180;
+
+let defaultSoloSize = 180; // default size for planet when individually selected
 
 let sunSolo = false;
 let mercurySolo = false;
@@ -66,6 +63,8 @@ let saturnRingTextureImg;
 let uranusTextureImg;
 let neptuneTextureImg;
 let plutoTextureImg;
+let milkyWayImg;
+let windowImg;
 
 // Sounds effects
 let sunSFX;
@@ -90,9 +89,6 @@ let saturnInfo;
 let uranusInfo;
 let neptuneInfo;
 let plutoInfo;
-
-// For measuring the sound's amplitude
-let analyzer;
 
 // Size of each planet in relation to baseSize (10)
 let baseSize = 10;
@@ -132,6 +128,11 @@ let uranusSpeed = earthSpeed / 0.228;
 let neptuneSpeed = earthSpeed / 0.182;
 let plutoSpeed = earthSpeed / 0.159;
 
+// Font styles
+let karlaFontRegular;
+let karlaFontBold;
+let karlaFontItalic;
+
 // preload()
 //
 // Preloading the planet texture images and sounds
@@ -140,35 +141,41 @@ function preload() {
   //buttonImg = loadImage('../assets/images/sunTexture.jpg');
 
   // Loading images (planet textures)
-  sunTextureImg = loadImage('../assets/images/sunTexture.jpg');
-  mercuryTextureImg = loadImage('../assets/images/mercuryTexture.jpg');
-  venusTextureImg = loadImage('../assets/images/venusTexture.jpg');
-  earthTextureImg = loadImage('../assets/images/earthTexture.jpg');
-  marsTextureImg = loadImage('../assets/images/marsTexture.png');
-  jupiterTextureImg = loadImage('../assets/images/jupiterTexture.jpg');
-  saturnTextureImg = loadImage('../assets/images/saturnTexture.png');
-  saturnRingTextureImg = loadImage('../assets/images/saturnRingTexture.jpg'); // texture for saturn's ring
-  uranusTextureImg = loadImage('../assets/images/uranusTexture.jpg');
-  neptuneTextureImg = loadImage('../assets/images/neptuneTexture.jpg');
-  plutoTextureImg = loadImage('../assets/images/plutoTexture.jpg');
+  // Google Images
+  sunTextureImg = loadImage('assets/images/sunTexture.jpg');
+  mercuryTextureImg = loadImage('assets/images/mercuryTexture.jpg');
+  venusTextureImg = loadImage('assets/images/venusTexture.jpg');
+  earthTextureImg = loadImage('assets/images/earthTexture.jpg');
+  marsTextureImg = loadImage('assets/images/marsTexture.png');
+  jupiterTextureImg = loadImage('assets/images/jupiterTexture.jpg');
+  saturnTextureImg = loadImage('assets/images/saturnTexture.png');
+  saturnRingTextureImg = loadImage('assets/images/saturnRingTexture.jpg'); // texture for saturn's ring
+  uranusTextureImg = loadImage('assets/images/uranusTexture.jpg');
+  neptuneTextureImg = loadImage('assets/images/neptuneTexture.jpg');
+  plutoTextureImg = loadImage('assets/images/plutoTexture.jpg');
+
+  // Photo by Yong Chuan Tan on Unsplash
+  milkyWayImg  = loadImage('assets/images/milkyWay.jpg');
+  // Taken from https://www.goodfon.com/wallpaper/window-spaceship-star-light-planet-sci-fi-meteorites.html
+  windowImg = loadImage('assets/images/window.png');
 
   // Loading sounds for each planet
   // Sounds from https://www.youtube.com/watch?v=IQL53eQ0cNA & https://www.youtube.com/watch?v=UTAPvPLb7t4
-  sunSFX = loadSound('../assets/sounds/sun.mp3');
-  mercurySFX = loadSound('../assets/sounds/mercury.mp3');
-  venusSFX = loadSound('../assets/sounds/venus.mp3');
-  earthSFX = loadSound('../assets/sounds/earth.mp3');
-  marsSFX = loadSound('../assets/sounds/mars.mp3');
-  jupiterSFX = loadSound('../assets/sounds/jupiter.mp3');
-  saturnSFX = loadSound('../assets/sounds/saturn.mp3');
-  uranusSFX = loadSound('../assets/sounds/uranus.mp3');
-  neptuneSFX = loadSound('../assets/sounds/neptune.mp3');
-  plutoSFX = loadSound('../assets/sounds/pluto.mp3');
+  sunSFX = loadSound('assets/sounds/sun.mp3');
+  mercurySFX = loadSound('assets/sounds/mercury.mp3');
+  venusSFX = loadSound('assets/sounds/venus.mp3');
+  earthSFX = loadSound('assets/sounds/earth.mp3');
+  marsSFX = loadSound('assets/sounds/mars.mp3');
+  jupiterSFX = loadSound('assets/sounds/jupiter.mp3');
+  saturnSFX = loadSound('assets/sounds/saturn.mp3');
+  uranusSFX = loadSound('assets/sounds/uranus.mp3');
+  neptuneSFX = loadSound('assets/sounds/neptune.mp3');
+  plutoSFX = loadSound('assets/sounds/pluto.mp3');
 
   // Loading font
-  karlaFontRegular = loadFont('../assets/fonts/Karla-Regular.ttf');
-  karlaFontBold = loadFont('../assets/fonts/Karla-Bold.ttf');
-  karlaFontItalic = loadFont('../assets/fonts/Karla-Italic.ttf');
+  karlaFontRegular = loadFont('assets/fonts/Karla-Regular.ttf');
+  karlaFontBold = loadFont('assets/fonts/Karla-Bold.ttf');
+  karlaFontItalic = loadFont('assets/fonts/Karla-Italic.ttf');
 }
 
 
@@ -207,7 +214,6 @@ function setup() {
   uranusInfo = new PlanetInfo('U R A N U S', 'THE SIDEWAYS PLANET', 'ICE GIANT', 'HUGE', 'SEVENTH WANDERER', '1.8 BILLION MILES', '84 EARTH YEARS', 'ICY MATERIALS', '27');
   neptuneInfo = new PlanetInfo('N E P T U N E', 'THE WINDIEST PLANET', 'ICE GIANT', 'GIANT (4 TIMES WIDER THAN EARTH)', 'EIGHTH WANDERER', '2.8 BILLION MILES', '165 EARTH YEARS', 'ICY MATERIALS', '14');
   plutoInfo = new PlanetInfo('P L U T O', 'DWARF PLANET', 'DWARF PLANET', 'ABOUT 1400 MILES WIDE', 'USUALLY FARTHEST FROM SUN', '3.6 BILLION MILES', '248 EARTH YEARS', 'COLD', '5');
-
 }
 
 // draw()
@@ -217,10 +223,17 @@ function draw() {
   // Clears everything to make all of the pixels 100% transparent
   clear(); // to use vanta fog bg without having planets leave a trail
 
+  // Milky way background image
+  tint(255, 170); // adding opacity
+  imageMode(CENTER);
+  image(milkyWayImg, 0, 0, width, height);
+  // Spaceship frame image
+  tint(255, 255);
+  image(windowImg, 0, 0, width, height + 100);
+
   // Removing the stroke on all planets
   noStroke();
 
-  // Buttons to display chosen planet individually
   sunShow();
   mercuryShow();
   venusShow();
@@ -228,40 +241,26 @@ function draw() {
   marsShow();
   jupiterShow();
   saturnShow();
-  push();
-  saturnRing();
-  pop();
   uranusShow();
   neptuneShow();
   plutoShow();
-
   orbitButton();
 
-  // If the planets are orbitting (main orbit), enable orbitControl
-  // if (orbitting === true) {
-  // // // orbitControl is a p5 function allowing the user to drag and move around the scene
-  // // // click-drag controls perspective angle
-  // orbitControl();
-  // //    perspective(PI / 3.0, width / height, 0.1, 500);
-  // }
   displayPlanets();
+  push();
+  saturnRing();
+  pop();
 
-  if (orbitting === true) {
+  if (orbitting) {
     orbitControl();
   }
 }
-
-// function mousePressed() {
-//   if (orbitting === true && mouseIsPressed) {
-//     orbitControl();
-//   }
-// }
 
 // orbitButton()
 // To return to main orbit
 function orbitButton() {
   let orbitButton = createButton('RETURN TO ORBIT');
-  orbitButton.position(20, 30);
+  orbitButton.position(20, 60);
   orbitButton.mousePressed(function() {
     reset();
     orbitting = true;
@@ -273,13 +272,12 @@ function orbitButton() {
 // Creating button to solo out the sun
 function sunShow() {
   sunButton = createButton('SUN');
-  sunButton.position(20, 60);
+  sunButton.position(20, 90);
   sunButton.mousePressed(function() {
     reset();
     orbitting = false;
     showAll = false;
     sunSolo = true;
-    displayPlanets();
   });
 }
 
@@ -287,7 +285,7 @@ function sunShow() {
 // Creating button to solo out mercury
 function mercuryShow() {
   mercuryButton = createButton('MERCURY');
-  mercuryButton.position(20, 90);
+  mercuryButton.position(20, 120);
   mercuryButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -300,7 +298,7 @@ function mercuryShow() {
 // Creating button to solo out venus
 function venusShow() {
   venusButton = createButton('VENUS');
-  venusButton.position(20, 120);
+  venusButton.position(20, 150);
   venusButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -313,7 +311,7 @@ function venusShow() {
 // Creating button to solo out earth
 function earthShow() {
   earthButton = createButton('EARTH');
-  earthButton.position(20, 150);
+  earthButton.position(20, 180);
   earthButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -326,7 +324,7 @@ function earthShow() {
 // Creating button to solo out mars
 function marsShow() {
   marsButton = createButton('MARS');
-  marsButton.position(20, 180);
+  marsButton.position(20, 210);
   marsButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -339,7 +337,7 @@ function marsShow() {
 // Creating button to solo out the jupiter
 function jupiterShow() {
   jupiterButton = createButton('JUPITER');
-  jupiterButton.position(20, 210);
+  jupiterButton.position(20, 240);
   jupiterButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -352,7 +350,7 @@ function jupiterShow() {
 // Creating button to solo out the saturn
 function saturnShow() {
   saturnButton = createButton('SATURN');
-  saturnButton.position(20, 240);
+  saturnButton.position(20, 270);
   saturnButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -365,7 +363,7 @@ function saturnShow() {
 // Creating button to solo out the uranus
 function uranusShow() {
   uranusButton = createButton('URANUS');
-  uranusButton.position(20, 270);
+  uranusButton.position(20, 300);
   uranusButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -378,7 +376,7 @@ function uranusShow() {
 // Creating button to solo out the neptune
 function neptuneShow() {
   neptuneButton = createButton('NEPTUNE');
-  neptuneButton.position(20, 300);
+  neptuneButton.position(20, 330);
   neptuneButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -391,7 +389,7 @@ function neptuneShow() {
 // Creating button to solo out the pluto
 function plutoShow() {
   plutoButton = createButton('PLUTO');
-  plutoButton.position(20, 330);
+  plutoButton.position(20, 360);
   plutoButton.mousePressed(function() {
     reset();
     orbitting = false;
@@ -423,7 +421,7 @@ function saturnRing() {
   tint(255, 190);
   // Apply the appropriate texture (img)
   texture(saturnRingTextureImg);
-  torus(saturnSize + 15, 5);
+  torus(saturnSize + 15, 5, 24, 5);
 
   // If saturn is singled out, make the ring stop rotating (stays stable)
   // also adjust its size
@@ -442,9 +440,7 @@ function saturnRing() {
 //
 // Displaying each planet (for orbitting and for solo planets)
 function displayPlanets() {
-  // if (!sunSolo && !mercurySolo && !venusSolo && !earthSolo && !marsSolo && !jupiterSolo && !saturnSolo && !uranusSolo && !neptuneSolo && !plutoSolo) {
-  //   orbitControl();
-  // } e
+
   // Positioning, rotating, and displaying the planets
   if (showAll || sunSolo) {
     push();
@@ -623,6 +619,7 @@ function reset() {
 //
 // Creating the moving background using particles.js for stars and vanta.js to create the fog
 function bg() {
+
   // Loading particles (stars)
   particlesJS.load('particles-js', 'js/libraries/particles.json', function() {
     // Callback to let us know if particle.js successfully loaded
@@ -634,11 +631,11 @@ function bg() {
     el: "body", // apply it to the body (so the entire canvas)
     highlightColor: 0xe2a, // navy blue
     midtoneColor: 0x311a, // dark green
-    // lowlightColor: 0x1c3c, // navy blue
+    lowlightColor: 0x6978aa, // navy blue
     baseColor: 0x0, // black
-    blurFactor: 0.62,
-    speed: 0.5,
-    zoom: 0.8
+    blurFactor: 0.8,
+    speed: 1,
+    zoom: 0.7
   });
 }
 
