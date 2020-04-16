@@ -10,17 +10,38 @@ body {
   padding: 0;
   margin: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   color: #B8B8B8;
   background-color: #000;
+  z-index: 100;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .loadingclass {
+  margin-top: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.loadingclass p {
+  margin-top: -450px;
   font-family: 'Karla', sans-serif;
   letter-spacing: 3px;
-  text-align: center;
-  margin-top: 350px;
+  font-size: 18px;
+  position: absolute;
+  width: 100%;
+  text-align:center;
 
+}
+
+.hello {
+  font-size: 200px;
+  z-index: 1000;
+  position: absolute;
+  margin-top: 100px;
+  margin-left: 40px;
 }
 
 button, p {
@@ -29,7 +50,7 @@ button, p {
   font-family: 'Karla', sans-serif;
   color: #B8B8B8;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 1.2px;
   margin-top: -5px;
   background-color: transparent;
@@ -44,4 +65,68 @@ button, p {
   left: 0;
   top: 0;
   -webkit-filter:blur(1px) contrast(10) saturate(0.7);
+}
+
+.buttonStyling {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 40px;
+  margin-top: 50px;
+  z-index: 100;
+  color: red;
+}
+
+.sunSound {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  margin-left: 60px;
+  margin-top: 50px;
+}
+
+/* #frameImage {
+  background-image: url("../assets/images/window.png");
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+} */
+
+#fog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -100;
+}
+
+#milkyWayImage {
+  opacity: 0.4;
+  background-image: url("../assets/images/milkyWay.jpg");
+  width: 100%;
+  height: 100vh;
+  z-index: -10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+}
+
+.sunInfo {
+  display: none;
+  position: absolute;
+  font-family: 'Karla', sans-serif;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: normal;
 }
