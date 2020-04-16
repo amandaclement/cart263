@@ -30,16 +30,16 @@ let plutoSolo = false;
 
 // Creating buttons
 let orbitButton;
-let sunButton;
-let mercuryButton;
-let venusButton;
-let earthButton;
-let marsButton;
-let jupiterButton;
-let saturnButton;
-let uranusButton;
-let neptuneButton;
-let plutoButton;
+let $sunButton;
+let $mercuryButton;
+let $venusButton;
+let $earthButton;
+let $marsButton;
+let $jupiterButton;
+let $saturnButton;
+let $uranusButton;
+let $neptuneButton;
+let $plutoButton;
 
 // Declaring the sun and each planet
 let sun;
@@ -182,16 +182,10 @@ function preload() {
 //
 // Description of setup
 function setup() {
-  //$hello = $("#hello");
+  // Working in WEBGL
+  createCanvas(windowWidth, windowHeight, WEBGL);
 
-  // let $sunSound = $('<div></div>');
-  // $sunSound.addClass('sunSound');
-  // $sunSound.text('PLAY SOUND');
-  // $sunSound.click(function() {
-  //   sunSFX.play();
-  //   console.log('text');
-  // });
-  // $('body').append($sunSound);
+  bg(); // background (stars and fog)
 
   $sunInfo = $('.sunInfo');
   $mercuryInfo = $('.mercuryInfo');
@@ -204,21 +198,125 @@ function setup() {
   $neptuneInfo = $('.neptuneInfo');
   $plutoInfo = $('.plutoInfo');
 
-  let $sunButton = $('<div></div>');
+  $sunButton = $('<div></div>');
   $sunButton.addClass('buttonStyling');
+  $sunButton.button();
   $sunButton.text('SUN');
   $sunButton.click(function() {
     reset();
-    // sunSFX.play();
+    sunSFX.play();
     sunSolo = true;
+    $sunInfo.show();
   });
-  $('body').append($sunButton);
+  $('.buttonGroup').append($sunButton);
 
+  $mercuryButton = $('<div></div>');
+  $mercuryButton.addClass('buttonStyling');
+  $mercuryButton.button();
+  $mercuryButton.text('MERCURY');
+  $mercuryButton.click(function() {
+    reset();
+    mercurySFX.play();
+    mercurySolo = true;
+    $mercuryInfo.show();
+  });
+  $('.buttonGroup').append($mercuryButton);
 
-  // Working in WEBGL
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  $venusButton = $('<div></div>');
+  $venusButton.addClass('buttonStyling');
+  $venusButton.button();
+  $venusButton.text('VENUS');
+  $venusButton.click(function() {
+    reset();
+    venusSFX.play();
+    venusSolo = true;
+    $venusInfo.show();
+  });
+  $('.buttonGroup').append($venusButton);
 
-  bg(); // background (stars and fog)
+  $earthButton = $('<div></div>');
+  $earthButton.addClass('buttonStyling');
+  $earthButton.button();
+  $earthButton.text('EARTH');
+  $earthButton.click(function() {
+    reset();
+    earthSFX.play();
+    earthSolo = true;
+    $earthInfo.show();
+  });
+  $('.buttonGroup').append($earthButton);
+
+  $marsButton = $('<div></div>');
+  $marsButton.addClass('buttonStyling');
+  $marsButton.button();
+  $marsButton.text('MARS');
+  $marsButton.click(function() {
+    reset();
+    marsSFX.play();
+    marsSolo = true;
+    $marsInfo.show();
+  });
+  $('.buttonGroup').append($marsButton);
+
+  $jupiterButton = $('<div></div>');
+  $jupiterButton.addClass('buttonStyling');
+  $jupiterButton.button();
+  $jupiterButton.text('JUPITER');
+  $jupiterButton.click(function() {
+    reset();
+    jupiterSFX.play();
+    jupiterSolo = true;
+    $jupiterInfo.show();
+  });
+  $('.buttonGroup').append($jupiterButton);
+
+  $saturnButton = $('<div></div>');
+  $saturnButton.addClass('buttonStyling');
+  $saturnButton.button();
+  $saturnButton.text('SATURN');
+  $saturnButton.click(function() {
+    reset();
+    saturnSFX.play();
+    saturnSolo = true;
+    $saturnInfo.show();
+  });
+  $('.buttonGroup').append($saturnButton);
+
+  $uranusButton = $('<div></div>');
+  $uranusButton.addClass('buttonStyling');
+  $uranusButton.button();
+  $uranusButton.text('URANUS');
+  $uranusButton.click(function() {
+    reset();
+    uranusSFX.play();
+    uranusSolo = true;
+    $uranusInfo.show();
+  });
+  $('.buttonGroup').append($uranusButton);
+
+  $neptuneButton = $('<div></div>');
+  $neptuneButton.addClass('buttonStyling');
+  $neptuneButton.button();
+  $neptuneButton.text('NEPTUNE');
+  $neptuneButton.click(function() {
+    reset();
+    neptuneSFX.play();
+    neptuneSolo = true;
+    $neptuneInfo.show();
+  });
+  $('.buttonGroup').append($neptuneButton);
+
+  $plutoButton = $('<div></div>');
+  $plutoButton.addClass('buttonStyling');
+  $plutoButton.button();
+  $plutoButton.text('PLUTO');
+  $plutoButton.click(function() {
+    reset();
+    plutoSFX.play();
+    plutoSolo = true;
+    $plutoInfo.show();
+  });
+  $('.buttonGroup').append($plutoButton);
 
   // Creating objects (planets)
   // constructor(radius,texture,millisDivider,length)
@@ -236,16 +334,16 @@ function setup() {
   // For the planet information
   // Info taken from NASA: https://solarsystem.nasa.gov/solar-system/sun/overview/
   // constructor(planetName, subtitle, planetTypeInfo, sizeInfo, positionInfo, distanceInfo, lengthInfo, surfaceInfo, moonInfo, sound)
-  sunInfo = new PlanetInfo('S U N', 'OUR STAR', 'TERRESTRIAL', 'SMALLEST PLANET IN SOLAR SYSTEM', 'CLOSEST TO SUN', '36 MILLION MILES', '88 EARTH DAYS', 'ROCKY', '0', sunSFX);
-  mercuryInfo = new PlanetInfo('M E R C U R Y', 'THE SWIFTEST PLANET', 'TERRESTRIAL', 'SMALLEST PLANET IN SOLAR SYSTEM', 'CLOSEST TO SUN', '36 MILLION MILES', '88 EARTH DAYS', 'ROCKY', '0', mercurySFX);
-  venusInfo = new PlanetInfo('V E N U S', 'PLANETARY HOT SPOT', 'TERRESTRIAL', 'EARTH-SIZED', 'SECOND CLOSEST TO SUN', '67 MILLION MILES', '225 EARTH DAYS', 'DIVERSE TERRAIN', '0', venusSFX);
-  earthInfo = new PlanetInfo('E A R T H', 'OUR HOME PLANET', 'TERRESTRIAL', 'FIFTH LARGEST PLANET IN SOLAR SYSTEM', 'THIRD ROCK', '95 MILLION MILES', '365 DAYS', 'ROCKY', '1', earthSFX);
-  marsInfo = new PlanetInfo('M A R S', 'THE RED PLANET', 'TERRESTRIAL', 'SMALL PLANET', 'FOURTH ROCK', '228 MILLION MILES', '687 EARTH DAYS', 'RUGGED TERRAIN', '2', marsSFX);
-  jupiterInfo = new PlanetInfo('J U P I T E R', 'TWICE AS MASSIVE AS ALL THE OTHER PLANETS COMBINED', 'GAS GIANT', 'THE GRANDEST PLANET', 'FIFTH PLANET FROM THE SUN', '484 MILLION MILES', '12 EARTH YEARS', 'LACKS AN EARTH-LIKE SOLID SURFACE', 'OVER 75', jupiterSFX);
-  saturnInfo = new PlanetInfo('S A T U R N', 'JEWEL OF OUR SOLAR SYSTEM', 'GAS GIANT', 'NINE EARTHS WOULD ALMOST SPAN ITS DIAMETER', 'SIXTH PLANET FROM THE SUN', '886 MILLION MILES', '29 EARTH YEARS', 'LACKS AN EARTH-LIKE SOLID SURFACE', '82', saturnSFX);
-  uranusInfo = new PlanetInfo('U R A N U S', 'THE SIDEWAYS PLANET', 'ICE GIANT', 'HUGE', 'SEVENTH WANDERER', '1.8 BILLION MILES', '84 EARTH YEARS', 'ICY MATERIALS', '27', uranusSFX);
-  neptuneInfo = new PlanetInfo('N E P T U N E', 'THE WINDIEST PLANET', 'ICE GIANT', 'GIANT (4 TIMES WIDER THAN EARTH)', 'EIGHTH WANDERER', '2.8 BILLION MILES', '165 EARTH YEARS', 'ICY MATERIALS', '14', neptuneSFX);
-  plutoInfo = new PlanetInfo('P L U T O', 'DWARF PLANET', 'DWARF PLANET', 'ABOUT 1400 MILES WIDE', 'USUALLY FARTHEST FROM SUN', '3.6 BILLION MILES', '248 EARTH YEARS', 'COLD', '5', plutoSFX);
+  // sunInfo = new PlanetInfo('S U N', 'OUR STAR', 'TERRESTRIAL', 'SMALLEST PLANET IN SOLAR SYSTEM', 'CLOSEST TO SUN', '36 MILLION MILES', '88 EARTH DAYS', 'ROCKY', '0', sunSFX);
+  // mercuryInfo = new PlanetInfo('M E R C U R Y', 'THE SWIFTEST PLANET', 'TERRESTRIAL', 'SMALLEST PLANET IN SOLAR SYSTEM', 'CLOSEST TO SUN', '36 MILLION MILES', '88 EARTH DAYS', 'ROCKY', '0', mercurySFX);
+  // venusInfo = new PlanetInfo('V E N U S', 'PLANETARY HOT SPOT', 'TERRESTRIAL', 'EARTH-SIZED', 'SECOND CLOSEST TO SUN', '67 MILLION MILES', '225 EARTH DAYS', 'DIVERSE TERRAIN', '0', venusSFX);
+  // earthInfo = new PlanetInfo('E A R T H', 'OUR HOME PLANET', 'TERRESTRIAL', 'FIFTH LARGEST PLANET IN SOLAR SYSTEM', 'THIRD ROCK', '95 MILLION MILES', '365 DAYS', 'ROCKY', '1', earthSFX);
+  // marsInfo = new PlanetInfo('M A R S', 'THE RED PLANET', 'TERRESTRIAL', 'SMALL PLANET', 'FOURTH ROCK', '228 MILLION MILES', '687 EARTH DAYS', 'RUGGED TERRAIN', '2', marsSFX);
+  // jupiterInfo = new PlanetInfo('J U P I T E R', 'TWICE AS MASSIVE AS ALL THE OTHER PLANETS COMBINED', 'GAS GIANT', 'THE GRANDEST PLANET', 'FIFTH PLANET FROM THE SUN', '484 MILLION MILES', '12 EARTH YEARS', 'LACKS AN EARTH-LIKE SOLID SURFACE', 'OVER 75', jupiterSFX);
+  // saturnInfo = new PlanetInfo('S A T U R N', 'JEWEL OF OUR SOLAR SYSTEM', 'GAS GIANT', 'NINE EARTHS WOULD ALMOST SPAN ITS DIAMETER', 'SIXTH PLANET FROM THE SUN', '886 MILLION MILES', '29 EARTH YEARS', 'LACKS AN EARTH-LIKE SOLID SURFACE', '82', saturnSFX);
+  // uranusInfo = new PlanetInfo('U R A N U S', 'THE SIDEWAYS PLANET', 'ICE GIANT', 'HUGE', 'SEVENTH WANDERER', '1.8 BILLION MILES', '84 EARTH YEARS', 'ICY MATERIALS', '27', uranusSFX);
+  // neptuneInfo = new PlanetInfo('N E P T U N E', 'THE WINDIEST PLANET', 'ICE GIANT', 'GIANT (4 TIMES WIDER THAN EARTH)', 'EIGHTH WANDERER', '2.8 BILLION MILES', '165 EARTH YEARS', 'ICY MATERIALS', '14', neptuneSFX);
+  // plutoInfo = new PlanetInfo('P L U T O', 'DWARF PLANET', 'DWARF PLANET', 'ABOUT 1400 MILES WIDE', 'USUALLY FARTHEST FROM SUN', '3.6 BILLION MILES', '248 EARTH YEARS', 'COLD', '5', plutoSFX);
 }
 
 // draw()
@@ -309,68 +407,68 @@ function creatingButtons() {
 //   $('body').append($playButton);
 // }
 
-  mercuryButton = createButton('MERCURY');
-  mercuryButton.position(20, 75);
-  mercuryButton.mousePressed(function() {
-    reset();
-    mercurySolo = true;
-  });
-
-  venusButton = createButton('VENUS');
-  venusButton.position(20, 100);
-  venusButton.mousePressed(function() {
-    reset();
-    venusSolo = true;
-  });
-
-  earthButton = createButton('EARTH');
-  earthButton.position(20, 125);
-  earthButton.mousePressed(function() {
-    reset();
-    earthSolo = true;
-  });
-
-  marsButton = createButton('MARS');
-  marsButton.position(20, 150);
-  marsButton.mousePressed(function() {
-    reset();
-    marsSolo = true;
-  });
-
-  jupiterButton = createButton('JUPITER');
-  jupiterButton.position(20, 175);
-  jupiterButton.mousePressed(function() {
-    reset();
-    jupiterSolo = true;
-  });
-
-  saturnButton = createButton('SATURN');
-  saturnButton.position(20, 200);
-  saturnButton.mousePressed(function() {
-    reset();
-    saturnSolo = true;
-  });
-
-  uranusButton = createButton('URANUS');
-  uranusButton.position(20, 225);
-  uranusButton.mousePressed(function() {
-    reset();
-    uranusSolo = true;
-  });
-
-  neptuneButton = createButton('NEPTUNE');
-  neptuneButton.position(20, 250);
-  neptuneButton.mousePressed(function() {
-    reset();
-    neptuneSolo = true;
-  });
-
-  plutoButton = createButton('PLUTO');
-  plutoButton.position(20, 275);
-  plutoButton.mousePressed(function() {
-    reset();
-    plutoSolo = true;
-  });
+  // mercuryButton = createButton('MERCURY');
+  // mercuryButton.position(20, 75);
+  // mercuryButton.mousePressed(function() {
+  //   reset();
+  //   mercurySolo = true;
+  // });
+  //
+  // venusButton = createButton('VENUS');
+  // venusButton.position(20, 100);
+  // venusButton.mousePressed(function() {
+  //   reset();
+  //   venusSolo = true;
+  // });
+  //
+  // earthButton = createButton('EARTH');
+  // earthButton.position(20, 125);
+  // earthButton.mousePressed(function() {
+  //   reset();
+  //   earthSolo = true;
+  // });
+  //
+  // marsButton = createButton('MARS');
+  // marsButton.position(20, 150);
+  // marsButton.mousePressed(function() {
+  //   reset();
+  //   marsSolo = true;
+  // });
+  //
+  // jupiterButton = createButton('JUPITER');
+  // jupiterButton.position(20, 175);
+  // jupiterButton.mousePressed(function() {
+  //   reset();
+  //   jupiterSolo = true;
+  // });
+  //
+  // saturnButton = createButton('SATURN');
+  // saturnButton.position(20, 200);
+  // saturnButton.mousePressed(function() {
+  //   reset();
+  //   saturnSolo = true;
+  // });
+  //
+  // uranusButton = createButton('URANUS');
+  // uranusButton.position(20, 225);
+  // uranusButton.mousePressed(function() {
+  //   reset();
+  //   uranusSolo = true;
+  // });
+  //
+  // neptuneButton = createButton('NEPTUNE');
+  // neptuneButton.position(20, 250);
+  // neptuneButton.mousePressed(function() {
+  //   reset();
+  //   neptuneSolo = true;
+  // });
+  //
+  // plutoButton = createButton('PLUTO');
+  // plutoButton.position(20, 275);
+  // plutoButton.mousePressed(function() {
+  //   reset();
+  //   plutoSolo = true;
+  // });
 
 }
 
@@ -420,7 +518,7 @@ function displayPlanets() {
   if (orbitting || sunSolo) {
     push();
     if (!orbitting && sunSolo) {
-      sunInfo.displayTitle();
+      // sunInfo.displayTitle();
     }
     sun.rotation();
     sun.display();
@@ -436,8 +534,8 @@ function displayPlanets() {
       mercury.position();
     }
     if (!orbitting && mercurySolo) {
-      mercuryInfo.displayTitle();
-      mercuryInfo.displayInfo();
+      // mercuryInfo.displayTitle();
+      // mercuryInfo.displayInfo();
     }
     mercury.rotation();
     mercury.display();
@@ -450,8 +548,8 @@ function displayPlanets() {
       venus.position();
     }
     if (!orbitting && venusSolo) {
-      venusInfo.displayTitle();
-      venusInfo.displayInfo();
+      // venusInfo.displayTitle();
+      // venusInfo.displayInfo();
     }
     venus.rotation();
     venus.display();
@@ -464,8 +562,8 @@ function displayPlanets() {
       earth.position();
     }
     if (!orbitting && earthSolo) {
-      earthInfo.displayTitle();
-      earthInfo.displayInfo();
+      // earthInfo.displayTitle();
+      // earthInfo.displayInfo();
     }
     earth.rotation();
     earth.display();
@@ -478,8 +576,8 @@ function displayPlanets() {
       mars.position();
     }
     if (!orbitting && marsSolo) {
-      marsInfo.displayTitle();
-      marsInfo.displayInfo();
+      // marsInfo.displayTitle();
+      // marsInfo.displayInfo();
     }
     mars.rotation();
     mars.display();
@@ -492,8 +590,8 @@ function displayPlanets() {
       jupiter.position();
     }
     if (!orbitting && jupiterSolo) {
-      jupiterInfo.displayTitle();
-      jupiterInfo.displayInfo();
+      // jupiterInfo.displayTitle();
+      // jupiterInfo.displayInfo();
     }
     jupiter.rotation();
     jupiter.display();
@@ -506,8 +604,8 @@ function displayPlanets() {
       saturn.position();
     }
     if (!orbitting && saturnSolo) {
-      saturnInfo.displayTitle();
-      saturnInfo.displayInfo();
+      // saturnInfo.displayTitle();
+      // saturnInfo.displayInfo();
     }
     saturn.rotation();
     saturn.display();
@@ -520,8 +618,8 @@ function displayPlanets() {
       uranus.position();
     }
     if (!orbitting && uranusSolo) {
-      uranusInfo.displayTitle();
-      uranusInfo.displayInfo();
+      // uranusInfo.displayTitle();
+      // uranusInfo.displayInfo();
     }
     uranus.rotation();
     uranus.display();
@@ -534,8 +632,8 @@ function displayPlanets() {
       neptune.position();
     }
     if (!orbitting && neptuneSolo) {
-      neptuneInfo.displayTitle();
-      neptuneInfo.displayInfo();
+      // neptuneInfo.displayTitle();
+      // neptuneInfo.displayInfo();
     }
     neptune.rotation();
     neptune.display();
@@ -548,8 +646,8 @@ function displayPlanets() {
       pluto.position();
     }
     if (!orbitting && plutoSolo) {
-      plutoInfo.displayTitle();
-      plutoInfo.displayInfo();
+      // plutoInfo.displayTitle();
+      // plutoInfo.displayInfo();
     }
     pluto.rotation();
     pluto.display();
@@ -563,6 +661,16 @@ function displayPlanets() {
 // and stopping any sounds playing
 function reset() {
   $('.sunInfo').hide();
+  $('.mercuryInfo').hide();
+  $('.venusInfo').hide();
+  $('.earthInfo').hide();
+  $('.marsInfo').hide();
+  $('.saturnInfo').hide();
+  $('.jupiterInfo').hide();
+  $('.uranusInfo').hide();
+  $('.neptuneInfo').hide();
+  $('.plutoInfo').hide();
+
   orbitting = false;
   sunSolo = false;
   sunSFX.stop();
@@ -731,4 +839,3 @@ class Planet {
   //   });
   //   $('body').append($playButton);
   // }
-}
