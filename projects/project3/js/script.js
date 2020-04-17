@@ -331,8 +331,7 @@ function setup() {
   });
   $('.buttonGroup').append($plutoButton);
 
-  // Creating objects (planets)
-  // constructor(radius,texture,millisDivider,length)
+  // Creating objects (planet spheres)
   sun = new Planet(sunSize, sunTextureImg, 0, 0);
   mercury = new Planet(baseSize, mercuryTextureImg, mercurySpeed, mercuryDistance);
   venus = new Planet(venusSize, venusTextureImg, venusSpeed, venusDistance);
@@ -344,6 +343,7 @@ function setup() {
   neptune = new Planet(neptuneSize, neptuneTextureImg, neptuneSpeed, neptuneDistance);
   pluto = new Planet(baseSize, plutoTextureImg, plutoSpeed, plutoDistance);
 
+  // Creating objects (sound effects)
   sunSound = new Sound(sunSFX);
   mercurySound = new Sound(mercurySFX);
   venusSound = new Sound(venusSFX);
@@ -366,15 +366,13 @@ function draw() {
   // Removing the stroke on all planets
   noStroke();
 
-  displayPlanets();
+  planets();
 
   push();
   saturnRing();
   pop();
 
-  if (orbitting) {
-    orbitControl();
-  }
+  orbitControl();
 }
 
 // saturnRing()
@@ -404,7 +402,7 @@ function saturnRing() {
 
   // If saturn is singled out, make the ring stop rotating (stays stable)
   // also adjust its size
-  if (!orbitting && saturnSolo) {
+  if (saturnSolo) {
     push();
     // Rotate it
     rotateX(8);
@@ -415,136 +413,184 @@ function saturnRing() {
   }
 }
 
-// displayPlanets()
+// planets()
 //
-// Displaying each planet (for orbitting and for solo planets)
-function displayPlanets() {
-  // Positioning, rotating, and displaying the planets
-  if (orbitting || sunSolo) {
+// Positioning, rotating, and displaying each planet
+// also controlling the sound effects
+function planets() {
+  // SUN
+  if (sunSolo || orbitting) {
     push();
-    if (!orbitting && sunSolo) {
-      sunSound.playSound();
-    }
+    // No positioning since it does not translate (rotates in place)
     sun.rotation();
     sun.display();
     pop();
+    // If sun is selected, user can hover over it to play sound effect
+    if (sunSolo) {
+      sunSound.playSound();
+    }
   }
 
   // Adding shadow
   shadow();
 
+  // MERCURY
   if (orbitting || mercurySolo) {
     push();
-    if (orbitting) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply mercury's position to make it orbit around sun
+    if (!mercurySolo) {
       mercury.position();
     }
-    if (!orbitting && mercurySolo) {
+    // If mercury is selected, user can hover over it to play sound effect
+    if (mercurySolo) {
       mercurySound.playSound();
     }
+    // Apply rotation and display it
     mercury.rotation();
     mercury.display();
     pop();
   }
 
+  // VENUS
   if (orbitting || venusSolo) {
     push();
-    if (orbitting) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply venus' position to make it orbit around sun
+    if (!venusSolo) {
       venus.position();
     }
-    if (!orbitting && venusSolo) {
+    // If venus is selected, user can hover over it to play sound effect
+    if (venusSolo) {
       venusSound.playSound();
     }
+    // Apply rotation and display it
     venus.rotation();
     venus.display();
     pop();
   }
 
+  // EARTH
   if (orbitting || earthSolo) {
     push();
-    if (orbitting) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply earth's position to make it orbit around sun
+    if (!earthSolo) {
       earth.position();
     }
-    if (!orbitting && earthSolo) {
+    // If earth is selected, user can hover over it to play sound effect
+    if (earthSolo) {
       earthSound.playSound();
     }
+    // Apply rotation and display it
     earth.rotation();
     earth.display();
     pop();
   }
 
+  // MARS
   if (orbitting || marsSolo) {
     push();
-    if (orbitting) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply mars' position to make it orbit around sun
+    if (!marsSolo) {
       mars.position();
     }
-    if (!orbitting && marsSolo) {
+    // If mars is selected, user can hover over it to play sound effect
+    if (marsSolo) {
       marsSound.playSound();
     }
+    // Apply rotation and display it
     mars.rotation();
     mars.display();
     pop();
   }
 
+  // JUPITER
   if (orbitting || jupiterSolo) {
     push();
-    if (orbitting) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply jupiter's position to make it orbit around sun
+    if (!jupiterSolo) {
       jupiter.position();
     }
-    if (!orbitting && jupiterSolo) {
+    // If jupiter is selected, user can hover over it to play sound effect
+    if (jupiterSolo) {
       jupiterSound.playSound();
     }
+    // Apply rotation and display it
     jupiter.rotation();
     jupiter.display();
     pop();
   }
 
+  // SATURN
   if (orbitting || saturnSolo) {
     push();
-    if (orbitting) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply saturn's position to make it orbit around sun
+    if (!saturnSolo) {
       saturn.position();
     }
-    if (!orbitting && saturnSolo) {
+    // If saturn is selected, user can hover over it to play sound effect
+    if (saturnSolo) {
       saturnSound.playSound();
     }
+    // Apply rotation and display it
     saturn.rotation();
     saturn.display();
     pop();
   }
 
+  // URANUS
   if (orbitting || uranusSolo) {
     push();
-    if (orbitting) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply uranus' position to make it orbit around sun
+    if (!uranusSolo) {
       uranus.position();
     }
-    if (!orbitting && uranusSolo) {
+    // If uranus is selected, user can hover over it to play sound effect
+    if (uranusSolo) {
       uranusSound.playSound();
     }
+    // Apply rotation and display it
     uranus.rotation();
     uranus.display();
     pop();
   }
 
+  // NEPTUNE
   if (orbitting || neptuneSolo) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply neptune's position to make it orbit around sun
     push();
-    if (orbitting) {
+    if (!neptuneSolo) {
       neptune.position();
     }
-    if (!orbitting && neptuneSolo) {
+    // If neptune is selected, user can hover over it to play sound effect
+    if (neptuneSolo) {
       neptuneSound.playSound();
     }
+    // Apply rotation and display it
     neptune.rotation();
     neptune.display();
     pop();
   }
 
+  // PLUTO
   if (orbitting || plutoSolo) {
+    // If planets are orbitting (meaning none are individually selected)
+    // then apply pluto's position to make it orbit around sun
     push();
-    if (orbitting) {
+    if (!plutoSolo) {
       pluto.position();
     }
-    if (!orbitting && plutoSolo) {
+    // If pluto is selected, user can hover over it to play sound effect
+    if (plutoSolo) {
       plutoSound.playSound();
     }
+    // Apply rotation and display it
     pluto.rotation();
     pluto.display();
     pop();
@@ -584,11 +630,11 @@ function reset() {
 //
 // Creating the moving background using particles.js for stars and vanta.js to create the fog
 function bg() {
-  // Loading particles (stars)
-  // particlesJS.load('particles-js', 'js/libraries/particles.json', function() {
-  //   // Callback to let us know if particle.js successfully loaded
-  //   console.log('callback - particles.js config loaded');
-  // });
+  // // Loading particles (stars)
+  particlesJS.load('particles-js', 'js/libraries/particles.json', function() {
+    // Callback to let us know if particle.js successfully loaded
+    console.log('callback - particles.js config loaded');
+  });
 
   // Creating the fog
   VANTA.FOG({
