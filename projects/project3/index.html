@@ -1,151 +1,154 @@
-<h3><!DOCTYPE html>
-<html>
+<h3>
+  <!DOCTYPE html>
+  <html>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
 
-  <!-- CSS stylesheet(s) -->
-  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!-- CSS stylesheet(s) -->
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-  <!-- Library script(s) -->
-  <script src="js/libraries/p5.min.js"></script>
-  <script src="js/libraries/p5.sound.min.js"></script>
-  <script src="js/libraries/p5.dom.min.js"></script>
+    <!-- Library script(s) -->
+    <script src="js/libraries/p5.min.js"></script>
+    <script src="js/libraries/p5.sound.min.js"></script>
+    <script src="js/libraries/p5.dom.min.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
-  <script src="js/libraries/three.r95.min.js"></script>
-  <script src="js/libraries/vanta.fog.min.js"></script>
+    <script src="js/libraries/three.r95.min.js"></script>
+    <script src="js/libraries/vanta.fog.min.js"></script>
 
-  <script src="js/libraries/particles.js"></script>
+    <script src="js/libraries/particles.js"></script>
 
-  <!-- My script(s) -->
-  <script src="js/libraries/p5.orbitControlAdjustments.js"></script>
-  <script src="js/script.js"></script>
-</head>
+    <!-- My script(s) -->
+    <script src="js/libraries/p5.orbitControlAdjustments.js"></script>
+    <script src="js/script.js"></script>
+  </head>
 
-<body>
-  <div id="particles-js"></div>
-  <div id="p5_loading" class="loadingclass"><p>PREPARING&nbsp;FOR&nbsp;BLAST&nbsp;OFF...<p></div>
-  <div id="frameImage"></div>
-  <div id="fog"></div>
-  <div id="milkyWayImage"></div>
-  <div class="buttonGroup"></div>
+  <body>
+    <div id="particles-js"></div>
+    <div id="p5_loading" class="loadingclass">
+      <p>PREPARING&nbsp;FOR&nbsp;BLAST&nbsp;OFF...<p>
+    </div>
+    <div id="frameImage"></div>
+    <div id="fog"></div>
+    <div id="milkyWayImage"></div>
+    <div class="buttonGroup"></div>
 
-  <h1 class="sunInfo hideInfo">SUN</h1>
-  <h2 class="sunInfo hideInfo">OUR STAR<h2>
+    <h1 class="sunInfo hideInfo">SUN</h1>
+    <h2 class="sunInfo hideInfo">OUR STAR<h2>
 
-  <h1 class="mercuryInfo hideInfo">MERCURY</h1>
-  <h2 class="mercuryInfo hideInfo">THE SWIFTEST PLANET<h2>
-  <section class="mercuryInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>TERRESTRIAL</i></h3>
-    <h3><b>SIZE:</b> <i>SMALLEST PLANET IN SOLAR SYSTEM</i></h3>
-    <h3><b>POSITION:</b> <i>CLOSEST TO SUN</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>36 MILLION MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>88 EARTH DAYS</i></h3>
-    <h3><b>SURFACE:</b> <i>ROCKY</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>0</i></h3>
-  </section>
+        <h1 class="mercuryInfo hideInfo">MERCURY</h1>
+        <h2 class="mercuryInfo hideInfo">THE SWIFTEST PLANET<h2>
+            <section class="mercuryInfo hideInfo">
+              <h3><b>PLANET TYPE:</b> <i>TERRESTRIAL</i></h3>
+              <h3><b>SIZE:</b> <i>SMALLEST PLANET IN SOLAR SYSTEM</i></h3>
+              <h3><b>POSITION:</b> <i>CLOSEST TO SUN</i></h3>
+              <h3><b>DISTANCE FROM SUN:</b> <i>36 MILLION MILES</i></h3>
+              <h3><b>LENGTH OF YEAR:</b> <i>88 EARTH DAYS</i></h3>
+              <h3><b>SURFACE:</b> <i>ROCKY</i></h3>
+              <h3><b>NUMBER OF MOONS:</b> <i>0</i></h3>
+            </section>
 
-  <h1 class="venusInfo hideInfo">VENUS</h1>
-  <h2 class="venusInfo hideInfo">PLANETARY HOT SPOT<h2>
-  <section class="venusInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>TERRESTRIAL</i></h3>
-    <h3><b>SIZE:</b> <i>EARTH-SIZED</i></h3>
-    <h3><b>POSITION:</b> <i>SECOND CLOSEST TO SUN</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>67 MILLION MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>225 EARTH DAYS</i></h3>
-    <h3><b>SURFACE:</b> <i>DIVERSE TERRAIN</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>0</i></h3>
-  </section>
+            <h1 class="venusInfo hideInfo">VENUS</h1>
+            <h2 class="venusInfo hideInfo">PLANETARY HOT SPOT<h2>
+                <section class="venusInfo hideInfo">
+                  <h3><b>PLANET TYPE:</b> <i>TERRESTRIAL</i></h3>
+                  <h3><b>SIZE:</b> <i>EARTH-SIZED</i></h3>
+                  <h3><b>POSITION:</b> <i>SECOND CLOSEST TO SUN</i></h3>
+                  <h3><b>DISTANCE FROM SUN:</b> <i>67 MILLION MILES</i></h3>
+                  <h3><b>LENGTH OF YEAR:</b> <i>225 EARTH DAYS</i></h3>
+                  <h3><b>SURFACE:</b> <i>DIVERSE TERRAIN</i></h3>
+                  <h3><b>NUMBER OF MOONS:</b> <i>0</i></h3>
+                </section>
 
-  <h1 class="earthInfo hideInfo">EARTH</h1>
-  <h2 class="earthInfo hideInfo">OUR HOME PLANET<h2>
-  <section class="earthInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>TERRESTRIAL</i></h3>
-    <h3><b>SIZE:</b> <i>FIFTH LARGEST PLANET IN SOLAR SYSTEM</i></h3>
-    <h3><b>POSITION:</b> <i>THIRD ROCK</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>95 MILLION MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>365 DAYS</i></h3>
-    <h3><b>SURFACE:</b> <i>ROCKY</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>1</i></h3>
-  </section>
+                <h1 class="earthInfo hideInfo">EARTH</h1>
+                <h2 class="earthInfo hideInfo">OUR HOME PLANET<h2>
+                    <section class="earthInfo hideInfo">
+                      <h3><b>PLANET TYPE:</b> <i>TERRESTRIAL</i></h3>
+                      <h3><b>SIZE:</b> <i>FIFTH LARGEST PLANET IN SOLAR SYSTEM</i></h3>
+                      <h3><b>POSITION:</b> <i>THIRD ROCK</i></h3>
+                      <h3><b>DISTANCE FROM SUN:</b> <i>95 MILLION MILES</i></h3>
+                      <h3><b>LENGTH OF YEAR:</b> <i>365 DAYS</i></h3>
+                      <h3><b>SURFACE:</b> <i>ROCKY</i></h3>
+                      <h3><b>NUMBER OF MOONS:</b> <i>1</i></h3>
+                    </section>
 
-  <h1 class="marsInfo hideInfo">MARS</h1>
-  <h2 class="marsInfo hideInfo">THE RED PLANET<h2>
-  <section class="marsInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>TERRESTRIAL</i></h3>
-    <h3><b>SIZE:</b> <i>SMALL PLANET</i></h3>
-    <h3><b>POSITION:</b> <i>FOURTH ROCK</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>228 MILLION MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>687 EARTH DAYS</i></h3>
-    <h3><b>SURFACE:</b> <i>RUGGED TERRAIN</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>2</i></h3>
-  </section>
+                    <h1 class="marsInfo hideInfo">MARS</h1>
+                    <h2 class="marsInfo hideInfo">THE RED PLANET<h2>
+                        <section class="marsInfo hideInfo">
+                          <h3><b>PLANET TYPE:</b> <i>TERRESTRIAL</i></h3>
+                          <h3><b>SIZE:</b> <i>SMALL PLANET</i></h3>
+                          <h3><b>POSITION:</b> <i>FOURTH ROCK</i></h3>
+                          <h3><b>DISTANCE FROM SUN:</b> <i>228 MILLION MILES</i></h3>
+                          <h3><b>LENGTH OF YEAR:</b> <i>687 EARTH DAYS</i></h3>
+                          <h3><b>SURFACE:</b> <i>RUGGED TERRAIN</i></h3>
+                          <h3><b>NUMBER OF MOONS:</b> <i>2</i></h3>
+                        </section>
 
-  <h1 class="jupiterInfo hideInfo">JUPITER</h1>
-  <h2 class="jupiterInfo hideInfo">TWICE AS MASSIVE AS ALL OTHER PLANETS COMBINED<h2>
-  <section class="jupiterInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>GAS GIANT</i></h3>
-    <h3><b>SIZE:</b> <i>THE GRANDEST PLANET</i></h3>
-    <h3><b>POSITION:</b> <i>FIFTH PLANET FROM THE SUN</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>484 MILLION MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>12 EARTH YEARS</i></h3>
-    <h3><b>SURFACE:</b> <i>LACKS AN EARTH-LIKE SOLID SURFACE</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>OVER 75</i></h3>
-  </section>
+                        <h1 class="jupiterInfo hideInfo">JUPITER</h1>
+                        <h2 class="jupiterInfo hideInfo">TWICE AS MASSIVE AS ALL OTHER PLANETS COMBINED<h2>
+                            <section class="jupiterInfo hideInfo">
+                              <h3><b>PLANET TYPE:</b> <i>GAS GIANT</i></h3>
+                              <h3><b>SIZE:</b> <i>THE GRANDEST PLANET</i></h3>
+                              <h3><b>POSITION:</b> <i>FIFTH PLANET FROM THE SUN</i></h3>
+                              <h3><b>DISTANCE FROM SUN:</b> <i>484 MILLION MILES</i></h3>
+                              <h3><b>LENGTH OF YEAR:</b> <i>12 EARTH YEARS</i></h3>
+                              <h3><b>SURFACE:</b> <i>LACKS AN EARTH-LIKE SOLID SURFACE</i></h3>
+                              <h3><b>NUMBER OF MOONS:</b> <i>OVER 75</i></h3>
+                            </section>
 
-  <h1 class="saturnInfo hideInfo">SATURN</h1>
-  <h2 class="saturnInfo hideInfo">JEWEL OF OUR SOLAR SYSTEM<h2>
-  <section class="saturnInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>GAS GIANT</i></h3>
-    <h3><b>SIZE:</b> <i>NINE EARTHS WOULD ALMOST SPAN ITS DIAMETER</i></h3>
-    <h3><b>POSITION:</b> <i>SIXTH PLANET FROM SUN</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>886 MILLION MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>29 EARTH YEARS</i></h3>
-    <h3><b>SURFACE:</b> <i>LACKS AN EARTH-LIKE SOLID SURFACE</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>82</i></h3>
-  </section>
+                            <h1 class="saturnInfo hideInfo">SATURN</h1>
+                            <h2 class="saturnInfo hideInfo">JEWEL OF OUR SOLAR SYSTEM<h2>
+                                <section class="saturnInfo hideInfo">
+                                  <h3><b>PLANET TYPE:</b> <i>GAS GIANT</i></h3>
+                                  <h3><b>SIZE:</b> <i>NINE EARTHS WOULD ALMOST SPAN ITS DIAMETER</i></h3>
+                                  <h3><b>POSITION:</b> <i>SIXTH PLANET FROM SUN</i></h3>
+                                  <h3><b>DISTANCE FROM SUN:</b> <i>886 MILLION MILES</i></h3>
+                                  <h3><b>LENGTH OF YEAR:</b> <i>29 EARTH YEARS</i></h3>
+                                  <h3><b>SURFACE:</b> <i>LACKS AN EARTH-LIKE SOLID SURFACE</i></h3>
+                                  <h3><b>NUMBER OF MOONS:</b> <i>82</i></h3>
+                                </section>
 
-  <h1 class="uranusInfo hideInfo">URANUS</h1>
-  <h2 class="uranusInfo hideInfo">THE SIDEWAYS PLANET<h2>
-  <section class="uranusInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>ICE GIANT</i></h3>
-    <h3><b>SIZE:</b> <i>HUGE</i></h3>
-    <h3><b>POSITION:</b> <i>SEVENTH WANDERER</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>1.8 BILLIONS MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>84 EARTH YEARS</i></h3>
-    <h3><b>SURFACE:</b> <i>ICY MATERIALS</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>27</i></h3>
-  </section>
+                                <h1 class="uranusInfo hideInfo">URANUS</h1>
+                                <h2 class="uranusInfo hideInfo">THE SIDEWAYS PLANET<h2>
+                                    <section class="uranusInfo hideInfo">
+                                      <h3><b>PLANET TYPE:</b> <i>ICE GIANT</i></h3>
+                                      <h3><b>SIZE:</b> <i>HUGE</i></h3>
+                                      <h3><b>POSITION:</b> <i>SEVENTH WANDERER</i></h3>
+                                      <h3><b>DISTANCE FROM SUN:</b> <i>1.8 BILLIONS MILES</i></h3>
+                                      <h3><b>LENGTH OF YEAR:</b> <i>84 EARTH YEARS</i></h3>
+                                      <h3><b>SURFACE:</b> <i>ICY MATERIALS</i></h3>
+                                      <h3><b>NUMBER OF MOONS:</b> <i>27</i></h3>
+                                    </section>
 
-  <h1 class="neptuneInfo hideInfo">NEPTUNE</h1>
-  <h2 class="neptuneInfo hideInfo">THE WINDIEST PLANET<h2>
-  <section class="neptuneInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>ICE GIANT</i></h3>
-    <h3><b>SIZE:</b> <i>4 TIMES WIDER THAN EARTH</i></h3>
-    <h3><b>POSITION:</b> <i>EIGTH WANDERER</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>2.8 BILLION MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>165 EARTH YEARS</i></h3>
-    <h3><b>SURFACE:</b> <i>ICY MATERIALS</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>14</i></h3>
-  </section>
+                                    <h1 class="neptuneInfo hideInfo">NEPTUNE</h1>
+                                    <h2 class="neptuneInfo hideInfo">THE WINDIEST PLANET<h2>
+                                        <section class="neptuneInfo hideInfo">
+                                          <h3><b>PLANET TYPE:</b> <i>ICE GIANT</i></h3>
+                                          <h3><b>SIZE:</b> <i>4 TIMES WIDER THAN EARTH</i></h3>
+                                          <h3><b>POSITION:</b> <i>EIGTH WANDERER</i></h3>
+                                          <h3><b>DISTANCE FROM SUN:</b> <i>2.8 BILLION MILES</i></h3>
+                                          <h3><b>LENGTH OF YEAR:</b> <i>165 EARTH YEARS</i></h3>
+                                          <h3><b>SURFACE:</b> <i>ICY MATERIALS</i></h3>
+                                          <h3><b>NUMBER OF MOONS:</b> <i>14</i></h3>
+                                        </section>
 
-  <h1 class="plutoInfo hideInfo">PLUTO</h1>
-  <h2 class="plutoInfo hideInfo">DWARF PLANET<h2>
-  <section class="plutoInfo hideInfo">
-    <h3><b>PLANET TYPE:</b> <i>DWARF PLANET</i></h3>
-    <h3><b>SIZE:</b> <i>ABOUT 1400 MILES WIDE</i></h3>
-    <h3><b>POSITION:</b> <i>USUALLY FARTHEST FROM SUN</i></h3>
-    <h3><b>DISTANCE FROM SUN:</b> <i>3.6 BILLION MILES</i></h3>
-    <h3><b>LENGTH OF YEAR:</b> <i>248 EARTH YEARS</i></h3>
-    <h3><b>SURFACE:</b> <i>COLD</i></h3>
-    <h3><b>NUMBER OF MOONS:</b> <i>5</i></h3>
-  </section>
-</body>
+                                        <h1 class="plutoInfo hideInfo">PLUTO</h1>
+                                        <h2 class="plutoInfo hideInfo">DWARF PLANET<h2>
+                                            <section class="plutoInfo hideInfo">
+                                              <h3><b>PLANET TYPE:</b> <i>DWARF PLANET</i></h3>
+                                              <h3><b>SIZE:</b> <i>ABOUT 1400 MILES WIDE</i></h3>
+                                              <h3><b>POSITION:</b> <i>USUALLY FARTHEST FROM SUN</i></h3>
+                                              <h3><b>DISTANCE FROM SUN:</b> <i>3.6 BILLION MILES</i></h3>
+                                              <h3><b>LENGTH OF YEAR:</b> <i>248 EARTH YEARS</i></h3>
+                                              <h3><b>SURFACE:</b> <i>COLD</i></h3>
+                                              <h3><b>NUMBER OF MOONS:</b> <i>5</i></h3>
+                                            </section>
+  </body>
 
-</html>
+  </html>

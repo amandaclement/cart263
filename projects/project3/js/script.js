@@ -10,8 +10,7 @@ author, and this description to match your project!
 
 ******************/
 
-//let $hello;
-
+// Info taken from NASA: https://solarsystem.nasa.gov/solar-system/sun/overview/
 
 let orbitting = true; // Checking whther it should be orbitting or not
 
@@ -29,7 +28,7 @@ let neptuneSolo = false;
 let plutoSolo = false;
 
 // Creating buttons
-let orbitButton;
+let $orbitButton;
 let $sunButton;
 let $mercuryButton;
 let $venusButton;
@@ -40,6 +39,7 @@ let $saturnButton;
 let $uranusButton;
 let $neptuneButton;
 let $plutoButton;
+let $buttonGroup;
 
 // Declaring the sun and each planet
 let sun;
@@ -79,6 +79,18 @@ let saturnSFX;
 let uranusSFX;
 let neptuneSFX;
 let plutoSFX;
+
+// Sounds effects
+let sunSound;
+let mercurySound;
+let venusSound;
+let earthSound;
+let marsSound;
+let jupiterSound;
+let saturnSound;
+let uranusSound;
+let neptuneSound;
+let plutoSound;
 
 // Planet information
 let $sunInfo;
@@ -197,6 +209,17 @@ function setup() {
   $uranusInfo = $('.uranusInfo');
   $neptuneInfo = $('.neptuneInfo');
   $plutoInfo = $('.plutoInfo');
+  $buttonGroup = $('.buttonGroup');
+
+  $orbitButton = $('<div></div>');
+  $orbitButton.addClass('buttonStyling');
+  $orbitButton.button();
+  $orbitButton.text('RETURN TO ORBIT');
+  $orbitButton.click(function() {
+    reset();
+    orbitting = true;
+  });
+  $('.buttonGroup').append($orbitButton);
 
   $sunButton = $('<div></div>');
   $sunButton.addClass('buttonStyling');
@@ -204,7 +227,6 @@ function setup() {
   $sunButton.text('SUN');
   $sunButton.click(function() {
     reset();
-    sunSFX.play();
     sunSolo = true;
     $sunInfo.show();
   });
@@ -216,7 +238,6 @@ function setup() {
   $mercuryButton.text('MERCURY');
   $mercuryButton.click(function() {
     reset();
-    mercurySFX.play();
     mercurySolo = true;
     $mercuryInfo.show();
   });
@@ -228,7 +249,6 @@ function setup() {
   $venusButton.text('VENUS');
   $venusButton.click(function() {
     reset();
-    venusSFX.play();
     venusSolo = true;
     $venusInfo.show();
   });
@@ -240,7 +260,6 @@ function setup() {
   $earthButton.text('EARTH');
   $earthButton.click(function() {
     reset();
-    earthSFX.play();
     earthSolo = true;
     $earthInfo.show();
   });
@@ -252,7 +271,6 @@ function setup() {
   $marsButton.text('MARS');
   $marsButton.click(function() {
     reset();
-    marsSFX.play();
     marsSolo = true;
     $marsInfo.show();
   });
@@ -264,7 +282,6 @@ function setup() {
   $jupiterButton.text('JUPITER');
   $jupiterButton.click(function() {
     reset();
-    jupiterSFX.play();
     jupiterSolo = true;
     $jupiterInfo.show();
   });
@@ -276,7 +293,6 @@ function setup() {
   $saturnButton.text('SATURN');
   $saturnButton.click(function() {
     reset();
-    saturnSFX.play();
     saturnSolo = true;
     $saturnInfo.show();
   });
@@ -288,7 +304,6 @@ function setup() {
   $uranusButton.text('URANUS');
   $uranusButton.click(function() {
     reset();
-    uranusSFX.play();
     uranusSolo = true;
     $uranusInfo.show();
   });
@@ -300,7 +315,6 @@ function setup() {
   $neptuneButton.text('NEPTUNE');
   $neptuneButton.click(function() {
     reset();
-    neptuneSFX.play();
     neptuneSolo = true;
     $neptuneInfo.show();
   });
@@ -312,7 +326,6 @@ function setup() {
   $plutoButton.text('PLUTO');
   $plutoButton.click(function() {
     reset();
-    plutoSFX.play();
     plutoSolo = true;
     $plutoInfo.show();
   });
@@ -331,19 +344,16 @@ function setup() {
   neptune = new Planet(neptuneSize, neptuneTextureImg, neptuneSpeed, neptuneDistance);
   pluto = new Planet(baseSize, plutoTextureImg, plutoSpeed, plutoDistance);
 
-  // For the planet information
-  // Info taken from NASA: https://solarsystem.nasa.gov/solar-system/sun/overview/
-  // constructor(planetName, subtitle, planetTypeInfo, sizeInfo, positionInfo, distanceInfo, lengthInfo, surfaceInfo, moonInfo, sound)
-  // sunInfo = new PlanetInfo('S U N', 'OUR STAR', 'TERRESTRIAL', 'SMALLEST PLANET IN SOLAR SYSTEM', 'CLOSEST TO SUN', '36 MILLION MILES', '88 EARTH DAYS', 'ROCKY', '0', sunSFX);
-  // mercuryInfo = new PlanetInfo('M E R C U R Y', 'THE SWIFTEST PLANET', 'TERRESTRIAL', 'SMALLEST PLANET IN SOLAR SYSTEM', 'CLOSEST TO SUN', '36 MILLION MILES', '88 EARTH DAYS', 'ROCKY', '0', mercurySFX);
-  // venusInfo = new PlanetInfo('V E N U S', 'PLANETARY HOT SPOT', 'TERRESTRIAL', 'EARTH-SIZED', 'SECOND CLOSEST TO SUN', '67 MILLION MILES', '225 EARTH DAYS', 'DIVERSE TERRAIN', '0', venusSFX);
-  // earthInfo = new PlanetInfo('E A R T H', 'OUR HOME PLANET', 'TERRESTRIAL', 'FIFTH LARGEST PLANET IN SOLAR SYSTEM', 'THIRD ROCK', '95 MILLION MILES', '365 DAYS', 'ROCKY', '1', earthSFX);
-  // marsInfo = new PlanetInfo('M A R S', 'THE RED PLANET', 'TERRESTRIAL', 'SMALL PLANET', 'FOURTH ROCK', '228 MILLION MILES', '687 EARTH DAYS', 'RUGGED TERRAIN', '2', marsSFX);
-  // jupiterInfo = new PlanetInfo('J U P I T E R', 'TWICE AS MASSIVE AS ALL THE OTHER PLANETS COMBINED', 'GAS GIANT', 'THE GRANDEST PLANET', 'FIFTH PLANET FROM THE SUN', '484 MILLION MILES', '12 EARTH YEARS', 'LACKS AN EARTH-LIKE SOLID SURFACE', 'OVER 75', jupiterSFX);
-  // saturnInfo = new PlanetInfo('S A T U R N', 'JEWEL OF OUR SOLAR SYSTEM', 'GAS GIANT', 'NINE EARTHS WOULD ALMOST SPAN ITS DIAMETER', 'SIXTH PLANET FROM THE SUN', '886 MILLION MILES', '29 EARTH YEARS', 'LACKS AN EARTH-LIKE SOLID SURFACE', '82', saturnSFX);
-  // uranusInfo = new PlanetInfo('U R A N U S', 'THE SIDEWAYS PLANET', 'ICE GIANT', 'HUGE', 'SEVENTH WANDERER', '1.8 BILLION MILES', '84 EARTH YEARS', 'ICY MATERIALS', '27', uranusSFX);
-  // neptuneInfo = new PlanetInfo('N E P T U N E', 'THE WINDIEST PLANET', 'ICE GIANT', 'GIANT (4 TIMES WIDER THAN EARTH)', 'EIGHTH WANDERER', '2.8 BILLION MILES', '165 EARTH YEARS', 'ICY MATERIALS', '14', neptuneSFX);
-  // plutoInfo = new PlanetInfo('P L U T O', 'DWARF PLANET', 'DWARF PLANET', 'ABOUT 1400 MILES WIDE', 'USUALLY FARTHEST FROM SUN', '3.6 BILLION MILES', '248 EARTH YEARS', 'COLD', '5', plutoSFX);
+  sunSound = new Sound(sunSFX);
+  mercurySound = new Sound(mercurySFX);
+  venusSound = new Sound(venusSFX);
+  earthSound = new Sound(earthSFX);
+  marsSound = new Sound(marsSFX);
+  jupiterSound = new Sound(jupiterSFX);
+  saturnSound = new Sound(saturnSFX);
+  uranusSound = new Sound(uranusSFX);
+  neptuneSound = new Sound(neptuneSFX);
+  plutoSound = new Sound(plutoSFX);
 }
 
 // draw()
@@ -356,8 +366,6 @@ function draw() {
   // Removing the stroke on all planets
   noStroke();
 
-  creatingButtons();
-
   displayPlanets();
 
   push();
@@ -367,109 +375,6 @@ function draw() {
   if (orbitting) {
     orbitControl();
   }
-}
-
-// orbitButton()
-// To return to main orbit
-function creatingButtons() {
-  orbitButton = createButton('RETURN TO ORBIT');
-  orbitButton.position(20, 25);
-  orbitButton.mousePressed(function() {
-    reset();
-    orbitting = true;
-  });
-
-  // let $sunButton = $('<div></div>');
-  // $sunButton.addClass('buttonStyling');
-  // $sunButton.text('Click here to begin');
-  // $sunButton.button();
-  // // $sunButton.hover(function() {
-  // //   //(this.sound).play();
-  // //   console.log('hovered');
-  // // });
-  // $('body').append($sunButton);
-
-
-
-//   // sunButton = createButton('SUN');
-//   // sunButton.position(20, 50);
-//   // sunButton.mousePressed(function() {
-//   //   reset();
-//   //   sunSolo = true;
-//   // });
-//
-//   let $playButton = $('<div></div');
-//   $playButton.addClass('start');
-//   $playButton.button();
-//   $playButton.on('click', function() {
-//     //(this.sound).play();
-//   });
-//   $('body').append($playButton);
-// }
-
-  // mercuryButton = createButton('MERCURY');
-  // mercuryButton.position(20, 75);
-  // mercuryButton.mousePressed(function() {
-  //   reset();
-  //   mercurySolo = true;
-  // });
-  //
-  // venusButton = createButton('VENUS');
-  // venusButton.position(20, 100);
-  // venusButton.mousePressed(function() {
-  //   reset();
-  //   venusSolo = true;
-  // });
-  //
-  // earthButton = createButton('EARTH');
-  // earthButton.position(20, 125);
-  // earthButton.mousePressed(function() {
-  //   reset();
-  //   earthSolo = true;
-  // });
-  //
-  // marsButton = createButton('MARS');
-  // marsButton.position(20, 150);
-  // marsButton.mousePressed(function() {
-  //   reset();
-  //   marsSolo = true;
-  // });
-  //
-  // jupiterButton = createButton('JUPITER');
-  // jupiterButton.position(20, 175);
-  // jupiterButton.mousePressed(function() {
-  //   reset();
-  //   jupiterSolo = true;
-  // });
-  //
-  // saturnButton = createButton('SATURN');
-  // saturnButton.position(20, 200);
-  // saturnButton.mousePressed(function() {
-  //   reset();
-  //   saturnSolo = true;
-  // });
-  //
-  // uranusButton = createButton('URANUS');
-  // uranusButton.position(20, 225);
-  // uranusButton.mousePressed(function() {
-  //   reset();
-  //   uranusSolo = true;
-  // });
-  //
-  // neptuneButton = createButton('NEPTUNE');
-  // neptuneButton.position(20, 250);
-  // neptuneButton.mousePressed(function() {
-  //   reset();
-  //   neptuneSolo = true;
-  // });
-  //
-  // plutoButton = createButton('PLUTO');
-  // plutoButton.position(20, 275);
-  // plutoButton.mousePressed(function() {
-  //   reset();
-  //   plutoSolo = true;
-  // });
-
 }
 
 // saturnRing()
@@ -518,7 +423,7 @@ function displayPlanets() {
   if (orbitting || sunSolo) {
     push();
     if (!orbitting && sunSolo) {
-      // sunInfo.displayTitle();
+      sunSound.playSound();
     }
     sun.rotation();
     sun.display();
@@ -534,8 +439,7 @@ function displayPlanets() {
       mercury.position();
     }
     if (!orbitting && mercurySolo) {
-      // mercuryInfo.displayTitle();
-      // mercuryInfo.displayInfo();
+      mercurySound.playSound();
     }
     mercury.rotation();
     mercury.display();
@@ -548,8 +452,7 @@ function displayPlanets() {
       venus.position();
     }
     if (!orbitting && venusSolo) {
-      // venusInfo.displayTitle();
-      // venusInfo.displayInfo();
+      venusSound.playSound();
     }
     venus.rotation();
     venus.display();
@@ -562,8 +465,7 @@ function displayPlanets() {
       earth.position();
     }
     if (!orbitting && earthSolo) {
-      // earthInfo.displayTitle();
-      // earthInfo.displayInfo();
+      earthSound.playSound();
     }
     earth.rotation();
     earth.display();
@@ -576,8 +478,7 @@ function displayPlanets() {
       mars.position();
     }
     if (!orbitting && marsSolo) {
-      // marsInfo.displayTitle();
-      // marsInfo.displayInfo();
+      marsSound.playSound();
     }
     mars.rotation();
     mars.display();
@@ -590,8 +491,7 @@ function displayPlanets() {
       jupiter.position();
     }
     if (!orbitting && jupiterSolo) {
-      // jupiterInfo.displayTitle();
-      // jupiterInfo.displayInfo();
+      jupiterSound.playSound();
     }
     jupiter.rotation();
     jupiter.display();
@@ -604,8 +504,7 @@ function displayPlanets() {
       saturn.position();
     }
     if (!orbitting && saturnSolo) {
-      // saturnInfo.displayTitle();
-      // saturnInfo.displayInfo();
+      saturnSound.playSound();
     }
     saturn.rotation();
     saturn.display();
@@ -618,8 +517,7 @@ function displayPlanets() {
       uranus.position();
     }
     if (!orbitting && uranusSolo) {
-      // uranusInfo.displayTitle();
-      // uranusInfo.displayInfo();
+      uranusSound.playSound();
     }
     uranus.rotation();
     uranus.display();
@@ -632,8 +530,7 @@ function displayPlanets() {
       neptune.position();
     }
     if (!orbitting && neptuneSolo) {
-      // neptuneInfo.displayTitle();
-      // neptuneInfo.displayInfo();
+      neptuneSound.playSound();
     }
     neptune.rotation();
     neptune.display();
@@ -646,8 +543,7 @@ function displayPlanets() {
       pluto.position();
     }
     if (!orbitting && plutoSolo) {
-      // plutoInfo.displayTitle();
-      // plutoInfo.displayInfo();
+      plutoSound.playSound();
     }
     pluto.rotation();
     pluto.display();
@@ -673,25 +569,15 @@ function reset() {
 
   orbitting = false;
   sunSolo = false;
-  sunSFX.stop();
   mercurySolo = false;
-  mercurySFX.stop();
   venusSolo = false;
-  venusSFX.stop();
   earthSolo = false;
-  earthSFX.stop();
   marsSolo = false;
-  marsSFX.stop();
   jupiterSolo = false;
-  jupiterSFX.stop();
   saturnSolo = false;
-  saturnSFX.stop();
   uranusSolo = false;
-  uranusSFX.stop();
   neptuneSolo = false;
-  neptuneSFX.stop();
   plutoSolo = false;
-  plutoSFX.stop();
 }
 
 // bg()
@@ -772,70 +658,19 @@ class Planet {
   }
 }
 
-// Displaying the planet information
-// class PlanetInfo {
-//   constructor(planetName, subtitle, planetTypeInfo, sizeInfo, positionInfo, distanceInfo, lengthInfo, surfaceInfo, moonInfo, sound) {
-//     this.planetName = planetName;
-//     this.subtitle = subtitle; // subtitle/nickname of the planet
-//     this.planetTypeInfo = planetTypeInfo; // type of planet
-//     this.sizeInfo = sizeInfo; // planet size
-//     this.positionInfo = positionInfo; // position relative to sun (order)
-//     this.distanceInfo = distanceInfo; // distance in miles from sun
-//     this.lengthInfo = lengthInfo; // length of year it takes to orbit
-//     this.surfaceInfo = surfaceInfo; // type of surface
-//     this.moonInfo = moonInfo; // number of moons
-//     this.categoryPositionX = 230; // positioning text next to planet
-//     this.sound = sound; // planet sound effect
-//   }
-//   // Display the info
-//   displayTitle() {
-//     // textFont(karlaFontRegular);
-//     // textSize(32);
-//     // textAlign(CENTER);
-//     // text(this.planetName, 0, -250);
-//
-//     $('.sunInfo').show();
-//
-//     //sunInfo.show();
-//
-//     // let $hello = $('<div></div');
-//     // $hello.addClass('hello');
-//     // $hello.text('helkjnkjnjsdncsnsaonxcoasncoiwnlo');
-//     // $hello.button();
-//     // $hello.on('click', function() {
-//     //   (this.sound).play();
-//     // });
-//     // $('body').append($hello);
-//
-//     // textSize(15);
-//     // text(this.subtitle, 0, -220);
-//   }
-//   displayInfo() {
-//     textFont(karlaFontBold);
-//     textAlign(LEFT);
-//     text('PLANET TYPE:', this.categoryPositionX, -90);
-//     text('SIZE:', this.categoryPositionX, -60);
-//     text('POSITION:', this.categoryPositionX, -30);
-//     text('DISTANCE FROM SUN:', this.categoryPositionX, 0);
-//     text('LENGTH OF YEAR:', this.categoryPositionX, 30);
-//     text('SURFACE:', this.categoryPositionX, 60);
-//     text('NUMBER OF MOONS:', this.categoryPositionX, 90);
-//
-//     textFont(karlaFontItalic);
-//     text(this.planetTypeInfo, this.categoryPositionX + 100, -90);
-//     text(this.sizeInfo, this.categoryPositionX + 41, -60);
-//     text(this.positionInfo, this.categoryPositionX + 75, -30);
-//     text(this.distanceInfo, this.categoryPositionX + 158, 0);
-//     text(this.lengthInfo, this.categoryPositionX + 126, 30);
-//     text(this.surfaceInfo, this.categoryPositionX + 73, 60);
-//     text(this.moonInfo, this.categoryPositionX + 150, 90);
-//   }
-  // playSound() {
-  //   let $playButton = $('<div></div');
-  //   $playButton.addClass('start');
-  //   $playButton.button();
-  //   $playButton.on('click', function() {
-  //     //(this.sound).play();
-  //   });
-  //   $('body').append($playButton);
-  // }
+// Controlling each planet's sound effects
+class Sound {
+  constructor(sound) {
+    this.sound = sound; // using the appropriate sound based on the planet displayed
+  }
+  // Checking if the mouse is overlapping the planet
+  // if it is, play the sound effect
+  playSound() {
+    let d = dist(width / 2, height / 2, mouseX, mouseY);
+    if (d < defaultSoloSize) {
+      (this.sound).play();
+    } else {
+      (this.sound).stop(); // stop the sound if the user hovers away from the planet
+    }
+  }
+}
