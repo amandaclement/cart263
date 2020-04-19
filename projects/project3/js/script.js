@@ -390,16 +390,8 @@ $('.buttonGroup').append(
 //
 // Resetting settings by removing all individual planet content, stopping the orbiting
 function reset() {
-  $('.sunInfo').hide();
-  $('.mercuryInfo').hide();
-  $('.venusInfo').hide();
-  $('.earthInfo').hide();
-  $('.marsInfo').hide();
-  $('.saturnInfo').hide();
-  $('.jupiterInfo').hide();
-  $('.uranusInfo').hide();
-  $('.neptuneInfo').hide();
-  $('.plutoInfo').hide();
+  // Hiding all planet info
+  $('.hideInfo').hide();
 
   orbiting = false;
   sunSolo = false;
