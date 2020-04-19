@@ -2,44 +2,28 @@
 
 /*****************
 
-Project 3
-Amanda Clement
+PROJECT 3 - A DIGITAL JOURNEY INTO SPACE
+by Amanda Clement
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+Take a digital journey into space. You can interact with the solar system by
+moving around their mouse (either by simply hovering it or by clicking while
+dragging). You can also learn more about each planet by clicking the buttons on
+the left hand-side. This displays some basic information about the selected
+planet, and you can hear the sound it makes by hovering over it.
+
+CREDITS
+* The planet information is from from NASA's website.
+* The sounds are from https://www.youtube.com/watch?v=IQL53eQ0cNA.
+* The orbital velocity information is from https://www.sjsu.edu/faculty/watkins/orbital.htm.
+* The planet textures are Google Images.
+* The Milky Way photo was taken by Yong Chuan on Unsplash.
+* The spaceship window frame image is from https://www.goodfon.com/wallpaper/window-spaceship-star-light-planet-sci-fi-meteorites.html
+  and further edited on Adobe Photoshop.
 
 ******************/
 
-// Info taken from NASA: https://solarsystem.nasa.gov/solar-system/sun/overview/
-
-let orbitting = true; // Checking whther it should be orbitting or not
-
-let defaultSoloSize = 180; // default size for planet when individually selected
-
-let sunSolo = false;
-let mercurySolo = false;
-let venusSolo = false;
-let earthSolo = false;
-let marsSolo = false;
-let jupiterSolo = false;
-let saturnSolo = false;
-let uranusSolo = false;
-let neptuneSolo = false;
-let plutoSolo = false;
-
-// Creating buttons
-let $orbitButton;
-let $sunButton;
-let $mercuryButton;
-let $venusButton;
-let $earthButton;
-let $marsButton;
-let $jupiterButton;
-let $saturnButton;
-let $uranusButton;
-let $neptuneButton;
-let $plutoButton;
-let $buttonGroup;
+// Checking whether the planets should be orbiting or not
+let orbiting = true;
 
 // Declaring the sun and each planet
 let sun;
@@ -68,6 +52,37 @@ let plutoTextureImg;
 let milkyWayImg;
 let windowImg;
 
+// Creating buttons
+let $orbitButton;
+let $sunButton;
+let $mercuryButton;
+let $venusButton;
+let $earthButton;
+let $marsButton;
+let $jupiterButton;
+let $saturnButton;
+let $uranusButton;
+let $neptuneButton;
+let $plutoButton;
+let $buttonGroup; // they are all in a group for organization/styling purposes
+
+// To keep track of which planet is selected
+// they are all false at first since the interface begins with the solar system
+// (nothing is individually selected until user clicks button)
+let sunSolo = false;
+let mercurySolo = false;
+let venusSolo = false;
+let earthSolo = false;
+let marsSolo = false;
+let jupiterSolo = false;
+let saturnSolo = false;
+let uranusSolo = false;
+let neptuneSolo = false;
+let plutoSolo = false;
+
+// Default size for planet when individually selected
+let defaultSoloSize = 180;
+
 // Sounds effects
 let sunSFX;
 let mercurySFX;
@@ -80,7 +95,7 @@ let uranusSFX;
 let neptuneSFX;
 let plutoSFX;
 
-// Sounds effects
+// Sound effects (objects to store sound effects in)
 let sunSound;
 let mercurySound;
 let venusSound;
@@ -131,7 +146,6 @@ let neptuneDistance = baseDistance + 585;
 let plutoDistance = baseDistance + 655;
 
 // Orbit speed for each planet relative to Earth's speed
-// Information from https://www.sjsu.edu/faculty/watkins/orbital.htm
 let earthSpeed = 7000;
 let mercurySpeed = earthSpeed / 1.607;
 let venusSpeed = earthSpeed / 1.174;
@@ -152,7 +166,6 @@ let karlaFontItalic;
 // Preloading the planet texture images and sounds
 function preload() {
   // Loading images (planet textures)
-  // Google Images
   sunTextureImg = loadImage("assets/images/sunTexture.jpg");
   mercuryTextureImg = loadImage("assets/images/mercuryTexture.jpg");
   venusTextureImg = loadImage("assets/images/venusTexture.jpg");
@@ -165,13 +178,12 @@ function preload() {
   neptuneTextureImg = loadImage("assets/images/neptuneTexture.jpg");
   plutoTextureImg = loadImage("assets/images/plutoTexture.jpg");
 
-  // Photo by Yong Chuan Tan on Unsplash
+  // Milky way image
   milkyWayImg = loadImage("assets/images/milkyWay.jpg");
   // Taken from https://www.goodfon.com/wallpaper/window-spaceship-star-light-planet-sci-fi-meteorites.html
   windowImg = loadImage("assets/images/window.png");
 
   // Loading sounds for each planet
-  // Sounds from https://www.youtube.com/watch?v=IQL53eQ0cNA & https://www.youtube.com/watch?v=UTAPvPLb7t4
   sunSFX = loadSound("assets/sounds/sun.mp3");
   mercurySFX = loadSound("assets/sounds/mercury.mp3");
   venusSFX = loadSound("assets/sounds/venus.mp3");
@@ -189,16 +201,19 @@ function preload() {
   karlaFontItalic = loadFont("assets/fonts/Karla-Italic.ttf");
 }
 
-
 // setup()
 //
-// Description of setup
+// Setting up the canvas, background, buttons, and objects
 function setup() {
   // Working in WEBGL
   createCanvas(windowWidth, windowHeight, WEBGL);
 
-  bg(); // background (stars and fog)
+  // Background (stars and fog)
+  bg();
 
+  planetButtons();
+
+  // Storing HTML elements inside their respective variables
   $sunInfo = $('.sunInfo');
   $mercuryInfo = $('.mercuryInfo');
   $venusInfo = $('.venusInfo');
@@ -210,126 +225,6 @@ function setup() {
   $neptuneInfo = $('.neptuneInfo');
   $plutoInfo = $('.plutoInfo');
   $buttonGroup = $('.buttonGroup');
-
-  $orbitButton = $('<div></div>');
-  $orbitButton.addClass('buttonStyling');
-  $orbitButton.button();
-  $orbitButton.text('RETURN TO ORBIT');
-  $orbitButton.click(function() {
-    reset();
-    orbitting = true;
-  });
-  $('.buttonGroup').append($orbitButton);
-
-  $sunButton = $('<div></div>');
-  $sunButton.addClass('buttonStyling');
-  $sunButton.button();
-  $sunButton.text('SUN');
-  $sunButton.click(function() {
-    reset();
-    sunSolo = true;
-    $sunInfo.show();
-  });
-  $('.buttonGroup').append($sunButton);
-
-  $mercuryButton = $('<div></div>');
-  $mercuryButton.addClass('buttonStyling');
-  $mercuryButton.button();
-  $mercuryButton.text('MERCURY');
-  $mercuryButton.click(function() {
-    reset();
-    mercurySolo = true;
-    $mercuryInfo.show();
-  });
-  $('.buttonGroup').append($mercuryButton);
-
-  $venusButton = $('<div></div>');
-  $venusButton.addClass('buttonStyling');
-  $venusButton.button();
-  $venusButton.text('VENUS');
-  $venusButton.click(function() {
-    reset();
-    venusSolo = true;
-    $venusInfo.show();
-  });
-  $('.buttonGroup').append($venusButton);
-
-  $earthButton = $('<div></div>');
-  $earthButton.addClass('buttonStyling');
-  $earthButton.button();
-  $earthButton.text('EARTH');
-  $earthButton.click(function() {
-    reset();
-    earthSolo = true;
-    $earthInfo.show();
-  });
-  $('.buttonGroup').append($earthButton);
-
-  $marsButton = $('<div></div>');
-  $marsButton.addClass('buttonStyling');
-  $marsButton.button();
-  $marsButton.text('MARS');
-  $marsButton.click(function() {
-    reset();
-    marsSolo = true;
-    $marsInfo.show();
-  });
-  $('.buttonGroup').append($marsButton);
-
-  $jupiterButton = $('<div></div>');
-  $jupiterButton.addClass('buttonStyling');
-  $jupiterButton.button();
-  $jupiterButton.text('JUPITER');
-  $jupiterButton.click(function() {
-    reset();
-    jupiterSolo = true;
-    $jupiterInfo.show();
-  });
-  $('.buttonGroup').append($jupiterButton);
-
-  $saturnButton = $('<div></div>');
-  $saturnButton.addClass('buttonStyling');
-  $saturnButton.button();
-  $saturnButton.text('SATURN');
-  $saturnButton.click(function() {
-    reset();
-    saturnSolo = true;
-    $saturnInfo.show();
-  });
-  $('.buttonGroup').append($saturnButton);
-
-  $uranusButton = $('<div></div>');
-  $uranusButton.addClass('buttonStyling');
-  $uranusButton.button();
-  $uranusButton.text('URANUS');
-  $uranusButton.click(function() {
-    reset();
-    uranusSolo = true;
-    $uranusInfo.show();
-  });
-  $('.buttonGroup').append($uranusButton);
-
-  $neptuneButton = $('<div></div>');
-  $neptuneButton.addClass('buttonStyling');
-  $neptuneButton.button();
-  $neptuneButton.text('NEPTUNE');
-  $neptuneButton.click(function() {
-    reset();
-    neptuneSolo = true;
-    $neptuneInfo.show();
-  });
-  $('.buttonGroup').append($neptuneButton);
-
-  $plutoButton = $('<div></div>');
-  $plutoButton.addClass('buttonStyling');
-  $plutoButton.button();
-  $plutoButton.text('PLUTO');
-  $plutoButton.click(function() {
-    reset();
-    plutoSolo = true;
-    $plutoInfo.show();
-  });
-  $('.buttonGroup').append($plutoButton);
 
   // Creating objects (planet spheres)
   sun = new Planet(sunSize, sunTextureImg, 0, 0);
@@ -361,269 +256,22 @@ function setup() {
 // Description of draw()
 function draw() {
   // Clears everything to make all of the pixels 100% transparent
-  clear(); // to use vanta fog bg without having planets leave a trail
+  clear(); // avoids having planets leave a trail
 
   // Removing the stroke on all planets
   noStroke();
 
+  // Draw the sun and each planet
   planets();
 
+  // Draw saturn's ring
   push();
   saturnRing();
   pop();
 
+  // P5's orbitControl() allows you to drag and move around the world
+  // in this case, the zoom is disabled
   orbitControl();
-}
-
-// saturnRing()
-//
-// Creating saturn's ring
-function saturnRing() {
-  if (orbitting) {
-    // Positioning (according saturn sphere)
-    let formula = p5.Vector.fromAngle(millis() / saturnSpeed, saturnDistance);
-    translate(formula);
-
-    // Rotation
-    // it rotates on its own (not affected by mouse)
-    let rotationValue = (frameCount * 0.005);
-
-    // Making it rotate across each axis
-    rotateY(rotationValue);
-    rotateX(rotationValue);
-    rotateZ(rotationValue);
-  }
-
-  // Give it some opacity
-  tint(255, 190);
-  // Apply the appropriate texture (img)
-  texture(saturnRingTextureImg);
-  torus(saturnSize + 15, 5, 24, 5);
-
-  // If saturn is singled out, make the ring stop rotating (stays stable)
-  // also adjust its size
-  if (saturnSolo) {
-    push();
-    // Rotate it
-    rotateX(8);
-    rotateY(100);
-    // Make it wider/larger than the saturn sphere
-    torus(defaultSoloSize + 70, 50, 24, 2); // adding details to make it flat
-    pop();
-  }
-}
-
-// planets()
-//
-// Positioning, rotating, and displaying each planet
-// also controlling the sound effects
-function planets() {
-  // SUN
-  if (sunSolo || orbitting) {
-    push();
-    // No positioning since it does not translate (rotates in place)
-    sun.rotation();
-    sun.display();
-    pop();
-    // If sun is selected, user can hover over it to play sound effect
-    if (sunSolo) {
-      sunSound.playSound();
-    }
-  }
-
-  // Adding shadow
-  shadow();
-
-  // MERCURY
-  if (orbitting || mercurySolo) {
-    push();
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply mercury's position to make it orbit around sun
-    if (!mercurySolo) {
-      mercury.position();
-    }
-    // If mercury is selected, user can hover over it to play sound effect
-    if (mercurySolo) {
-      mercurySound.playSound();
-    }
-    // Apply rotation and display it
-    mercury.rotation();
-    mercury.display();
-    pop();
-  }
-
-  // VENUS
-  if (orbitting || venusSolo) {
-    push();
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply venus' position to make it orbit around sun
-    if (!venusSolo) {
-      venus.position();
-    }
-    // If venus is selected, user can hover over it to play sound effect
-    if (venusSolo) {
-      venusSound.playSound();
-    }
-    // Apply rotation and display it
-    venus.rotation();
-    venus.display();
-    pop();
-  }
-
-  // EARTH
-  if (orbitting || earthSolo) {
-    push();
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply earth's position to make it orbit around sun
-    if (!earthSolo) {
-      earth.position();
-    }
-    // If earth is selected, user can hover over it to play sound effect
-    if (earthSolo) {
-      earthSound.playSound();
-    }
-    // Apply rotation and display it
-    earth.rotation();
-    earth.display();
-    pop();
-  }
-
-  // MARS
-  if (orbitting || marsSolo) {
-    push();
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply mars' position to make it orbit around sun
-    if (!marsSolo) {
-      mars.position();
-    }
-    // If mars is selected, user can hover over it to play sound effect
-    if (marsSolo) {
-      marsSound.playSound();
-    }
-    // Apply rotation and display it
-    mars.rotation();
-    mars.display();
-    pop();
-  }
-
-  // JUPITER
-  if (orbitting || jupiterSolo) {
-    push();
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply jupiter's position to make it orbit around sun
-    if (!jupiterSolo) {
-      jupiter.position();
-    }
-    // If jupiter is selected, user can hover over it to play sound effect
-    if (jupiterSolo) {
-      jupiterSound.playSound();
-    }
-    // Apply rotation and display it
-    jupiter.rotation();
-    jupiter.display();
-    pop();
-  }
-
-  // SATURN
-  if (orbitting || saturnSolo) {
-    push();
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply saturn's position to make it orbit around sun
-    if (!saturnSolo) {
-      saturn.position();
-    }
-    // If saturn is selected, user can hover over it to play sound effect
-    if (saturnSolo) {
-      saturnSound.playSound();
-    }
-    // Apply rotation and display it
-    saturn.rotation();
-    saturn.display();
-    pop();
-  }
-
-  // URANUS
-  if (orbitting || uranusSolo) {
-    push();
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply uranus' position to make it orbit around sun
-    if (!uranusSolo) {
-      uranus.position();
-    }
-    // If uranus is selected, user can hover over it to play sound effect
-    if (uranusSolo) {
-      uranusSound.playSound();
-    }
-    // Apply rotation and display it
-    uranus.rotation();
-    uranus.display();
-    pop();
-  }
-
-  // NEPTUNE
-  if (orbitting || neptuneSolo) {
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply neptune's position to make it orbit around sun
-    push();
-    if (!neptuneSolo) {
-      neptune.position();
-    }
-    // If neptune is selected, user can hover over it to play sound effect
-    if (neptuneSolo) {
-      neptuneSound.playSound();
-    }
-    // Apply rotation and display it
-    neptune.rotation();
-    neptune.display();
-    pop();
-  }
-
-  // PLUTO
-  if (orbitting || plutoSolo) {
-    // If planets are orbitting (meaning none are individually selected)
-    // then apply pluto's position to make it orbit around sun
-    push();
-    if (!plutoSolo) {
-      pluto.position();
-    }
-    // If pluto is selected, user can hover over it to play sound effect
-    if (plutoSolo) {
-      plutoSound.playSound();
-    }
-    // Apply rotation and display it
-    pluto.rotation();
-    pluto.display();
-    pop();
-  }
-}
-
-// reset()
-//
-// Resetting settings by removing all individual planet content, stopping the orbitting
-// and stopping any sounds playing
-function reset() {
-  $('.sunInfo').hide();
-  $('.mercuryInfo').hide();
-  $('.venusInfo').hide();
-  $('.earthInfo').hide();
-  $('.marsInfo').hide();
-  $('.saturnInfo').hide();
-  $('.jupiterInfo').hide();
-  $('.uranusInfo').hide();
-  $('.neptuneInfo').hide();
-  $('.plutoInfo').hide();
-
-  orbitting = false;
-  sunSolo = false;
-  mercurySolo = false;
-  venusSolo = false;
-  earthSolo = false;
-  marsSolo = false;
-  jupiterSolo = false;
-  saturnSolo = false;
-  uranusSolo = false;
-  neptuneSolo = false;
-  plutoSolo = false;
 }
 
 // bg()
@@ -649,6 +297,350 @@ function bg() {
   });
 }
 
+// planetButtons()
+//
+// Creating and displaying each planet button
+// when the user clicks on, the reset() function is called to 'clear' any content
+// that should no longer appear, and the appropriate planet displays alone
+function planetButtons() {
+// Buttons are all contained in .buttonGroup for grouping
+// and buttonStyling class for styling purposes
+$orbitButton = $('<div></div>').addClass('buttonStyling').button().text('RETURN TO ORBIT').click(function() {
+  reset();
+  orbiting = true;
+});
+
+$sunButton = $('<div></div>').addClass('buttonStyling').button().text('SUN').click(function() {
+  reset();
+  sunSolo = true;
+  $sunInfo.show();
+});
+
+$mercuryButton = $('<div></div>').addClass('buttonStyling').button().text('MERCURY').click(function() {
+  reset();
+  mercurySolo = true;
+  $mercuryInfo.show();
+});
+
+$venusButton = $('<div></div>').addClass('buttonStyling').button().text('VENUS').click(function() {
+  reset();
+  venusSolo = true;
+  $venusInfo.show();
+});
+
+$earthButton = $('<div></div>').addClass('buttonStyling').button().text('EARTH').click(function() {
+  reset();
+  earthSolo = true;
+  $earthInfo.show();
+});
+
+$marsButton = $('<div></div>').addClass('buttonStyling').button().text('MARS').click(function() {
+  reset();
+  marsSolo = true;
+  $marsInfo.show();
+});
+
+$jupiterButton = $('<div></div>').addClass('buttonStyling').button().text('JUPITER').click(function() {
+  reset();
+  jupiterSolo = true;
+  $jupiterInfo.show();
+});
+
+$saturnButton = $('<div></div>').addClass('buttonStyling').button().text('SATURN').click(function() {
+  reset();
+  saturnSolo = true;
+  $saturnInfo.show();
+});
+
+$uranusButton = $('<div></div>').addClass('buttonStyling').button().text('URANUS').click(function() {
+  reset();
+  uranusSolo = true;
+  $uranusInfo.show();
+});
+
+$neptuneButton = $('<div></div>').addClass('buttonStyling').button().text('NEPTUNE').click(function() {
+  reset();
+  neptuneSolo = true;
+  $neptuneInfo.show();
+});
+
+$plutoButton = $('<div></div>').addClass('buttonStyling').button().text('PLUTO').click(function() {
+  reset();
+  plutoSolo = true;
+  $plutoInfo.show();
+});
+
+// Add the buttons to the page (in .buttonGroup div) so we can see it
+$('.buttonGroup').append(
+  $orbitButton,
+  $sunButton,
+  $mercuryButton,
+  $venusButton,
+  $earthButton,
+  $marsButton,
+  $jupiterButton,
+  $saturnButton,
+  $uranusButton,
+  $neptuneButton,
+  $plutoButton
+);
+}
+
+// reset()
+//
+// Resetting settings by removing all individual planet content, stopping the orbiting
+function reset() {
+  $('.sunInfo').hide();
+  $('.mercuryInfo').hide();
+  $('.venusInfo').hide();
+  $('.earthInfo').hide();
+  $('.marsInfo').hide();
+  $('.saturnInfo').hide();
+  $('.jupiterInfo').hide();
+  $('.uranusInfo').hide();
+  $('.neptuneInfo').hide();
+  $('.plutoInfo').hide();
+
+  orbiting = false;
+  sunSolo = false;
+  mercurySolo = false;
+  venusSolo = false;
+  earthSolo = false;
+  marsSolo = false;
+  jupiterSolo = false;
+  saturnSolo = false;
+  uranusSolo = false;
+  neptuneSolo = false;
+  plutoSolo = false;
+}
+
+// planets()
+//
+// Positioning, rotating, and displaying each planet
+// also controlling the sound effects
+function planets() {
+  // SUN
+  if (sunSolo || orbiting) {
+    push();
+    // No positioning since it does not translate (rotates in place)
+    sun.rotation();
+    sun.display();
+    pop();
+    // If sun is selected, user can hover over it to play sound effect
+    if (sunSolo) {
+      sunSound.playSound();
+    }
+  }
+
+  // Adding shadow
+  shadow();
+
+  // MERCURY
+  if (orbiting || mercurySolo) {
+    push();
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply mercury's position to make it orbit around sun
+    if (!mercurySolo) {
+      mercury.position();
+    }
+    // If mercury is selected, user can hover over it to play sound effect
+    if (mercurySolo) {
+      mercurySound.playSound();
+    }
+    // Apply rotation and display it
+    mercury.rotation();
+    mercury.display();
+    pop();
+  }
+
+  // VENUS
+  if (orbiting || venusSolo) {
+    push();
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply venus' position to make it orbit around sun
+    if (!venusSolo) {
+      venus.position();
+    }
+    // If venus is selected, user can hover over it to play sound effect
+    if (venusSolo) {
+      venusSound.playSound();
+    }
+    // Apply rotation and display it
+    venus.rotation();
+    venus.display();
+    pop();
+  }
+
+  // EARTH
+  if (orbiting || earthSolo) {
+    push();
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply earth's position to make it orbit around sun
+    if (!earthSolo) {
+      earth.position();
+    }
+    // If earth is selected, user can hover over it to play sound effect
+    if (earthSolo) {
+      earthSound.playSound();
+    }
+    // Apply rotation and display it
+    earth.rotation();
+    earth.display();
+    pop();
+  }
+
+  // MARS
+  if (orbiting || marsSolo) {
+    push();
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply mars' position to make it orbit around sun
+    if (!marsSolo) {
+      mars.position();
+    }
+    // If mars is selected, user can hover over it to play sound effect
+    if (marsSolo) {
+      marsSound.playSound();
+    }
+    // Apply rotation and display it
+    mars.rotation();
+    mars.display();
+    pop();
+  }
+
+  // JUPITER
+  if (orbiting || jupiterSolo) {
+    push();
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply jupiter's position to make it orbit around sun
+    if (!jupiterSolo) {
+      jupiter.position();
+    }
+    // If jupiter is selected, user can hover over it to play sound effect
+    if (jupiterSolo) {
+      jupiterSound.playSound();
+    }
+    // Apply rotation and display it
+    jupiter.rotation();
+    jupiter.display();
+    pop();
+  }
+
+  // SATURN
+  if (orbiting || saturnSolo) {
+    push();
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply saturn's position to make it orbit around sun
+    if (!saturnSolo) {
+      saturn.position();
+    }
+    // If saturn is selected, user can hover over it to play sound effect
+    if (saturnSolo) {
+      saturnSound.playSound();
+    }
+    // Apply rotation and display it
+    saturn.rotation();
+    saturn.display();
+    pop();
+  }
+
+  // URANUS
+  if (orbiting || uranusSolo) {
+    push();
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply uranus' position to make it orbit around sun
+    if (!uranusSolo) {
+      uranus.position();
+    }
+    // If uranus is selected, user can hover over it to play sound effect
+    if (uranusSolo) {
+      uranusSound.playSound();
+    }
+    // Apply rotation and display it
+    uranus.rotation();
+    uranus.display();
+    pop();
+  }
+
+  // NEPTUNE
+  if (orbiting || neptuneSolo) {
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply neptune's position to make it orbit around sun
+    push();
+    if (!neptuneSolo) {
+      neptune.position();
+    }
+    // If neptune is selected, user can hover over it to play sound effect
+    if (neptuneSolo) {
+      neptuneSound.playSound();
+    }
+    // Apply rotation and display it
+    neptune.rotation();
+    neptune.display();
+    pop();
+  }
+
+  // PLUTO
+  if (orbiting || plutoSolo) {
+    // If planets are orbiting (meaning none are individually selected)
+    // then apply pluto's position to make it orbit around sun
+    push();
+    if (!plutoSolo) {
+      pluto.position();
+    }
+    // If pluto is selected, user can hover over it to play sound effect
+    if (plutoSolo) {
+      plutoSound.playSound();
+    }
+    // Apply rotation and display it
+    pluto.rotation();
+    pluto.display();
+    pop();
+  }
+}
+
+// saturnRing()
+//
+// Creating saturn's ring
+function saturnRing() {
+  // If the planet's are orbiting, saturn's ring must follow the same movement
+  // pattern and speed as saturn
+  if (orbiting) {
+    // Positioning (according saturn sphere)
+    let formula = p5.Vector.fromAngle(millis() / saturnSpeed, saturnDistance);
+    translate(formula);
+
+    // Rotation
+    // it rotates on its own (not affected by mouse)
+    let rotationValue = (frameCount * 0.005);
+
+    // Making it rotate across each axis
+    rotateY(rotationValue);
+    rotateX(rotationValue);
+    rotateZ(rotationValue);
+  }
+
+  // Give it some opacity
+  tint(255, 190);
+  // Apply the appropriate texture
+  texture(saturnRingTextureImg);
+  torus(saturnSize + 15, 5, 24, 5);
+
+  // If saturn is singled out, make the ring stop rotating (stays stable)
+  // also adjust its size
+  if (saturnSolo) {
+    push();
+    // Rotate it
+    rotateX(8);
+    rotateY(100);
+    // Make it wider/larger than the saturn sphere
+    let ringSize = defaultSoloSize + 70;
+    torus(ringSize, 50, 24, 2); // adding details to make it flat
+    pop();
+  }
+}
+
+// function shadow()
+//
 // Adding a shadow onto each planet controlled by mouse location
 // uses p5's directionalLight
 function shadow() {
@@ -693,12 +685,12 @@ class Planet {
     // Apply the appropriate texture (img)
     texture(this.texture);
 
-    // If planets are orbitting, use their respective (differing) radiuses
-    if (orbitting) {
+    // If planets are orbiting, use their respective (differing) radiuses
+    if (orbiting) {
       sphere(this.radius);
     }
     // if a planet is singled out, make it default solo size (180)
-    if (!orbitting) {
+    if (!orbiting) {
       sphere(defaultSoloSize);
     }
   }
@@ -707,7 +699,7 @@ class Planet {
 // Controlling each planet's sound effects
 class Sound {
   constructor(sound) {
-    this.sound = sound; // using the appropriate sound based on the planet displayed
+    this.sound = sound; // using the appropriate sound based on the planet being displayed
   }
   // Checking if the mouse is overlapping the planet
   // if it is, play the sound effect

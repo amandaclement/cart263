@@ -45,10 +45,10 @@ p5.prototype.orbitControl = function(sensitivityX, sensitivityY, sensitivityZ) {
         const deltaPhi =
           sensitivityY * (this.mouseY - this.pmouseY) / scaleFactor;
 
-        if (orbitting) {
+        if (orbiting) {
         this._renderer._curCamera._orbit(deltaTheta, deltaPhi, 0);
       }
-      else if (!orbitting) { // disabling orbit effect once a planet button is clicked
+      else if (!orbiting) { // disabling orbit effect once a planet button is clicked
         this._renderer._curCamera._orbit(0, 0, 0);
       }
       } else if (this.mouseButton === this.RIGHT) {
